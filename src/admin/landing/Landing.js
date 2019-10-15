@@ -5,10 +5,10 @@ class Landing extends Component {
         return (
             <div>
                 <div>
-                    <Link to="/admin/landing/explore">Explore</Link>
+                    <Link to="/admins/explore">Explore</Link>
                 </div>
                 <div>
-                    <Link to="/admin/landing/search">Search</Link>
+                    <Link to="/admin/search">Search</Link>
                 </div>
             </div>
         )

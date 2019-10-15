@@ -23,11 +23,11 @@ class Admin extends Component {
     render() {
         return (
             <div>
-                <Route path="/admin/landing" exact render={() => <Landing />}/>
-                <Route path="/admin/login" exact render={() => <Login login={this.login} />}/>
-                <Route path="/admin/landing/explore" exact render={() => <Explore />} />
-                <Route path="/admin/landing/search" exact render={() => <Search />} />
                 {this.state.login.isLoggedIn ? <Landing /> : <Login login={this.login} />}
+
+                {/* ==== Admin Routes below ====  */}
+                <Route path="/admin/explore" exact render={() => <Explore />} />
+                <Route path="/admin/search" exact render={() => <Search />} />
             </div>
         )
     }

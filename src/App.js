@@ -9,9 +9,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Link to="/user">User</Link>
-          <Link to="/admin">Admin</Link>
-          
           {/* ==== User routes below ==== */}
           <Route path="/user" exact render={() => <User />} />
 
