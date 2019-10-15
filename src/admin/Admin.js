@@ -11,20 +11,41 @@ class Admin extends Component {
             login: {
                 username: "",
                 isLoggedIn: false,
-            }
+            },
+            password: "12345",
         }
     }
 
-    login = (username) => {
-        let login = { username: username, isLoggedIn: true }
-        this.setState({ login: login })
+    login = (username, password) => {
+        if(password === this.state.password){
+            let login = { username: username, isLoggedIn: true }
+            this.setState({ login: login })
+            localStorage.login = JSON.stringify(login)
+        } else {
+            alert("Wrong password")
+        }
+    }
+    logout = () => {
+        localStorage.clear()
+        let login = {username : "", isLoggedIn : false}
+        this.setState({login:login})
+    }
+
+    componentDidMount(){
+        let login
+        if(localStorage.login){
+            login = JSON.parse(localStorage.login)
+        } else {
+            login = this.state.login
+        }
+        this.setState({login : login})
     }
 
     render() {
         return (
             <div>
                 {this.state.login.isLoggedIn ? <Landing /> : <Login login={this.login} />}
-
+                <button onClick={this.logout}>Log out</button>
                 {/* ==== Admin Routes below ====  */}
                 <Route path="/admin/explore" exact render={() => <Explore />} />
                 <Route path="/admin/search" exact render={() => <Search />} />
