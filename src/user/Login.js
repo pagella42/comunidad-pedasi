@@ -4,7 +4,8 @@ class UserLogin extends Component {
     render() {
         return (
             <div>
-                
+                <input type="text" placeholder="username"/>
+                <input type="password"/>
             </div>
         );
     }
