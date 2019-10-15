@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-class Landing extends Component {
+class AdminLanding extends Component {
     render() {
         return (<div></div>)
     }
 }
-export default Landing;
+export default AdminLanding;

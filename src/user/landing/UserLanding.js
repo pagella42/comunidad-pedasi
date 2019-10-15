@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-class Landing extends Component {
+class UserLanding extends Component {
     render() {
         return (<div>
             {/* call  create post component */}
@@ -7,4 +7,4 @@ class Landing extends Component {
         </div>)
     }
 }
-export default Landing;
+export default UserLanding;
