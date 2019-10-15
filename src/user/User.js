@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import UserLanding from './landing/Landing';
-import UserLogin from './Login';
+import Landing from './landing/Landing';
+import Login from './Login';
 
 class User extends Component {
     constructor(){
         super()
         this.state = {
-            isLoggedIn : false,
+            login : {username:"", 
+        isLoggedIn:false,}
         }
     }
+
+    login = (username) => {
+        let login = {username : username, isLoggedIn : true}
+        this.setState({login : login})
+    }
+
     render() {
         return (
             <div>
-                {this.state.isLoggedIn ? <UserLanding /> : <UserLogin />}
+                {this.state.login.isLoggedIn ? <Landing /> : <Login login={this.login} />}
             </div>
         );
     }

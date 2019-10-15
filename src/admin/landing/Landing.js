@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
-class AdminLanding extends Component {
+import { Link } from 'react-router-dom'
+class Landing extends Component {
     render() {
-        return (<div></div>)
+        return (
+            <div>
+                <div>
+                    <Link to="/admin/landing/explore">Explore</Link>
+                </div>
+                <div>
+                    <Link to="/admin/landing/search">Search</Link>
+                </div>
+            </div>
+        )
     }
 }
-export default AdminLanding;
+export default Landing;

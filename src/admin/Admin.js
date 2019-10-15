@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
+import Landing from './landing/Landing'
+import Login from './login/Login'
 class Admin extends Component {
+    constructor(){
+        super()
+        this.state = {
+            login : {username:"", 
+        isLoggedIn:false,}
+        }
+    }
+
+    login = (username) => {
+        let login = {username : username, isLoggedIn : true}
+        this.setState({login : login})
+    }
+
     render() {
-        return (<div>
-            {/* call landing  */}
-            {/* call login  */}
-        </div>)
+        return (
+            <div>
+                {this.state.login.isLoggedIn ? <Landing /> : <Login login={this.login} />}
+            </div>
+        )
     }
 }
 export default Admin;

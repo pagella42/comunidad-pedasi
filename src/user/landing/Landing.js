@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-class UserLanding extends Component {
+class Landing extends Component {
     render() {
         return (<div>
+            Landing User
             {/* call  create post component */}
             {/* call feed component */}
         </div>)
     }
 }
-export default UserLanding;
+export default Landing;
