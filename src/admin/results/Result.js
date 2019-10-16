@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 class Result extends Component {
     render() {
         return (
-           <Link data={this.props.c} to='/funca'> <div>{this.props.c.title}</div> /></Link>
+           <Link to={`'/resultdetails/${this.props.post.id}`}> <div>{this.props.post.title}</div> /></Link>
             
         )
     }
