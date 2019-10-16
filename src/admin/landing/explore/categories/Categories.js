@@ -21,11 +21,15 @@ class Categories extends Component {
       <div>
         <div></div>
         {this.state.categories.map(c => {
-                return <div>{c}</div>
+                return (
+                    <div>
+                        <div>{c}</div>
+                        <Category category={c} />
+                    </div>
+                    
+                )
             })}
-        {/* {this.state.categories.map(c => {
-                return <Category category={c} />
-            })} */}
+
       </div>
     );
   }
