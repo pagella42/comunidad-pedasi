@@ -23,6 +23,7 @@ router.get('/data/posts/id/:id', async (req, res) => {
     console.log(req.params.id)
     res.send(post)
 })
+
 const updateUserPosts=(usersPhone,post)=>{
     return User.findOneAndUpdate({
         "phone": usersPhone

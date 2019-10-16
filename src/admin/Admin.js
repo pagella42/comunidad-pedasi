@@ -47,8 +47,8 @@ class Admin extends Component {
                 {this.state.login.isLoggedIn ? <Landing /> : <Login login={this.login} />}
                 <button onClick={this.logout}>Log out</button>
                 {/* ==== Admin Routes below ====  */}
-                <Route path="/admin/explore" exact render={() => <Explore />} />
-                <Route path="/admin/search" exact render={() => <Search />} />
+                {/* <Route path="/admin/explore" exact render={() => <Explore />} />
+                <Route path="/admin/search" exact render={() => <Search />} /> */}
             </div>
         )
     }
