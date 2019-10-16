@@ -3,7 +3,7 @@ class Result extends Component {
     render() {
     let post = this.props.post
         return (<div>
-            <div>USERNAME</div>
+            <div>{post.user.name}</div>
             <div>{post.title}</div>
             <div>{post.points}</div>
             <div>{post.content}</div>
