@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import Categories from './categories/Categories';
 class Explore extends Component {
     render() {
         return (<div>
-            {/* call categories */}
+            <Categories />
         </div>)
     }
 }
