@@ -41,8 +41,8 @@ class CreatePost extends Component {
         let date = new Date()
         post.date = date
         // the post object contains all information about the post - the usersPhone is used to uniquely identify the user in the backend
-        let data = {post : post, usersPhone : usersPhone}
-        await axios.post("http://localhost:4000/data/post", data )
+        let data = post
+        await axios.post(`http://localhost:4000/data/post/${usersPhone}`, data )
         this.props.getAllPosts()
     }
 
