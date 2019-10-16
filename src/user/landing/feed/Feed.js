@@ -19,7 +19,7 @@ class Feed extends Component {
     }
 
     async componentDidMount(){
-        this.getAllPosts()
+        await this.getAllPosts()
     }
 
 

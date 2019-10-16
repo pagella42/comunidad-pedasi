@@ -6,10 +6,11 @@ class CreatePost extends Component {
     constructor(){
         super()
         this.state = {
+            categories:["other", "infrastructure"],
             post :{
                 title: "",
                 content:"",
-                //category:"", We don't have category in our mvp
+                category:"",
                 points:0,
                 date:"",
                 address:"",
@@ -55,6 +56,15 @@ class CreatePost extends Component {
         }
     }
 
+    getCategories = async () => {
+        let response = await axios.get("http://localhost:4000/data/categories")
+        let categories = response.data
+        this.setState({categories: categories})
+    }
+
+    // async componentDidMount(){
+    //     await this.getCategories()
+    // }
 
     render() {
         return (
@@ -62,6 +72,9 @@ class CreatePost extends Component {
                 <input type="text" name="title" placeholder="Title" onChange={this.handleInputChange}/>
                 <input type="text" name="content" placeholder="Text" onChange={this.handleInputChange}/>
                 <input type="text" name="address" placeholder="Adress" onChange={this.handleInputChange}/>
+                <select name="category" onChange={this.handleInputChange}>
+                    {this.state.categories.map(category => <option value={category}>{category}</option>)}
+                </select>
                 <button onClick={this.verifyPost}>Submit</button>
                 {/* Pop up : please review your post */}
                 {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
