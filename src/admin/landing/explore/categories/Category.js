@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import Results from '../../../results/Results';
 class Category extends Component {
     render() {
-        return (<div>
-            {/* call results (outside of folder) */}
+        return (
+        <div>
+            <div>{this.props.category}</div>
+            <Results category={this.props.category}/>
         </div>)
     }
 }
