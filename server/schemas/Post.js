@@ -7,7 +7,7 @@ const postSchema=new Schema({
     category:String,
     points:Number,
     date:String,
-    user:String,
+    user:{type: Schema.Types.ObjectId, ref: 'User'},
     status:String,
     // comments:[Comment],
     address:String,
