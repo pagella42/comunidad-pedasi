@@ -5,8 +5,16 @@ const User = require('./schemas/User')
 
 
 
-router.get('/data/posts', async (req, res) => {
-    let posts = await Post.find({})
+
+router.get('/data/posts',async(req,res)=>{
+    Post.find({})
+    .populate("user")
+    .exec((err,post)=>{
+        res.send(post)})
+})
+
+router.get('/data/posts/:category', async (req, res) => {
+    let posts = await Post.find({"category":req.params.category})
     res.send(posts)
 })
 
