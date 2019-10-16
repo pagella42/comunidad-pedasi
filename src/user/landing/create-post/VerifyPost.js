@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-
 class VerifyPost extends Component {
 
     reviewPost = (event) => {
@@ -14,9 +12,9 @@ class VerifyPost extends Component {
             <div>
                 <div>Are you sure to post this post ? </div>
                 <div>
-                    <div>{this.props.post.title}</div>
-                    <div>{this.props.post.content}</div>
-                    <div>{this.props.post.address}</div>
+                    <div>Title: {this.props.post.title}</div>
+                    <div>Content: {this.props.post.content}</div>
+                    <div>Address: {this.props.post.address}</div>
                 </div>
                 <button name="confirm" onClick={this.reviewPost}>Confirm</button>
                 <button name="review" onClick={this.reviewPost}>Go back to post</button>
