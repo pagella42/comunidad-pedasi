@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import VerifyPost from './VerifyPost';
-import { verify } from 'crypto';
 
 class CreatePost extends Component {
     constructor(){
@@ -65,7 +64,7 @@ class CreatePost extends Component {
                 <input type="text" name="content" placeholder="Text" onChange={this.handleInputChange}/>
                 <input type="text" name="address" placeholder="Adress" onChange={this.handleInputChange}/>
                 <button onClick={this.verifyPost}>Submit</button>
-                {/* Pop up please review your post */}
+                {/* Pop up : please review your post */}
                 {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
             </div>
         );
