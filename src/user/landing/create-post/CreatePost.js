@@ -6,7 +6,7 @@ class CreatePost extends Component {
     constructor(){
         super()
         this.state = {
-            post = {
+            post :{
                 title: "",
                 content:"",
                 //category:"", We don't have category in our mvp
@@ -16,7 +16,6 @@ class CreatePost extends Component {
             },
             usersPhone: null, // login with number // Pass it from Login 
             verifyPost:{
-                verified: false, 
                 show:false,
             }
         }
@@ -27,15 +26,18 @@ class CreatePost extends Component {
         let value = event.target.value
         let post = {...this.state.post}
         post[name] = value
+        this.setState({post:post})
     }
 
     verifyPost = () => {
+        debugger
         let verifyPost = {...this.state.verifyPost}
         verifyPost.show = true
         this.setState({verifyPost : verifyPost})
     }
 
     confirmPost = async () => {
+        debugger
         let usersPhone = this.state.usersPhone
         let post = {...this.state.post}
         let date = new Date()
@@ -47,11 +49,11 @@ class CreatePost extends Component {
     }
 
     reviewPost = (action) => {
-        if(action === "review"){
-            let verifyPost = {...this.state.verifyPost}
-            verifyPost.show = false
-            this.setState({verifyPost : VerifyPost})
-        } else {
+        debugger
+        let verifyPost = {...this.state.verifyPost}
+        verifyPost.show = false
+        this.setState({verifyPost : VerifyPost})
+        if(action === "confirm"){
             this.confirmPost()
         }
     }
