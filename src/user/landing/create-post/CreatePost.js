@@ -14,7 +14,7 @@ class CreatePost extends Component {
                 date:"",
                 address:"",
             },
-            usersPhone: null, // login with number // Pass it from Login 
+            usersPhone: "+1 (881) 599-2995", // For now dummy data // Pass it from Login 
             verifyPost:{
                 show:false,
             }
@@ -30,14 +30,12 @@ class CreatePost extends Component {
     }
 
     verifyPost = () => {
-        debugger
         let verifyPost = {...this.state.verifyPost}
         verifyPost.show = true
         this.setState({verifyPost : verifyPost})
     }
 
     confirmPost = async () => {
-        debugger
         let usersPhone = this.state.usersPhone
         let post = {...this.state.post}
         let date = new Date()
@@ -49,7 +47,6 @@ class CreatePost extends Component {
     }
 
     reviewPost = (action) => {
-        debugger
         let verifyPost = {...this.state.verifyPost}
         verifyPost.show = false
         this.setState({verifyPost : VerifyPost})

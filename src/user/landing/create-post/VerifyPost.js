@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 class VerifyPost extends Component {
 
     reviewPost = (event) => {
-        debugger
         let name = event.currentTarget.name
         this.props.reviewPost(name)
     }
