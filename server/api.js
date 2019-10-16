@@ -13,19 +13,20 @@ router.get('/data/posts', async (req, res) => {
 
 router.post('/data/post', async (req, res) => {
     let post = new Post(req.body)
-    post.save()
-    // console.log('user',user)
-    // await User.findOneAndUpdate({
-    //     "_id": post.user
-    // }, {
+    await post.save()
+    let user = await User.findById(post.user)
+    user.posts.push(post)
+    await user.save()
+    // await User.findByIdAndUpdate(
+    //     post.user
+    // , {
     //     "$push": {
-    //         "posts": "post"
+    //         "posts": post
     //     }
     // }, {
     //     "new": true
     // })
-    let user = await User.findOne({"_id":post.user})
-    console.log(user)
+    // console.log(user)
     res.send(user)
 })
 module.exports = router
