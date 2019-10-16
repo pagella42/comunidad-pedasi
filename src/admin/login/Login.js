@@ -5,21 +5,23 @@ class Login extends Component {
         super()
         this.state = {
             username: "",
+            password:"",
         }
     }
     handleInputChange = (event) => {
-        let username = event.target.value
-        this.setState({username : username}) 
+        let name = event.target.name
+        let value = event.target.value
+        this.setState({[name] : value}) 
     }
 
     login = () => {
-        this.props.login(this.state.username)
+        this.props.login(this.state.username, this.state.password)
     }
     render() {
         return (
             <div>
-                <input type="text" placeholder="username" onChange={this.handleInputChange}/>
-                <input type="password" placeholder="password" />
+                <input type="text" placeholder="username" name="username" onChange={this.handleInputChange}/>
+                <input type="password" placeholder="password" name="password" onChange={this.handleInputChange} />
                 <button onClick={this.login}>Log In</button>
             </div>
         );
