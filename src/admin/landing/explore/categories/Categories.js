@@ -18,9 +18,10 @@ class Categories extends Component {
     }
     render() {
         return (<div>
-            {this.state.categories.map(c => {
+            <div></div>
+            {/* {this.state.categories.map(c => {
                 return <Category category={c} />
-            })}
+            })} */}
         </div>)
     }
 }

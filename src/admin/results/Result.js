@@ -6,7 +6,13 @@ import { Link } from "react-router-dom";
 class Result extends Component {
     render() {
         return (
-           <Link to={`'/resultdetails/${this.props.post.id}`}> <div>{this.props.post.title}</div> /></Link>
+            <div>
+                <Link to={`'/resultdetails/${"hello"}`}> <div>
+                    {this.props.post.category} : 
+                    >>>>{this.props.post.title}
+                    </div> </Link>
+
+            </div>
             
         )
     }
