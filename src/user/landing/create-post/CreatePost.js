@@ -43,7 +43,7 @@ class CreatePost extends Component {
         // the post object contains all information about the post - the usersPhone is used to uniquely identify the user in the backend
         let data = {post : post, usersPhone : usersPhone}
         await axios.post("http://localhost:4000/data/post", data )
-        alert("Successful posted your post.")
+        this.props.getAllPosts()
     }
 
     reviewPost = (action) => {
