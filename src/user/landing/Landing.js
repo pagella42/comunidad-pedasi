@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Feed from './feed/Feed';
 class Landing extends Component {
+
     render() {
         return (<div>
-            Landing User
-            {/* call  create post component */}
-            {/* call feed component */}
+            // Landing User
+            <Feed />
         </div>)
     }
 }

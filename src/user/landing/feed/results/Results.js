@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import Result from './Result'
 class Results extends Component {
+   
+    
+
     render() {
         return (<div>
-            {/* call result comp */}
+            {this.props.posts.map(d=> <Result post={d}/>)}
         </div>)
     }
 }
