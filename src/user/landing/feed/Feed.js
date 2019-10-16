@@ -12,6 +12,7 @@ class Feed extends Component {
 
     getAllPosts = async () => {
         // create a loader here
+        debugger
         let response = await axios.get("http://localhost:4000/data/posts")
         let posts = response.data
         posts.sort((a, b) => (a.date > b.date) ? -1 : 1)
