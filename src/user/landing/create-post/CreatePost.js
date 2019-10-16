@@ -56,15 +56,16 @@ class CreatePost extends Component {
         }
     }
 
-    getCategories = async () => {
-        let response = await axios.get("http://localhost:4000/data/categories")
-        let categories = response.data
-        this.setState({categories: categories})
-    }
-
-    // async componentDidMount(){
-    //     await this.getCategories()
+    // getCategories = async () => {
+    //     debugger
+    //     let response = await axios.get("http://localhost:4000/data/categories")
+    //     let categories = response.data
+    //     this.setState({categories: categories})
     // }
+
+    async componentDidMount(){
+        await this.getCategories()
+    }
 
     render() {
         return (
