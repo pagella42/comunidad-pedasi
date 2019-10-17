@@ -10,24 +10,29 @@ class ResultDetail extends Component {
         }
     }
 
-    getData = async () => {
+    componentDidMount = async () => {
         const response = await axios.get(`http://localhost:4000/data/posts/id/${this.props.match.params.id}`)
         this.setState({ post: response })
     }
-    componentDidMount = () => {
-        this.getData()
-    }
 
     render() {
-        const matchID = this.props.match.params.id
-        console.log(this.state.post)
-        console.log(this.state.post.data)
-        // console.log(this.state.post.data.title)
-
+        const p = this.state.post.data
         return (
-            <div >{matchID}
+            <div >{p
+                ?
+                <div id="container">
+                    {/*<div id="user_info">{p.name}</div>*/}
+                    <div id="title_problem">{p.title}</div>
+                    <div id="description">{p.content}</div>
+                    <div id="photo"><img src={p.picture} alt="Evidence"></img></div>
+                        <div id="category">{p.category}</div>
+                        <div id="address">{p.address}</div>
+                        <div id="response">Response</div>
+                        <div id="status_post">Status Post</div>
+                    </div>
+                    : console.log("Wait, no data yet")}
             </div>
         )
-    }
-}
+            }
+        }
 export default ResultDetail
