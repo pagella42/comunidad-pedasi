@@ -10,7 +10,7 @@ class Explore extends Component {
     render() {
         return (
         <div>
-            <h2>It Works!</h2>
+            
             <Categories />
         </div>)
     }

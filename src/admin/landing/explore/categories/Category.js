@@ -4,8 +4,8 @@ class Category extends Component {
     render() {
         return (
         <div>
-            <div>{this.props.category}</div>
-            <Results category={this.props.category}/>
+            
+            <Results category={this.props.category} />
         </div>)
     }
 }
