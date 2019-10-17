@@ -13,7 +13,7 @@ class ResultDetail extends Component {
         }
     }
 
-    catchResp = event => this.setState({ response: event.target.value }, () => console.log(this.state.response))
+    catchResp = event => this.setState({ response: event.target.value })
 
     showDropdownStatus = (event) => {
         event.preventDefault()
@@ -29,7 +29,9 @@ class ResultDetail extends Component {
 
     }
 
-    sendResp = async () => {
+    sendResp =  () => {
+        this.state.post.data._id? console.log(this.state.post.data._id) : console.log("Wait for data")
+        //await axios.post(`http://localhost:4000/data/response/${this.props.data._id}`)
         console.log(this.state.response)
     }
 
@@ -51,13 +53,14 @@ class ResultDetail extends Component {
                     <div id="category">{p.category}</div>
                     <div id="address">{p.address}</div>
                     <div id="container_response">
+                        <div>{p.responses[0]}</div>
                         <div id="reponse">Response<input type="text" value={this.state.response} onChange={this.catchResp} /></div>
                         <div className="dropdown" >
                             <div className="button" onClick={this.showDropdownStatus}>Status</div>
                             {this.state.displayStatus ?
                                 <ul>
-                                    <li onClick={this.sendResp}>Attending</li>
-                                    <li><a href="#Solved">Solved</a></li>
+                                    <li>Attending</li>
+                                    <li>Solved</li>
                                 </ul> :
                                 null
                             }
