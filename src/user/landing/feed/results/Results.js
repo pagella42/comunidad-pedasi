@@ -6,7 +6,7 @@ class Results extends Component {
 
     render() {
         return (<div>
-            {this.props.posts.map(d=> <Result post={d}/>)}
+            {this.props.posts.map(d=> <Result phone={this.props.phone} post={d}/>)}
         </div>)
     }
 }

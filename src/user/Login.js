@@ -13,7 +13,6 @@ class Login extends Component {
     }
 
     login = () => {
-        debugger
         this.props.login(this.state.phone)
     }
 
