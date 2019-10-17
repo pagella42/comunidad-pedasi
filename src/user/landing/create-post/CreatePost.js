@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import VerifyPost from './VerifyPost';
-
+import ImageUpload from '../../../ImageUpload/ImageUpload'
 class CreatePost extends Component {
     constructor(){
         super()
@@ -14,6 +14,7 @@ class CreatePost extends Component {
                 points:0,
                 date:"",
                 address:"",
+                picture:"",
             },
             usersPhone: "+1 (881) 599-2995", // For now dummy data // Pass it from Login 
             verifyPost:{
@@ -57,10 +58,17 @@ class CreatePost extends Component {
     }
 
     getCategories = async () => {
-        debugger
         let response = await axios.get("http://localhost:4000/data/categories")
         let categories = response.data
         this.setState({categories: categories})
+    }
+
+    saveUrl = (url) => {
+        debugger
+        console.log(url)
+        let post = {...this.state.post}
+        post.picture = url
+        this.setState({post: post})
     }
 
     async componentDidMount(){
@@ -76,6 +84,7 @@ class CreatePost extends Component {
                 <select name="category" onChange={this.handleInputChange}>
                     {this.state.categories.map(category => <option value={category}>{category}</option>)}
                 </select>
+                <ImageUpload saveUrl={this.saveUrl}/>
                 <button onClick={this.verifyPost}>Submit</button>
                 {/* Pop up : please review your post */}
                 {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}

@@ -35,6 +35,7 @@ class ImageUpload extends Component {
             .getDownloadURL() // returns promise
             .then(url => {
                 console.log(url)
+                this.props.saveUrl(url)
             }) // 20 22
         }
 
