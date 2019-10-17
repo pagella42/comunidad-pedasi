@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
 class Result extends Component {
     constructor() {
         super()
         this.state = {
-          comment: ''
+            comment: '',
+            comments: []
         }
     }
     update = async (event) => {
@@ -12,13 +14,25 @@ class Result extends Component {
             [event.target.name]: event.target.value,
         })
     }
-    async comment(){
-       await axios.post('', {comment: this.state.comment})
-       //clean comment input \/
-       this.setState({comment: ""})
+
+    async componentDidMount() {
+        let data = await axios.get(`/data/comments/${this.props.post._id}`)
+        this.setState({ comments: data })
     }
+
+
+    async comment() {
+
+        //NEED TO RECEIVE PHONE FROM UP
+        await axios.post(`/data/comment/${this.props.post._id}/${this.props.phone}`, { content: this.state.comment, date: new Date() })
+
+        this.setState({ comment: "" })
+    }
+
+
+
     render() {
-    let post = this.props.post
+        let post = this.props.post
         return (<div>
             <div>{post.user.name}</div>
             <div>{post.title}</div>
@@ -27,14 +41,22 @@ class Result extends Component {
             <div>{post.address}</div>
             <div>{post.category}</div>
             <div>IMAGES</div>
-            <div>TOWN RESPONSE</div>
+
+            {/* render responses */}
+            <div>{post.reponses.map(r=> <div> Response: {r.content} Employee: {r.employee} </div>)}</div>
 
             {/* post comment  \/ */}
-            <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update}/>
+            <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
             <button onClick={this.comment}>Send comment</button>
 
             {/* render comments \/ */}
-            <div>{post.comments.map(c=> <div>{/* GET USERNAME AND CONTENT */}</div>)}</div>
+            <div>{this.state.comments.map(c => {
+                return <div>
+                    <div>User: {c.user.name}</div>
+                    <div>{c.content}</div>
+                </div>
+            })}</div>
+
         </div>)
     }
 }
