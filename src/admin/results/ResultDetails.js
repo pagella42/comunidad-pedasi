@@ -1,13 +1,36 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import '../styles/ResultDetails.css'
 
 class ResultDetail extends Component {
 
     constructor() {
         super()
         this.state = {
-            post: []
+            post: [],
+            response: "",
+            displayStatus: false
         }
+    }
+
+    catchResp = event => this.setState({ response: event.target.value }, () => console.log(this.state.response))
+
+    showDropdownStatus = (event) => {
+        event.preventDefault()
+        this.setState({ displayStatus: true }, () => {
+            document.addEventListener('click', this.hideDropdownMenu)
+        })
+    }
+
+    hideDropdownMenu = () => {
+        this.setState({ displayStatus: false }, () => {
+            document.removeEventListener('click', this.hideDropdownMenu)
+        })
+
+    }
+
+    sendResp = async () => {
+        console.log(this.state.response)
     }
 
     componentDidMount = async () => {
@@ -21,18 +44,31 @@ class ResultDetail extends Component {
             <div >{p
                 ?
                 <div id="container">
-                    {/*<div id="user_info">{p.name}</div>*/}
-                    <h3 id="title_problem">{p.title}</h3>
+                    <div id="user_info">{/*p.name*/}</div>
+                    <div id="title_problem"><h3 >{p.title}</h3></div>
                     <div id="description">{p.content}</div>
                     <div id="photo"><img src={p.picture} alt="Evidence"></img></div>
-                        <div id="category">{p.category}</div>
-                        <div id="address">{p.address}</div>
-                        <div id="response">{p.responses[0]}</div>
-                        <div id="status_post">{p.status}</div>
+                    <div id="category">{p.category}</div>
+                    <div id="address">{p.address}</div>
+                    <div id="container_response">
+                        <div id="reponse">Response<input type="text" value={this.state.response} onChange={this.catchResp} /></div>
+                        <div className="dropdown" >
+                            <div className="button" onClick={this.showDropdownStatus}>Status</div>
+                            {this.state.displayStatus ?
+                                <ul>
+                                    <li onClick={this.sendResp}>Attending</li>
+                                    <li><a href="#Solved">Solved</a></li>
+                                </ul> :
+                                null
+                            }
+                        </div>
+                        <div><button type="submit" onClick={this.sendResp} disabled={!this.state.response} >Send</button></div>
                     </div>
-                    : console.log("Wait, no data yet")}
+                    <div id="status_post">{p.status}</div>
+                </div>
+                : console.log("Wait, no data yet")}
             </div>
         )
-            }
-        }
+    }
+}
 export default ResultDetail
