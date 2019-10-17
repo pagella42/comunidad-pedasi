@@ -17,9 +17,8 @@ class Results extends Component {
         console.log(this.state)
     }
     render() {
-        return (<div>
-            
-            {this.state.data.map(c =>  <Result post = {c} />
+        return (<div>  
+            {this.state.data.map(c =>  <div key={c._id}><Result post = {c} /></div>
             )}
         </div>)
     }
