@@ -37,7 +37,7 @@ class ImageUpload extends Component {
                 console.log(url)
                 this.props.saveUrl(url)
                 alert("Image saved.")
-            }) // 20 22
+            })
         }
 
         uploadTask.on('state_changed', progress, error, complete)
@@ -51,8 +51,7 @@ class ImageUpload extends Component {
                     placeholder="file"
                     onChange={this.handleChange}
                 />
-                <button onClick={this.handleUpload}>Upload</button>
-
+                {this.state.image ? <button onClick={this.handleUpload}>Upload</button> : <br /> }
                 <br/>
                 
             </div>
