@@ -80,9 +80,12 @@ router.put('/data/category/:categoryName',(req,res)=>{
     .then(()=>res.end())
 })
 
-router.post('/data/comment/:postId',(req,res)=>{
+router.post('/data/comment/:postId/:usersPhone', async (req,res)=>{
     let comment = new Comment(req.body)
-    
+    comment.user = User.findOneAndUpdate({phone:req.params.usersPhone},
+        {$push:{comments:comment}},
+        {new:true},
+        (err,user)=>)
 })
 
 function updateUserPosts (usersPhone, post) {
