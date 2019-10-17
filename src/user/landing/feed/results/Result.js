@@ -6,7 +6,8 @@ class Result extends Component {
         super()
         this.state = {
             comment: '',
-            comments: []
+            comments: [], 
+            responses: [],
         }
     }
     update = async (event) => {
@@ -21,8 +22,7 @@ class Result extends Component {
     }
 
 
-    async comment() {
-
+    comment = async () => {
         //NEED TO RECEIVE PHONE FROM UP
         await axios.post(`/data/comment/${this.props.post._id}/${this.props.phone}`, { content: this.state.comment, date: new Date() })
 
@@ -34,18 +34,23 @@ class Result extends Component {
     render() {
         let post = this.props.post
         return (<div>
-            <br/>
+            <br />
             <div>{post.user.name}</div>
             <div>{post.title}</div>
             <div>{post.points}</div>
             <div>{post.content}</div>
             <div>{post.address}</div>
             <div>{post.category}</div>
-            <div>IMAGES</div>
+            <div><img src={post.picture} alt="concern picture" /></div>
 
 
             {/* render responses */}
-            <div>{post.reponses.map(r=> <div> Response: {r.content} Employee: {r.employee} </div>)}</div>
+            {post.responses.length === 0 
+                ? <div>No response.</div> 
+                : post.reponses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+            {/* <div>{post.responses === undefined
+                ? <div></div>
+                : post.reponses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>) }</div> */}
 
             {/* post comment  \/ */}
             <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
@@ -58,8 +63,6 @@ class Result extends Component {
                     <div>{c.content}</div>
                 </div>
             })}</div>
-
-
         </div>)
     }
 }

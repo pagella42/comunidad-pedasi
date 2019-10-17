@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import VerifyPost from './VerifyPost';
-
+import ImageUpload from '../../../ImageUpload/ImageUpload'
 class CreatePost extends Component {
     constructor(){
         super()
@@ -10,10 +10,11 @@ class CreatePost extends Component {
             post :{
                 title: "",
                 content:"",
-                category:"",
+                category:"Other",
                 points:0,
                 date:"",
                 address:"",
+                picture:"",
             },
             usersPhone: "", // For now dummy data // Pass it from Login 
             verifyPost:{
@@ -67,6 +68,13 @@ class CreatePost extends Component {
         this.setState({categories: categories})
     }
 
+    saveUrl = (url) => {
+        console.log(url)
+        let post = {...this.state.post}
+        post.picture = url
+        this.setState({post: post})
+    }
+
     async componentDidMount(){
         this.setState({usersPhone : this.props.phone})
         await this.getCategories()
@@ -78,9 +86,10 @@ class CreatePost extends Component {
                 <input type="text" name="title" placeholder="Title" onChange={this.handleInputChange}/>
                 <input type="text" name="content" placeholder="Text" onChange={this.handleInputChange}/>
                 <input type="text" name="address" placeholder="Adress" onChange={this.handleInputChange}/>
-                <select name="category" onChange={this.handleInputChange}>
+                <select name="category" value={this.state.post.category} onChange={this.handleInputChange}>
                     {this.state.categories.map(category => <option value={category}>{category}</option>)}
                 </select>
+                <ImageUpload saveUrl={this.saveUrl}/>
                 <button onClick={this.verifyPost}>Submit</button>
                 {/* Pop up : please review your post */}
                 {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
