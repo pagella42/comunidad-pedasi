@@ -29,9 +29,9 @@ class ResultDetail extends Component {
 
     }
 
-    sendResp =  () => {
+    sendResp = async () => {
         this.state.post.data._id? console.log(this.state.post.data._id) : console.log("Wait for data")
-        //await axios.post(`http://localhost:4000/data/response/${this.props.data._id}`)
+        await axios.post(`http://localhost:4000/data/response/${this.state.post.data._id}`, this.state.response)
         console.log(this.state.response)
     }
 
@@ -65,7 +65,7 @@ class ResultDetail extends Component {
                                 null
                             }
                         </div>
-                        <div><button type="submit" onClick={this.sendResp} disabled={!this.state.response} >Send</button></div>
+                        <div><button type="submit" onClick={this.sendResp} >Send</button></div>
                     </div>
                     <div id="status_post">{p.status}</div>
                 </div>
