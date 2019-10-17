@@ -17,7 +17,7 @@ class Admin extends Component {
     }
 
     login = (username, password) => {
-        if(password === this.state.password){
+        if (password === this.state.password) {
             let login = { username: username, isLoggedIn: true }
             this.setState({ login: login })
             localStorage.login = JSON.stringify(login)
@@ -27,25 +27,29 @@ class Admin extends Component {
     }
     logout = () => {
         localStorage.clear()
-        let login = {username : "", isLoggedIn : false}
-        this.setState({login:login})
+        let login = { username: "", isLoggedIn: false }
+        this.setState({ login: login })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let login
-        if(localStorage.login){
+        if (localStorage.login) {
             login = JSON.parse(localStorage.login)
         } else {
             login = this.state.login
         }
-        this.setState({login : login})
+        this.setState({ login: login })
     }
 
     render() {
         return (
             <div>
-                {this.state.login.isLoggedIn ? <Landing /> : <Login login={this.login} />}
-                <button onClick={this.logout}>Log out</button>
+                {this.state.login.isLoggedIn ?
+                    <div> <Landing />
+                        <button onClick={this.logout}>Log out</button>
+                    </div>
+                    : <Login login={this.login} />}
+
                 {/* ==== Admin Routes below ====  */}
                 {/* <Route path="/admin/explore" exact render={() => <Explore />} />
                 <Route path="/admin/search" exact render={() => <Search />} /> */}
