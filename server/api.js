@@ -3,17 +3,17 @@ const router = express.Router()
 const Post = require('./schemas/Post')
 const User = require('./schemas/User')
 const Response = require('./schemas/Response')
-const Categories =require('./schemas/Categories')
+const Categories = require('./schemas/Categories')
 
-router.put('/data/post/status/:status/:postId',(req,res)=>{
-    Post.findByIdAndUpdate(req.params.postId,{
-        "$set":{
-            status:req.params.status
+router.put('/data/post/status/:status/:postId', (req, res) => {
+    Post.findByIdAndUpdate(req.params.postId, {
+        "$set": {
+            status: req.params.status
         }
     })
 })
 
-router.post('/data/response/:postId',(req, res) => {
+router.post('/data/response/:postId', (req, res) => {
     let response = new Response(req.body)
     Post.findByIdAndUpdate(req.params.postId, {
         "$push": {
@@ -75,9 +75,26 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 
 })
 
-router.get('/data/categories',(req,res)=>{
-    Categories.find({},(err,doc)=>res.send(doc))
-}) 
+router.get('/data/categories', (req, res) => {
+    Categories.find({}, (err, doc) => res.send(doc))
+})
 
+
+
+
+
+function updateCategory(oldCategory, newCategory) {
+    Categories.update({
+        "categories": oldCategory
+    }, {
+        "categories.$": newCategory
+    })
+}
+
+function deleteCategory(category) {
+    Categories.deleteOne({
+        "categories": oldCategory
+    })
+}
 
 module.exports = router
