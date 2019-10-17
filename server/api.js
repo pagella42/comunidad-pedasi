@@ -3,17 +3,18 @@ const router = express.Router()
 const Post = require('./schemas/Post')
 const User = require('./schemas/User')
 const Response = require('./schemas/Response')
-const Categories =require('./schemas/Categories')
+const Category = require('./schemas/Category')
+const Comment =require('./schemas/Comment')
 
-router.put('/data/post/status/:status/:postId',(req,res)=>{
-    Post.findByIdAndUpdate(req.params.postId,{
-        "$set":{
-            status:req.params.status
+router.put('/data/post/status/:status/:postId', (req, res) => {
+    Post.findByIdAndUpdate(req.params.postId, {
+        "$set": {
+            status: req.params.status
         }
     })
 })
 
-router.post('/data/response/:postId',(req, res) => {
+router.post('/data/response/:postId', (req, res) => {
     let response = new Response(req.body)
     Post.findByIdAndUpdate(req.params.postId, {
         "$push": {
@@ -45,13 +46,45 @@ router.get('/data/posts/category/:category', async (req, res) => {
     res.send(posts)
 })
 
-router.get('/data/posts/id/:id', async (req, res) => {
-    let post = await Post.findById(req.params.id)
-    console.log(req.params.id)
-    res.send(post)
+router.get('/data/posts/id/:id', (req, res) => {
+    Post.findById(req.params.id)
+    .populate("user")
+    .exec((err,post)=>res.send(post))
 })
 
-const updateUserPosts = (usersPhone, post) => {
+
+router.post('/data/post/:usersPhone', async (req, res) => {
+    let post = new Post(req.body)
+    post.user = await User.findOne({
+        "phone": req.params.usersPhone
+    })
+    post.save((err, doc) => console.log(doc))
+    
+    updateUserPosts(req.params.usersPhone, post)
+    .then((doc) => res.send(doc))
+    
+})
+
+router.get('/data/categories', (req, res) => {
+    Category.find({}, (err, doc) => res.send(doc))
+})
+
+router.post('/data/category/:categoryName',(req,res)=>{
+    let category= new Category({name:req.params.categoryName})
+    category.save()
+    res.end()
+})
+
+router.put('/data/category/:categoryName',(req,res)=>{
+    Category.findOneAndDelete({name:req.params.categoryName})
+    .then(()=>res.end())
+})
+
+router.post('/data/comment/:postId',(req,res)=>{
+    let comment = new Comment(req.body)
+})
+
+function updateUserPosts (usersPhone, post) {
     return User.findOneAndUpdate({
         "phone": usersPhone
     }, {
@@ -62,22 +95,4 @@ const updateUserPosts = (usersPhone, post) => {
         "new": true
     })
 }
-
-router.post('/data/post/:usersPhone', async (req, res) => {
-    let post = new Post(req.body)
-    post.user = await User.findOne({
-        "phone": req.params.usersPhone
-    })
-    post.save((err, doc) => console.log(doc))
-
-    updateUserPosts(req.params.usersPhone, post)
-        .then((doc) => res.send(doc))
-
-})
-
-router.get('/data/categories',(req,res)=>{
-    Categories.find({},(err,doc)=>res.send(doc))
-}) 
-
-
 module.exports = router
