@@ -10,7 +10,7 @@ class CreatePost extends Component {
             post :{
                 title: "",
                 content:"",
-                category:"",
+                category:"Other",
                 points:0,
                 date:"",
                 address:"",
@@ -86,7 +86,7 @@ class CreatePost extends Component {
                 <input type="text" name="title" placeholder="Title" onChange={this.handleInputChange}/>
                 <input type="text" name="content" placeholder="Text" onChange={this.handleInputChange}/>
                 <input type="text" name="address" placeholder="Adress" onChange={this.handleInputChange}/>
-                <select name="category" onChange={this.handleInputChange}>
+                <select name="category" value={this.state.post.category} onChange={this.handleInputChange}>
                     {this.state.categories.map(category => <option value={category}>{category}</option>)}
                 </select>
                 <ImageUpload saveUrl={this.saveUrl}/>
