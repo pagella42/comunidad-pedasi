@@ -16,7 +16,6 @@ class CreatePost extends Component {
                 address:"",
                 picture:"",
             },
-            usersPhone: "", // For now dummy data // Pass it from Login 
             verifyPost:{
                 show:false,
             }
@@ -38,7 +37,8 @@ class CreatePost extends Component {
     }
 
     confirmPost = async () => {
-        let usersPhone = this.state.usersPhone
+        debugger
+        let usersPhone = this.props.phone
         let post = {...this.state.post}
         let date = new Date()
         post.date = date
@@ -76,7 +76,7 @@ class CreatePost extends Component {
     }
 
     async componentDidMount(){
-        this.setState({usersPhone : this.props.phone})
+        
         await this.getCategories()
     }
 

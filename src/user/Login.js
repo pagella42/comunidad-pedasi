@@ -8,8 +8,8 @@ class Login extends Component {
         }
     }
     handleInputChange = (event) => {
-        let username = event.target.value
-        this.setState({username : username}) 
+        let phone = event.target.value
+        this.setState({phone : phone}) 
     }
 
     login = () => {
