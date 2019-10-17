@@ -3,7 +3,7 @@ const router = express.Router()
 const Post = require('./schemas/Post')
 const User = require('./schemas/User')
 const Response = require('./schemas/Response')
-
+const Categories =require('./schemas/Categories')
 
 router.put('/data/post/status/:status/:postId',(req,res)=>{
     Post.findByIdAndUpdate(req.params.postId,{
@@ -73,5 +73,10 @@ router.post('/data/post/:usersPhone', async (req, res) => {
         .then((doc) => res.send(doc))
 
 })
+
+router.get('/data/categories',(req,res)=>{
+    Categories.find({},(err,doc)=>res.send(doc))
+}) 
+
 
 module.exports = router
