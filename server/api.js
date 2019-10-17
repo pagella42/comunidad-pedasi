@@ -98,7 +98,24 @@ router.post('/data/comment', async (req,res)=>{
 
 })
 
-router.get('/data/comments/:postId',)
+router.get('/data/comments/:postId',(req,res)=>{
+    Post.findById(req.params.postId)
+    .populate({
+        path:'comments',
+        populate:{
+            path:"user"
+        } 
+    })
+    .exec((err,post)=>{
+        let comments=post.comments.map(c=>{
+            return{
+                content:c.content,
+                user:c.user.name
+            }
+        })
+        res.send(comments)
+    })
+})
 
 
 
