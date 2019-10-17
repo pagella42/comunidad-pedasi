@@ -6,20 +6,20 @@ class User extends Component {
     constructor(){
         super()
         this.state = {
-            login : {username:"", 
+            login : {phone:"", 
         isLoggedIn:false,}
         }
     }
 
-    login = (username) => {
-        let login = {username : username, isLoggedIn : true}
+    login = (phone) => {
+        let login = {phone : phone, isLoggedIn : true}
         this.setState({login : login})
     }
 
     render() {
         return (
             <div>
-                {this.state.login.isLoggedIn ? <Landing /> : <Login login={this.login} />}
+                {this.state.login.isLoggedIn ? <Landing phone={this.state.login.phone}/> : <Login login={this.login} />}
             </div>
         );
     }
