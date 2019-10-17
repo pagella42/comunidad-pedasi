@@ -36,6 +36,7 @@ class ImageUpload extends Component {
             .then(url => {
                 console.log(url)
                 this.props.saveUrl(url)
+                alert("Image saved.")
             }) // 20 22
         }
 

@@ -69,7 +69,6 @@ class CreatePost extends Component {
     }
 
     saveUrl = (url) => {
-        debugger
         console.log(url)
         let post = {...this.state.post}
         post.picture = url
