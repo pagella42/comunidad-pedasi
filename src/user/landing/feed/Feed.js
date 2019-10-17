@@ -27,8 +27,8 @@ class Feed extends Component {
         return (
             <div>
             {/* call filter comp */}
-            <CreatePost getAllPosts={this.getAllPosts}/>
-            <Results posts={this.state.posts}/>
+            <CreatePost phone={this.props.phone} getAllPosts={this.getAllPosts}/>
+            <Results posts={this.state.posts} phone={this.props.phone}/>
         </div>
         )
     }

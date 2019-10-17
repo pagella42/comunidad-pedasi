@@ -5,7 +5,7 @@ class Landing extends Component {
     render() {
         return (<div>
             // Landing User
-            <Feed />
+            <Feed phone={this.props.phone}/>
         </div>)
     }
 }
