@@ -82,6 +82,7 @@ router.put('/data/category/:categoryName',(req,res)=>{
 
 router.post('/data/comment/:postId',(req,res)=>{
     let comment = new Comment(req.body)
+    
 })
 
 function updateUserPosts (usersPhone, post) {
