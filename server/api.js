@@ -3,7 +3,7 @@ const router = express.Router()
 const Post = require('./schemas/Post')
 const User = require('./schemas/User')
 const Response = require('./schemas/Response')
-const Categories = require('./schemas/Categories')
+const Category = require('./schemas/Category')
 
 router.put('/data/post/status/:status/:postId', (req, res) => {
     Post.findByIdAndUpdate(req.params.postId, {
@@ -65,7 +65,18 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 })
 
 router.get('/data/categories', (req, res) => {
-    Categories.find({}, (err, doc) => res.send(doc))
+    Category.find({}, (err, doc) => res.send(doc))
+})
+
+router.post('/data/category/:categoryName',(req,res)=>{
+    let category= new Category({name:req.params.categoryName})
+    category.save()
+    res.end()
+})
+
+router.put('/data/category/:categoryName',(req,res)=>{
+    Category.findOneAndDelete({name:req.params.categoryName})
+    .then(()=>res.end())
 })
 
 
