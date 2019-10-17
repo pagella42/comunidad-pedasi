@@ -6,7 +6,7 @@ class CreatePost extends Component {
     constructor(){
         super()
         this.state = {
-            categories:["other", "infrastructure"],
+            categories:[],
             post :{
                 title: "",
                 content:"",
@@ -59,7 +59,11 @@ class CreatePost extends Component {
     getCategories = async () => {
         let response = await axios.get("http://localhost:4000/data/categories")
         let categories = []
-        response.data.forEach(category => categories.push(category.name))
+        if(response.data[0] === undefined){
+            categories = ["Other"]
+        } else {
+            response.data.forEach(category => categories.push(category.name))
+        }
         this.setState({categories: categories})
     }
 
