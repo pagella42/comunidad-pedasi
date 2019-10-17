@@ -2,19 +2,46 @@ const express = require('express')
 const router = express.Router()
 const Post = require('./schemas/Post')
 const User = require('./schemas/User')
+const Response = require('./schemas/Response')
 
 
+router.put('/data/post/status/:status/:postId',(req,res)=>{
+    Post.findByIdAndUpdate(req.params.postId,{
+        "$set":{
+            status:req.params.status
+        }
+    })
+})
+
+router.post('/data/response/:postId',(req, res) => {
+    let response = new Response(req.body)
+    Post.findByIdAndUpdate(req.params.postId, {
+        "$push": {
+            "responses": response
+        }
+    }, {
+        "new": true
+    }, (err, post) => {
+        response.post = post
+        response.save()
+        console.log(post)
+        res.send(response)
+    })
+})
 
 
-router.get('/data/posts',async(req,res)=>{
+router.get('/data/posts', async (req, res) => {
     Post.find({})
-    .populate("user")
-    .exec((err,post)=>{
-        res.send(post)})
+        .populate("user")
+        .exec((err, post) => {
+            res.send(post)
+        })
 })
 
 router.get('/data/posts/category/:category', async (req, res) => {
-    let posts = await Post.find({"category":req.params.category})
+    let posts = await Post.find({
+        "category": req.params.category
+    })
     res.send(posts)
 })
 
@@ -23,7 +50,7 @@ router.get('/data/posts/id/:id', async (req, res) => {
     console.log(req.params.id)
     res.send(post)
 })
-const updateUserPosts=(usersPhone,post)=>{
+const updateUserPosts = (usersPhone, post) => {
     return User.findOneAndUpdate({
         "phone": usersPhone
     }, {
@@ -35,14 +62,16 @@ const updateUserPosts=(usersPhone,post)=>{
     })
 }
 
-router.post('/data/post', async (req, res) => {
-    let post = new Post(req.body.post)
-    post.user= await User.findOne({"phone":req.body.usersPhone})
-    post.save((err,doc)=>console.log(doc)) 
-    
-    updateUserPosts(req.body.usersPhone,post)
-    .then((doc)=>res.send(doc))
-    
+router.post('/data/post/:usersPhone', async (req, res) => {
+    let post = new Post(req.body)
+    post.user = await User.findOne({
+        "phone": req.params.usersPhone
+    })
+    post.save((err, doc) => console.log(doc))
+
+    updateUserPosts(req.params.usersPhone, post)
+        .then((doc) => res.send(doc))
+
 })
 
-module.exports= router
+module.exports = router

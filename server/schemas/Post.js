@@ -10,7 +10,7 @@ const postSchema=new Schema({
     user:{type: Schema.Types.ObjectId, ref: 'User'},
     status:String,
     // comments:[Comment]
-    response:[{type: Schema.Types.ObjectId, ref: 'Response'}],
+    responses:[{type: Schema.Types.ObjectId, ref: 'Response'}],
     address:String,
     picture:String,
 })
