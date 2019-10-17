@@ -4,7 +4,7 @@ class Login extends Component {
     constructor(){
         super()
         this.state = {
-            username: "",
+            phone: "",
         }
     }
     handleInputChange = (event) => {
@@ -13,13 +13,13 @@ class Login extends Component {
     }
 
     login = () => {
-        this.props.login(this.state.username)
+        this.props.login(this.state.phone)
     }
 
     render() {
         return (
             <div>
-                <input type="text" placeholder="username" name="username" onChange={this.handleInputChange}/>
+                <input type="string" placeholder="phone number" name="phone" onChange={this.handleInputChange}/>
                 <input type="password" placeholder="password" />
                 <button onClick={this.login}>Log In</button>
             </div>

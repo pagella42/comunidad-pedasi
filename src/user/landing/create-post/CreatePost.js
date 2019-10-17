@@ -15,7 +15,7 @@ class CreatePost extends Component {
                 date:"",
                 address:"",
             },
-            usersPhone: "+1 (881) 599-2995", // For now dummy data // Pass it from Login 
+            usersPhone: "", // For now dummy data // Pass it from Login 
             verifyPost:{
                 show:false,
             }
@@ -68,6 +68,7 @@ class CreatePost extends Component {
     }
 
     async componentDidMount(){
+        this.setState({usersPhone : this.props.phone})
         await this.getCategories()
     }
 
