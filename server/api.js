@@ -45,13 +45,31 @@ router.get('/data/posts/category/:category', async (req, res) => {
     res.send(posts)
 })
 
-router.get('/data/posts/id/:id', async (req, res) => {
-    let post = await Post.findById(req.params.id)
-    console.log(req.params.id)
-    res.send(post)
+router.get('/data/posts/id/:id', (req, res) => {
+    Post.findById(req.params.id)
+    .populate("user")
+    .exec((err,post)=>res.send(post))
 })
 
-const updateUserPosts = (usersPhone, post) => {
+
+router.post('/data/post/:usersPhone', async (req, res) => {
+    let post = new Post(req.body)
+    post.user = await User.findOne({
+        "phone": req.params.usersPhone
+    })
+    post.save((err, doc) => console.log(doc))
+    
+    updateUserPosts(req.params.usersPhone, post)
+    .then((doc) => res.send(doc))
+    
+})
+
+router.get('/data/categories', (req, res) => {
+    Categories.find({}, (err, doc) => res.send(doc))
+})
+
+
+function updateUserPosts (usersPhone, post) {
     return User.findOneAndUpdate({
         "phone": usersPhone
     }, {
@@ -62,39 +80,4 @@ const updateUserPosts = (usersPhone, post) => {
         "new": true
     })
 }
-
-router.post('/data/post/:usersPhone', async (req, res) => {
-    let post = new Post(req.body)
-    post.user = await User.findOne({
-        "phone": req.params.usersPhone
-    })
-    post.save((err, doc) => console.log(doc))
-
-    updateUserPosts(req.params.usersPhone, post)
-        .then((doc) => res.send(doc))
-
-})
-
-router.get('/data/categories', (req, res) => {
-    Categories.find({}, (err, doc) => res.send(doc))
-})
-
-
-
-
-
-function updateCategory(oldCategory, newCategory) {
-    Categories.update({
-        "categories": oldCategory
-    }, {
-        "categories.$": newCategory
-    })
-}
-
-function deleteCategory(category) {
-    Categories.deleteOne({
-        "categories": oldCategory
-    })
-}
-
 module.exports = router
