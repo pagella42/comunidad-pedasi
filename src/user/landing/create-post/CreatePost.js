@@ -59,7 +59,12 @@ class CreatePost extends Component {
 
     getCategories = async () => {
         let response = await axios.get("http://localhost:4000/data/categories")
-        let categories = response.data
+        let categories = []
+        if(response.data[0] === undefined){
+            categories = ["Other"]
+        } else {
+            response.data.forEach(category => categories.push(category.name))
+        }
         this.setState({categories: categories})
     }
 
