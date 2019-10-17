@@ -80,9 +80,27 @@ router.put('/data/category/:categoryName',(req,res)=>{
     .then(()=>res.end())
 })
 
-router.post('/data/comment/:postId',(req,res)=>{
-    let comment = new Comment(req.body)
+router.post('/data/comment', async (req,res)=>{
+    let {content,date,postId,usersPhone}=req.body
+    let comment = new Comment({
+        content,
+        date,
+    })
+    comment.user = await User.findOne({phone: usersPhone})
+    comment.post = await Post.findById(postId)
+    comment.save( async (err,comment)=>{
+        await User.findOneAndUpdate({phone:usersPhone},
+            {$push:{comments:comment}})
+        await Post.findByIdAndUpdate(postId,
+            {$push:{comments:comment}})    
+        res.end()
+    })
+
 })
+
+router.get('/data/comments/:postId',)
+
+
 
 function updateUserPosts (usersPhone, post) {
     return User.findOneAndUpdate({
