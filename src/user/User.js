@@ -19,7 +19,7 @@ class User extends Component {
     render() {
         return (
             <div>
-                {this.state.login.isLoggedIn ? <Landing phone={this.state.phone}/> : <Login login={this.login} />}
+                {this.state.login.isLoggedIn ? <Landing phone={this.state.login.phone}/> : <Login login={this.login} />}
             </div>
         );
     }
