@@ -50,6 +50,9 @@ class ImageUpload extends Component {
                     onChange={this.handleChange}
                 />
                 <button onClick={this.handleUpload}>Upload</button>
+
+                <br/>
+                
             </div>
         );
     }
