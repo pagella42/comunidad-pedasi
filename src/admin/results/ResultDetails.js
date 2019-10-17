@@ -22,13 +22,13 @@ class ResultDetail extends Component {
                 ?
                 <div id="container">
                     {/*<div id="user_info">{p.name}</div>*/}
-                    <div id="title_problem">{p.title}</div>
+                    <h3 id="title_problem">{p.title}</h3>
                     <div id="description">{p.content}</div>
                     <div id="photo"><img src={p.picture} alt="Evidence"></img></div>
                         <div id="category">{p.category}</div>
                         <div id="address">{p.address}</div>
-                        <div id="response">Response</div>
-                        <div id="status_post">Status Post</div>
+                        <div id="response">{p.responses[0]}</div>
+                        <div id="status_post">{p.status}</div>
                     </div>
                     : console.log("Wait, no data yet")}
             </div>

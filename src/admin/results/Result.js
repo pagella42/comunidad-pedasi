@@ -6,7 +6,6 @@ class Result extends Component {
         //console.log(p)
         return (
             <div key={p._id} className="post" >
-                <p onClick={this.changeStatus}></p>
                 <Link to={`/admin/resultdetails/${p._id}`}>{<div id="post" ><h6>{p.title} - {p._id}</h6></div>}</Link>
             </div>)
 
