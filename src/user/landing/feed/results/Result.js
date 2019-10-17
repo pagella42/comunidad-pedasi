@@ -10,7 +10,7 @@ class Result extends Component {
             <div>{post.content}</div>
             <div>{post.address}</div>
             <div>{post.category}</div>
-            <div><img src={post.picture} alt="concern"/></div>
+            <div><img src={post.picture || 'http://via.placeholder.com/300x150'} alt="concern"/></div>
             <div>TOWN RESPONSE</div>
             <br/>
         </div>)
