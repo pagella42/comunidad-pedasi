@@ -4,6 +4,7 @@ const Post = require('./schemas/Post')
 const User = require('./schemas/User')
 const Response = require('./schemas/Response')
 const Category = require('./schemas/Category')
+const Comment =require('./schemas/Comment')
 
 router.put('/data/post/status/:status/:postId', (req, res) => {
     Post.findByIdAndUpdate(req.params.postId, {
@@ -79,6 +80,9 @@ router.put('/data/category/:categoryName',(req,res)=>{
     .then(()=>res.end())
 })
 
+router.post('/data/comment/:postId',(req,res)=>{
+    let comment = new Comment(req.body)
+})
 
 function updateUserPosts (usersPhone, post) {
     return User.findOneAndUpdate({
