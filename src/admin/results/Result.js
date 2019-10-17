@@ -1,20 +1,15 @@
-//single result
-//on click calls the route of ResultDetails with a LINK
-
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 class Result extends Component {
     render() {
+        const p = this.props.post
+        //console.log(p)
         return (
-            <div>
-                <Link to={`'/resultdetails/${"hello"}`}> <div>
-                    {this.props.post.category} : 
-                    >>>>{this.props.post.title}
-                    </div> </Link>
+            <div key={p._id} className="post" >
+                <p onClick={this.changeStatus}></p>
+                <Link to={`/admin/resultdetails/${p._id}`}>{<div id="post" ><h6>{p.title} - {p._id}</h6></div>}</Link>
+            </div>)
 
-            </div>
-            
-        )
     }
 }
 export default Result;
