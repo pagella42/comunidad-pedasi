@@ -14,7 +14,7 @@ class Results extends Component {
         data = data.data
         
         this.setState({data})
-        console.log(this.state)
+        
     }
     render() {
         return (<div>  
