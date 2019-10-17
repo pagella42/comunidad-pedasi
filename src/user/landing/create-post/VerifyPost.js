@@ -14,6 +14,7 @@ class VerifyPost extends Component {
                     <div>Title: {this.props.post.title}</div>
                     <div>Content: {this.props.post.content}</div>
                     <div>Address: {this.props.post.address}</div>
+                    <div>Category: {this.props.post.category}</div>
                 </div>
                 <button name="confirm" onClick={this.reviewPost}>Confirm</button>
                 <button name="review" onClick={this.reviewPost}>Go back to post</button>

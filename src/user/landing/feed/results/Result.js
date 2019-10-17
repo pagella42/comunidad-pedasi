@@ -34,6 +34,7 @@ class Result extends Component {
     render() {
         let post = this.props.post
         return (<div>
+            <br/>
             <div>{post.user.name}</div>
             <div>{post.title}</div>
             <div>{post.points}</div>
@@ -41,6 +42,7 @@ class Result extends Component {
             <div>{post.address}</div>
             <div>{post.category}</div>
             <div>IMAGES</div>
+
 
             {/* render responses */}
             <div>{post.reponses.map(r=> <div> Response: {r.content} Employee: {r.employee} </div>)}</div>
@@ -56,6 +58,7 @@ class Result extends Component {
                     <div>{c.content}</div>
                 </div>
             })}</div>
+
 
         </div>)
     }
