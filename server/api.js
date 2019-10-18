@@ -25,7 +25,6 @@ router.post('/data/response/:postId', (req, res) => {
     }, (err, post) => {
         response.post = post
         response.save()
-        console.log(post)
         res.send(response)
     })
 })
@@ -114,6 +113,12 @@ router.get('/data/comments/:postId',(req,res)=>{
             }
         })
         res.send(comments)
+    })
+})
+
+router.get('/data/responses/:postId',(req,res)=>{
+    Response.find({
+        post.$.id=
     })
 })
 
