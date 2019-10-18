@@ -8,7 +8,7 @@ class Result extends Component {
             comment: '',
             comments: [],
             responses: [],
-            voted: false,
+            vote : {}
         }
     }
     update = async (event) => {
@@ -17,9 +17,10 @@ class Result extends Component {
         })
     }
 
-    getVote = async () => {
+    getVotes = async () => {
         let response = await axios.get(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
-        this.setState({voted : response.data})
+        let vote = {userVoted: response.data.voted, votesCount: response.data.votes}
+        this.setState({vote: vote})
     }
 
     getComments = async () => {
@@ -43,6 +44,7 @@ class Result extends Component {
     vote = async (e) => {
         let name = e.currentTarget.name
         await axios[name](`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+        await axios.put(`http://localhost:4000/data/posts/points/${this.props.post._id}/${name}`)
         this.getVote()
     }
 
@@ -60,10 +62,11 @@ class Result extends Component {
             <br />
             <div>{post.user.name}</div>
             <div>{post.title}</div>
-            <div>{post.points}</div>
+            <div>Access points from post{post.points}</div>
+            <div>Access points from votes count{this.state.vote.votesCount}</div>
 
             {this.state.voted ? 
-            <button name="delete" onClick={this.removeVote}>Take out vote</button>    
+            <button name="delete" onClick={this.vote}>Take out vote</button>    
             : <button name="post" onClick={this.vote}>vote</button>   
         }
         
