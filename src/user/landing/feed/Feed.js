@@ -6,7 +6,7 @@ class Feed extends Component {
     constructor(){
         super()
         this.state={
-            posts: []
+            posts: [],
         }
     }
 
@@ -22,12 +22,13 @@ class Feed extends Component {
         await this.getAllPosts()
     }
 
+   
 
     render() {
         return (
             <div>
             {/* call filter comp */}
-            <CreatePost phone={this.props.phone} getAllPosts={this.getAllPosts}/>
+            <CreatePost anonymous={this.anonymous} phone={this.props.phone} getAllPosts={this.getAllPosts}/>
             <Results posts={this.state.posts} phone={this.props.phone}/>
         </div>
         )
