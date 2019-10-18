@@ -22,7 +22,6 @@ class Result extends Component {
     }
 
     getVotes = async () => {
-        debugger
         let response = await axios.get(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
         let vote = { userVoted: response.data.voted, votesCount: response.data.votes }
         this.setState({ vote: vote })
@@ -41,14 +40,12 @@ class Result extends Component {
     }
 
     async componentDidMount() {
-        debugger
         this.getComments()
         this.getResponses()
         this.getVotes()
     }
 
     vote = async (e) => {
-        debugger
         let name = e.currentTarget.name
         if (name === "post") {
             await axios.post(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
@@ -72,8 +69,7 @@ class Result extends Component {
             <br />
             <div>{post.user.name}</div>
             <div>{post.title}</div>
-            <div>Access points from post{post.points}</div>
-            <div>Access points from votes count{this.state.vote.votesCount}</div>
+            <div>Points: {this.state.vote.votesCount}</div>
 
             {this.state.vote.userVoted ?
                 <button name="delete" onClick={this.vote}>Take out vote</button>
