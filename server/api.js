@@ -119,6 +119,7 @@ router.get('/data/comments/:postId',(req,res)=>{
 
 
 
+
 function updateUserPosts (usersPhone, post) {
     return User.findOneAndUpdate({
         "phone": usersPhone
