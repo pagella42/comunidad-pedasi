@@ -24,8 +24,15 @@ class Result extends Component {
         this.setState({ comments: response.data })
     }
 
+    getResponses = async () => {
+        let response = await axios.get(`http://localhost:4000/data/responses/${this.props.post._id}`)
+        response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
+        this.setState({ responses : response.data})
+    }
+
     async componentDidMount() {
         this.getComments()
+        this.getResponses()
     }
 
     vote = (e) => {
@@ -80,9 +87,9 @@ class Result extends Component {
 
 
             {/* render responses */}
-            {post.responses.length === 0
+            {this.state.responses.length === 0
                 ? <div>No response.</div>
-                : post.reponses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+                : this.state.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
 
             {/* post comment  \/ */}
             <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
