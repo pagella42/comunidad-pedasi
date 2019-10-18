@@ -6,7 +6,7 @@ class Result extends Component {
         super()
         this.state = {
             comment: '',
-            comments: [], 
+            comments: [],
             responses: [],
         }
     }
@@ -16,17 +16,21 @@ class Result extends Component {
         })
     }
 
+    getComments = async () => {
+        let response = await axios.get(`http://localhost:4000/data/comments/${this.props.post._id}`)
+        // response.data.sort((a, b) => (a.date > b.date) ? -1 : 1) // uncomment when Tomer update response
+        this.setState({ comments: response.data })
+    }
+
     async componentDidMount() {
-        let data = await axios.get(`/data/comments/${this.props.post._id}`)
-        this.setState({ comments: data })
+        this.getComments()
     }
 
 
     comment = async () => {
-        //NEED TO RECEIVE PHONE FROM UP
-        await axios.post(`/data/comment/${this.props.post._id}/${this.props.phone}`, { content: this.state.comment, date: new Date() })
-
-        this.setState({ comment: "" })
+        let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
+        await axios.post(`http://localhost:4000/data/comment`, data)
+        this.getComments()
     }
 
 
@@ -45,25 +49,27 @@ class Result extends Component {
 
 
             {/* render responses */}
-            {post.responses.length === 0 
-                ? <div>No response.</div> 
+            {post.responses.length === 0
+                ? <div>No response.</div>
                 : post.reponses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
-            {/* <div>{post.responses === undefined
-                ? <div></div>
-                : post.reponses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>) }</div> */}
 
             {/* post comment  \/ */}
             <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
             <button onClick={this.comment}>Send comment</button>
 
             {/* render comments \/ */}
-            <div>{this.state.comments.map(c => {
-                return <div>
-                    <div>User: {c.user.name}</div>
-                    <div>{c.content}</div>
+            {this.state.comments.length !== 0 ?
+                <div>
+                {this.state.comments.map(c => {
+                    return <div>
+                        <div>User: {c.user}</div>
+                        <div>{c.content}</div>
+                    </div>
+                })}
                 </div>
-            })}</div>
-        </div>)
+            : <div>No Comments.</div>
+            }
+        </div>     )
+        }
     }
-}
 export default Result;

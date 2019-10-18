@@ -50,6 +50,8 @@ class ImageUpload extends Component {
                     type="file"
                     placeholder="file"
                     onChange={this.handleChange}
+                    accept="image/*"
+                    capture="environment"
                 />
                 {this.state.image ? <button onClick={this.handleUpload}>Upload</button> : <br /> }
                 <br/>
