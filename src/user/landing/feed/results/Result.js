@@ -55,7 +55,6 @@ class Result extends Component {
     }
 
 
-
     render() {
         let post = this.props.post
         return (<div>
