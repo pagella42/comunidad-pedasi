@@ -1,7 +1,12 @@
 const express = require ('express')
 const bodyParser = require ('body-parser')
-const api = require ('./server/api')
 const mongoose = require ('mongoose')
+
+const post = require ('./server/routes/post')
+const user = require ('./server/routes/user')
+const comment = require ('./server/routes/comment')
+const category = require ('./server/routes/category')
+const response = require ('./server/routes/response')
 
 const app = express()
 const PORT = 4000
@@ -20,7 +25,11 @@ app.use(bodyParser.urlencoded({extended : false}))
 
 mongoose.connect('mongodb://localhost/pedasiDB',{useNewUrlParser:true},()=>console.log("mongood"))
 
-app.use('/',api)
+app.use('/',post)
+app.use('/',user)
+app.use('/',comment)
+app.use('/',category)
+app.use('/',response)
 
 
 app.listen(PORT,()=>console.log(`Running on port: ${PORT}`))
