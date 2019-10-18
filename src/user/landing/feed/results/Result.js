@@ -8,7 +8,7 @@ class Result extends Component {
             comment: '',
             comments: [],
             responses: [],
-            vote : {}
+            vote: {}
         }
     }
     update = async (event) => {
@@ -19,8 +19,8 @@ class Result extends Component {
 
     getVotes = async () => {
         let response = await axios.get(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
-        let vote = {userVoted: response.data.voted, votesCount: response.data.votes}
-        this.setState({vote: vote})
+        let vote = { userVoted: response.data.voted, votesCount: response.data.votes }
+        this.setState({ vote: vote })
     }
 
     getComments = async () => {
@@ -32,20 +32,24 @@ class Result extends Component {
     getResponses = async () => {
         let response = await axios.get(`http://localhost:4000/data/responses/${this.props.post._id}`)
         response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
-        this.setState({ responses : response.data})
+        this.setState({ responses: response.data })
     }
 
     async componentDidMount() {
         this.getComments()
         this.getResponses()
-        this.getVote()
+        this.getVotes()
     }
 
     vote = async (e) => {
         let name = e.currentTarget.name
-        await axios[name](`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+        if (name === "post") {
+            axios.post(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+        } else {
+            axios.delete(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+        }
         await axios.put(`http://localhost:4000/data/posts/points/${this.props.post._id}/${name}`)
-        this.getVote()
+        this.getVotes()
     }
 
     comment = async () => {
@@ -64,11 +68,11 @@ class Result extends Component {
             <div>Access points from post{post.points}</div>
             <div>Access points from votes count{this.state.vote.votesCount}</div>
 
-            {this.state.voted ? 
-            <button name="delete" onClick={this.vote}>Take out vote</button>    
-            : <button name="post" onClick={this.vote}>vote</button>   
-        }
-        
+            {this.state.voted ?
+                <button name="delete" onClick={this.vote}>Take out vote</button>
+                : <button name="post" onClick={this.vote}>vote</button>
+            }
+
             <div>{post.content}</div>
             <div>{post.address}</div>
             <div>{post.category}</div>
