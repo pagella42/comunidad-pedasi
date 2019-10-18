@@ -5,7 +5,7 @@ const postSchema=new Schema({
     title:String,
     content:String,
     category:String,
-    points:Number,
+    points:Number(0),
     date:String,
     user:{type: Schema.Types.ObjectId, ref: 'User'},
     status:String,
