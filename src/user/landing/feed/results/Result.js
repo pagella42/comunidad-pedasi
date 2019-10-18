@@ -8,9 +8,13 @@ class Result extends Component {
             comment: '',
             comments: [],
             responses: [],
-            vote: {}
+            vote: {
+                userVoted: null,
+                votesCount: null,
+            }
         }
     }
+
     update = async (event) => {
         await this.setState({
             [event.target.name]: event.target.value,
@@ -18,6 +22,7 @@ class Result extends Component {
     }
 
     getVotes = async () => {
+        debugger
         let response = await axios.get(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
         let vote = { userVoted: response.data.voted, votesCount: response.data.votes }
         this.setState({ vote: vote })
@@ -36,19 +41,21 @@ class Result extends Component {
     }
 
     async componentDidMount() {
+        debugger
         this.getComments()
         this.getResponses()
         this.getVotes()
     }
 
     vote = async (e) => {
+        debugger
         let name = e.currentTarget.name
         if (name === "post") {
-            axios.post(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+            await axios.post(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
         } else {
-            axios.delete(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+            await axios.delete(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
         }
-        await axios.put(`http://localhost:4000/data/posts/points/${this.props.post._id}/${name}`)
+        await axios.put(`http://localhost:4000/data/post/points/${this.props.post._id}/${name}`)
         this.getVotes()
     }
 
@@ -68,7 +75,7 @@ class Result extends Component {
             <div>Access points from post{post.points}</div>
             <div>Access points from votes count{this.state.vote.votesCount}</div>
 
-            {this.state.voted ?
+            {this.state.vote.userVoted ?
                 <button name="delete" onClick={this.vote}>Take out vote</button>
                 : <button name="post" onClick={this.vote}>vote</button>
             }
