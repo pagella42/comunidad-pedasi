@@ -17,7 +17,7 @@ class Result extends Component {
         })
     }
 
-    getVotes = async () => {
+    getVote = async () => {
         let response = await axios.get(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
         this.setState({voted : response.data})
     }
@@ -37,14 +37,13 @@ class Result extends Component {
     async componentDidMount() {
         this.getComments()
         this.getResponses()
+        this.getVote()
     }
 
-    vote = (e) => {
+    vote = async (e) => {
         let name = e.currentTarget.name
-        axios.put(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}/${name}`)
-        if(name === "up"){
-            this.setState({voted: true})
-        } else {this.setState({voted: false})}
+        await axios[name](`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+        this.getVote()
     }
 
     comment = async () => {
@@ -64,8 +63,8 @@ class Result extends Component {
             <div>{post.points}</div>
 
             {this.state.voted ? 
-            <button name="down" onClick={this.vote}>Take out vote</button>    
-            : <button name="up" onClick={this.vote}>vote</button>   
+            <button name="delete" onClick={this.removeVote}>Take out vote</button>    
+            : <button name="post" onClick={this.vote}>vote</button>   
         }
         
             <div>{post.content}</div>
