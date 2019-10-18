@@ -8,40 +8,44 @@ class ResultDetail extends Component {
         super()
         this.state = {
             post: [],
-            response: "",
-            displayStatus: false
+            responses: [],
+            date: new Date(),
+            content: "",
+            employee: "",
+            status: "",
         }
     }
 
-    catchResp = event => this.setState({ response: event.target.value })
+    catchRespCon = event => this.setState({ content: event.target.value })
+    catchRespEmp = event => this.setState({ employee: event.target.value })
+    catchRespSta = event => this.setState({ status: event.target.value })
 
-    showDropdownStatus = (event) => {
-        event.preventDefault()
-        this.setState({ displayStatus: true }, () => {
-            document.addEventListener('click', this.hideDropdownMenu)
-        })
-    }
-
-    hideDropdownMenu = () => {
-        this.setState({ displayStatus: false }, () => {
-            document.removeEventListener('click', this.hideDropdownMenu)
-        })
-
-    }
 
     sendResp = async () => {
-        this.state.post.data._id? console.log(this.state.post.data._id) : console.log("Wait for data")
-        await axios.post(`http://localhost:4000/data/response/${this.state.post.data._id}`, this.state.response)
-        console.log(this.state.response)
+        await axios.post(`http://localhost:4000/data/response/${this.state.post.data._id}`,
+            { content: this.state.content, date: this.state.date, employee: this.state.employee })
+        await axios.put(`http://localhost:4000/data/post/status/${this.state.status}/${this.state.post.data._id}`)
+        this.getData()
+        console.log(this.state.post.data._id)
+        console.log(this.state.date)
+        console.log(this.state.content)
+        console.log(this.state.employee)
+        console.log(this.state.status)
     }
 
-    componentDidMount = async () => {
-        const response = await axios.get(`http://localhost:4000/data/posts/id/${this.props.match.params.id}`)
-        this.setState({ post: response })
+    getData = async () => {
+        const post = await axios.get(`http://localhost:4000/data/posts/id/${this.props.match.params.id}`)
+        const responses = await axios.get(`http://localhost:4000/data/responses/${this.props.match.params.id}`)
+        this.setState({ post, responses: responses.data })
+    }
+
+    componentDidMount = () => {
+        this.getData()
     }
 
     render() {
         const p = this.state.post.data
+        const r = this.state.responses
         return (
             <div >{p
                 ?
@@ -53,18 +57,10 @@ class ResultDetail extends Component {
                     <div id="category">{p.category}</div>
                     <div id="address">{p.address}</div>
                     <div id="container_response">
-                        <div>{p.responses[0]}</div>
-                        <div id="reponse">Response<input type="text" value={this.state.response} onChange={this.catchResp} /></div>
-                        <div className="dropdown" >
-                            <div className="button" onClick={this.showDropdownStatus}>Status</div>
-                            {this.state.displayStatus ?
-                                <ul>
-                                    <li>Attending</li>
-                                    <li>Solved</li>
-                                </ul> :
-                                null
-                            }
-                        </div>
+                        {r.map(c => <div key={c._id}>{c.content} - {c.employee} - {c.date}</div>)}
+                        <div id="reponse">Response<input type="text" value={this.state.content} onChange={this.catchRespCon} /></div>
+                        <div id="employee">Employee<input type="text" value={this.state.employee} onChange={this.catchRespEmp} /></div>
+                        <div id="status">Status<input type="text" value={this.state.status} onChange={this.catchRespSta} /></div>
                         <div><button type="submit" onClick={this.sendResp} >Send</button></div>
                     </div>
                     <div id="status_post">{p.status}</div>
