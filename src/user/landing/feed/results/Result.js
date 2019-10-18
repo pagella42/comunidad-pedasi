@@ -8,14 +8,18 @@ class Result extends Component {
             comment: '',
             comments: [],
             responses: [],
-            votedUp: false,
-            votedDown: false,
+            voted: false,
         }
     }
     update = async (event) => {
         await this.setState({
             [event.target.name]: event.target.value,
         })
+    }
+
+    getVotes = async () => {
+        let response = await axios.get(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+        this.setState({voted : response.data})
     }
 
     getComments = async () => {
@@ -37,15 +41,12 @@ class Result extends Component {
 
     vote = (e) => {
         let name = e.currentTarget.name
-        // axios.put(`http://localhost:4000/data/post/points/${name}`)
-        this.setState({ [name]: true })
+        axios.put(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}/${name}`)
+        if(name === "up"){
+            this.setState({voted: true})
+        } else {this.setState({voted: false})}
     }
 
-    removeVote = (e) => {
-        let name = e.currentTarget.name // Tell tomer that there will be another parameter: remove or add
-        // axios.put(`http://localhost:4000/data/post/points/${name}`)
-        this.setState({[name] : false})
-    }
     comment = async () => {
         let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
         await axios.post(`http://localhost:4000/data/comment`, data)
@@ -61,25 +62,12 @@ class Result extends Component {
             <div>{post.user.name}</div>
             <div>{post.title}</div>
             <div>{post.points}</div>
-            
-            {this.state.votedUp ?
-                <div>
-                    <button onClick={this.removeVote} name="votedUp">Remove Up vote</button>
-                    {/* <button onClick={this.vote} name="votedDown">Down vote</button> */}
-                </div> :
-                this.state.votedDown ?
-                    <div>
-                        {/* <button onClick={this.vote} name="votedUp">Up vote</button> */}
-                        <button onClick={this.removeVote} name="votedDown">Remove Down vote</button>
-                    </div> : <div>
-                        <button onClick={this.vote} name="votedUp">Up vote</button>
-                        <button onClick={this.vote} name="votedDown">Down vote</button>
-                    </div>
 
-            }
-
-
-
+            {this.state.voted ? 
+            <button name="down" onClick={this.vote}>Take out vote</button>    
+            : <button name="up" onClick={this.vote}>vote</button>   
+        }
+        
             <div>{post.content}</div>
             <div>{post.address}</div>
             <div>{post.category}</div>
