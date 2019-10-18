@@ -23,18 +23,13 @@ router.delete('/data/votes/:postId/:usersPhone', (req, res) => {
 })
 
 router.get('/data/votes/:postId/:usersPhone', async (req, res) => {
-    const {
-        postId,
-        usersPhone
-    } = req.params
+    const { postId,usersPhone} = req.params
     let num = await Vote.find({
         postId: req.params.postId
     })
-    Vote.find({
-            postId,
-            usersPhone
-        },
+    Vote.findOne({ postId,usersPhone},
         ((err, doc) => {
+            console.log(doc)
             let bool = doc ? true : false
             res.send({
                 voted: bool,
