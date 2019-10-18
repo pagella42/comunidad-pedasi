@@ -128,7 +128,8 @@ router.get('/data/comments/:postId', (req, res) => {
             let comments = post.comments.map(c => {
                 return {
                     content: c.content,
-                    user: c.user.name
+                    user: c.user.name,
+                    date: c.date
                 }
             })
             res.send(comments)
