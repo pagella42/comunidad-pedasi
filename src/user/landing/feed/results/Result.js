@@ -39,7 +39,6 @@ class Result extends Component {
         let post = this.props.post
         return (<div>
             <br />
-            <div>{post.user.name}</div>
             <div>{post.title}</div>
             <div>{post.points}</div>
             <div>{post.content}</div>
@@ -73,3 +72,4 @@ class Result extends Component {
         }
     }
 export default Result;
+
