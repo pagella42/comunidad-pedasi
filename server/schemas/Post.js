@@ -7,6 +7,7 @@ const postSchema=new Schema({
     category:String,
     points:Number(0),
     date:String,
+    anonymous:Boolean,
     user:{type: Schema.Types.ObjectId, ref: 'User'},
     status:String,
     comments:[{type:Schema.Types.ObjectId, ref:'Comment'}],
