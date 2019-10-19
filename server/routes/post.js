@@ -47,7 +47,7 @@ router.get('/data/posts/id/:id', (req, res) => {
 router.put('/data/post/points/:postId/:vote',(req,res)=>{
     const {postId,vote}=req.params
     Post.findByIdAndUpdate(postId,{
-        $inc:{points: vote=="up"? 1 : vote=="down"? -1 :null}
+        $inc:{points: vote=="post"? 1 : vote=="delete"? -1 :null}
     },(err,doc)=>res.send(doc))
 })
 

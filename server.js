@@ -7,6 +7,7 @@ const user = require ('./server/routes/user')
 const comment = require ('./server/routes/comment')
 const category = require ('./server/routes/category')
 const response = require ('./server/routes/response')
+const votes = require ('./server/routes/votes')
 
 const app = express()
 const PORT = 4000
@@ -30,6 +31,7 @@ app.use('/',user)
 app.use('/',comment)
 app.use('/',category)
 app.use('/',response)
+app.use('/',votes)
 
 
 app.listen(PORT,()=>console.log(`Running on port: ${PORT}`))
