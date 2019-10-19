@@ -37,7 +37,6 @@ class CreatePost extends Component {
     }
 
     confirmPost = async () => {
-        debugger
         let usersPhone = this.props.phone
         let post = {...this.state.post}
         let date = new Date()
