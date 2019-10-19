@@ -6,7 +6,8 @@ class Feed extends Component {
     constructor(){
         super()
         this.state={
-            posts: []
+            posts: [],
+            filter: 'Public Disturbance',
         }
     }
 
@@ -15,10 +16,18 @@ class Feed extends Component {
         let response = await axios.get("http://localhost:4000/data/posts")
         let posts = response.data
         posts.sort((a, b) => (a.date > b.date) ? -1 : 1)
-        this.setState({posts : posts})
+        this.setState({posts : posts})  
+    }
+
+    getFilterdPosts = async () => {
+        let response = await axios.get(`http://localhost:4000/data/posts/category/${this.state.filter}`)
+        let posts = response.data
+        posts.sort((a, b) => (a.date > b.date) ? -1 : 1)
+        this.setState({posts : posts})  
     }
 
     async componentDidMount(){
+        this.state.filter? await this.getFilterdPosts() :
         await this.getAllPosts()
     }
 
