@@ -19,9 +19,9 @@ class ResultDetail extends Component {
     update = event => this.setState({ [event.target.name]: event.target.value })
 
     sendResp = async () => {
-        await axios.post(`http://localhost:4000/data/response/${this.state.post.data._id}`,
+        await axios.post(`http://localhost:4000/data/response/${this.state.post._id}`,
             { content: this.state.content, date: new Date(), employee: this.state.employee })
-        await axios.put(`http://localhost:4000/data/post/status/${this.state.status}/${this.state.post.data._id}`)
+        await axios.put(`http://localhost:4000/data/post/status/${this.state.status}/${this.state.post._id}`)
         this.getData()
     }
 
@@ -29,24 +29,25 @@ class ResultDetail extends Component {
         const pID = this.props.match.params.id
         const post = await axios.get(`http://localhost:4000/data/posts/id/${pID}`)
         const responses = await axios.get(`http://localhost:4000/data/responses/${pID}`)
-        //const comments = await axios.get(`http://localhost:4000/data/comments/${pID}`)
-        //console.log(comments)
-        this.setState({ post, responses: responses.data })
+        const comments = await axios.get(`http://localhost:4000/data/comments/${pID}`)
+        this.setState({ post: post.data, responses: responses.data, comments: comments.data })
     }
 
     componentDidMount = () => this.getData()
 
     render() {
-        const p = this.state.post.data
+        const p = this.state.post
         const r = this.state.responses
+        const c = this.state.comments
         return (
             <div >{p
                 ?
                 <div id="container">
-                    <div id="user_info">{/*p.user*/}</div>
+                {console.log(c)}
+                    <div id="user_info">{p.user ? p.user.name : ""}</div>
                     <div id="title_problem"><h3 >{p.title}</h3></div>
                     <div id="description">{p.content}</div>
-                    <div id="comments">{}</div>
+                    <div id="comments">{c.map(c => <div key={c._id}>{c.content} - {c.user} - {c.date}</div>)}</div>
                     <div id="photo"><img src={p.picture} alt="Evidence"></img></div>
                     <div id="category">{p.category}</div>
                     <div id="address">{p.address}</div>
