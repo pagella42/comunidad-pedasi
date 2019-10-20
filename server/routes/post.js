@@ -30,11 +30,13 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 })
 
 
-router.get('/data/posts', async (req, res) => {
+router.get('/data/posts/:sortBy?', async (req, res) => {
+    const sortBy=req.params.sortBy
     Post.find({})
         .populate("user")
-        .exec((err, post) => {
-            res.send(post)
+        .sort(sortBy==='points'? '-points': '-date')
+        .exec((err, posts) => {
+            res.send(posts)
         })
 })
 

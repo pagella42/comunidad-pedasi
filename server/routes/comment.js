@@ -33,7 +33,8 @@ router.post('/data/comment', async (req, res) => {
 
 })
 
-router.get('/data/comments/:postId', (req, res) => {
+router.get('/data/comments/:postId/:sortBy?', (req, res) => {
+    const sortBy= req.params.sortBy
     Post.findById(req.params.postId)
         .populate({
             path: 'comments',
@@ -41,6 +42,7 @@ router.get('/data/comments/:postId', (req, res) => {
                 path: "user"
             }
         })
+        // .sort(sortBy==='points'? {points:-1}: {date:-1})
         .exec((err, post) => {
             let comments = post.comments.map(c => {
                 return {
