@@ -6,7 +6,7 @@ class Feed extends Component {
     constructor(){
         super()
         this.state={
-            posts: []
+            posts: [],
         }
     }
 
@@ -22,6 +22,7 @@ class Feed extends Component {
         await this.getAllPosts()
     }
 
+   
 
     render() {
         return (

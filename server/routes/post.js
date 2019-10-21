@@ -35,7 +35,12 @@ router.post('/data/post/:usersPhone', async (req, res) => {
     post.user = await User.findOne({
         "phone": req.params.usersPhone
     })
+<<<<<<< HEAD
+    console.log(post.user)
+    post.save((err, doc) => console.log(doc))
+=======
     post.save()
+>>>>>>> master
 
     updateUserPosts(req.params.usersPhone, post)
         .then((doc) => res.send(doc))
@@ -60,16 +65,15 @@ router.get('/data/posts', async (req, res) => {
 })
 router.put('/data/date/:postId',(req,res)=>{
     Post.findByIdAndUpdate(req.params.postId,{
-        $set:{date:new Date(req.body.date)}
-    },{new:true}).exec((err,doc)=>doc.date)
+        $set:{date:new Date(2017, 11, 16)}
+    },{new:true}).exec((err,doc)=>res.send(doc.date))
 })
 
 
 
 router.get('/data/posts/id/:id', (req, res) => {
     Post.findById(req.params.id)
-        .populate("user comments")
-        .sort({"comments":"-date"})
+        .populate("user comments responses")
         .exec((err, post) => res.send(post))
 })
 
@@ -87,5 +91,6 @@ router.put('/data/post/status/:status/:postId', (req, res) => {
         }
     },{new:true},(err,doc)=>res.send(doc))
 })
+
 
 module.exports= router
