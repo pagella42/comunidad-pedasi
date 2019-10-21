@@ -11,24 +11,42 @@ class Search extends Component {
                 filter: [], 
                 user: [],
                 keywords: [],
-                done: [],
+                all: [],
+            }, 
+            didSearch: {
+                filter: false, 
+                user: false, 
+                keywords: false,
             }
         }
     }
 
     saveFoundPosts = (posts, where) => {
+        debugger
         let foundPosts = {...this.state.foundPosts}
         foundPosts[where] = posts
-        this.setState({ foundPosts: posts })
+        let didSearch = {...this.state.didSearch}
+        didSearch[where] = true
+        this.setState({ foundPosts: foundPosts, didSearch : didSearch  })
+    }
+
+    searchDone = () => {
+        debugger
+        let foundPosts = {...this.state.foundPosts}
+        foundPosts.all = foundPosts.keywords
+        let didSearch = {...this.state.didSearch}
+        didSearch.filter = false
+        didSearch.user = false
+        didSearch.keywords = false
+        this.setState({foundPosts : foundPosts, didSearch : didSearch})
     }
 
     render() {
         return (
             <div>
                 <div>Search</div>
-                <Filter saveFoundPosts={this.saveFoundPosts} foundPosts={this.state.foundPosts.user} />
+                <Filter searchDone={this.searchDone} saveFoundPosts={this.saveFoundPosts} foundPosts={this.state.foundPosts} didSearch={this.state.didSearch}/>
                 <SearchResults foundPosts={this.state.foundPosts} />
-                {/* Need to add hierarchy:  first user, then filtering, then keywords */}
             </div>
         );
     }

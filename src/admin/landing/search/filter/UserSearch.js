@@ -32,14 +32,30 @@ class UserSearch extends Component {
         let response = await Axios.get('http://localhost:4000/data/posts')
         this.setState({ posts: response.data })
     }
+
     getAllUsers = async () => {
         let response = await Axios.get('http://localhost:4000/data/users')
         this.setState({ users: response.data })
     }
-    componentDidMount() {
-        this.getAllUsers()
-        this.getAllPosts()
+
+    async componentDidUpdate() {
+        if(this.props.executeUserSearch){
+            if(this.props.didSearch){
+                await this.setState({posts : this.props.posts})
+            } else {
+                await this.getAllPosts() 
+            }
+            if(this.state.user.name !== ""){
+                this.search()
+            } else {
+                this.props.saveFoundPosts(this.props.posts, "user")
+            }
+        }
     }
+    componentDidMount(){
+        this.getAllUsers()
+    }
+
     render() {
         return (
             <div>
