@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 class Filter extends Component {
   constructor() {
     super();
@@ -12,7 +13,8 @@ class Filter extends Component {
         category: "All",
         status: "All",
         language: "All"
-      }
+      },
+      categories: [],
     };
   }
   filter = async () => {
@@ -39,7 +41,9 @@ class Filter extends Component {
 
         break;
       default:
-        console.log("nothing");
+        filter.sort.by = "date";
+        filter.sort.order = 1;
+        break;
     }
 
     this.setState({ filter });
@@ -62,10 +66,21 @@ class Filter extends Component {
       filter
     });
   };
+
+  getCategories = async () => {
+     let response= await  axios.get('http://localhost:4000/data/categories')
+     let categories = response.data.map(p => p.name)
+     await this.setState({categories})
+    
+  }
+
+  componentDidMount = () => {
+      this.getCategories()
+  }
   render() {
     return (
       <div>
-          <label htmlFor="">sort by</label>
+        <label htmlFor="">sort by</label>
         <select
           name="sort"
           onChange={this.updateSort}
@@ -84,14 +99,9 @@ class Filter extends Component {
           value={this.state.filter.category}
           id=""
         >
-          <option value="All">All</option>
-          <option value="Disorderly Conduct">Disorderly Conduct</option>
-          <option value="General">General</option>
-          <option value="Noise">Noise</option>
-          <option value="Public Disturbance"></option>
-          <option value="Tresspassing"></option>
-          <option value="Utilities">Utilities</option>
-          <option value="Violence">Violence</option>
+            <option value='All'>All</option>
+            {this.state.categories.map(c => <option value={c}>{c}</option>)}
+
         </select>
 
         <label htmlFor="">status</label>
