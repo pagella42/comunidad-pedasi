@@ -10,9 +10,9 @@ class Filter extends Component {
           by: "date",
           order: 1
         },
-        category: "All",
-        status: "All",
-        language: "All"
+        category: 0,
+        status: 0,
+        language: 0
       },
       categories: [],
     };
@@ -49,7 +49,6 @@ class Filter extends Component {
     this.setState({ filter });
 
     this.props.getPosts(this.state.filter);
-    console.log(this.state.filter);
   };
 
   updateSort = async event => {
@@ -87,9 +86,9 @@ class Filter extends Component {
           value={this.state.sort}
           id=""
         >
-          <option value="dh">date high to low</option>
+          <option value="cl">date high to low</option>
           <option value="dl">date low to hight</option>
-          <option value="ph">Points hight low</option>
+          <option value="ph">Points high to low</option>
           <option value="pl">Points low to high</option>
         </select>
         <label htmlFor="">category</label>
@@ -99,8 +98,8 @@ class Filter extends Component {
           value={this.state.filter.category}
           id=""
         >
-            <option value='All'>All</option>
-            {this.state.categories.map(c => <option value={c}>{c}</option>)}
+            <option value=''>All</option>
+            {this.state.categories.map(c => <option value={c.toLowerCase()}>{c}</option>)}
 
         </select>
 
@@ -111,7 +110,7 @@ class Filter extends Component {
           value={this.state.filter.status}
           id=""
         >
-          <option value="All">All</option>
+          <option value="">All</option>
           <option value="pending aproval">pending aproval</option>
           <option value="in discussion">In Discussion</option>
           <option value="Resovled">Resovled</option>
@@ -124,8 +123,8 @@ class Filter extends Component {
           value={this.state.filter.language}
           id=""
         >
-          <option value="All">All</option>
-          <option value="Espanol">Espanol</option>
+          <option value="">All</option>
+          <option value="es">Espanol</option>
           <option value="en">English</option>
         </select>
         <button onClick={this.filter}>Send</button>

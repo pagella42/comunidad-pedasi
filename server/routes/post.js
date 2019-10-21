@@ -45,7 +45,7 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 router.post('/data/posts',(req,res)=>{
     let{sort,category,status,language}=req.body
     Post.find(makeFilterObject(category,status,language))
-    .sort({[sort.by]:order})
+    .sort({[sort.by]:sort.order})
     .exec((err,doc)=>res.send(doc))
     
 })

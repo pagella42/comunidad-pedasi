@@ -12,12 +12,16 @@ class Feed extends Component {
         }
     }
 
-    getPosts = async (parameters) => {
+    getPosts = async (filter) => {
         // create a loader here
-        let response = await axios.get("http://localhost:4000/data/posts")
+        console.log(filter)
+        let response = await axios.post("http://localhost:4000/data/posts", filter)
         let posts = response.data
+        console.log(posts.map(p => p.points))
 
-        this.setState({posts : posts})  
+        this.setState({posts : posts}) 
+        
+        console.log(this.state.posts.map(p => p.points))
     }
 
     async componentDidMount(){
