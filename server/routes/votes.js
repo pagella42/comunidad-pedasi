@@ -29,7 +29,6 @@ router.get('/data/votes/:postId/:usersPhone', async (req, res) => {
     })
     Vote.findOne({ postId,usersPhone},
         ((err, doc) => {
-            console.log(doc)
             let bool = doc ? true : false
             res.send({
                 voted: bool,

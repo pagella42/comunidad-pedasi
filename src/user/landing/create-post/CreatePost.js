@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import VerifyPost from './VerifyPost';
 import ImageUpload from '../../../ImageUpload/ImageUpload'
+
 class CreatePost extends Component {
     constructor() {
         super()
