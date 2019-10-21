@@ -9,10 +9,10 @@ class Filter extends Component {
             found: [],
             posts: [],
             keywordSearch: [
-                {name: "title", checked: false},
-                {name: "content", checked: false},
-                {name: "comments", checked: false},
-                {name: "responses", checked: false},
+                { name: "title", checked: false },
+                { name: "content", checked: false },
+                { name: "comments", checked: false },
+                { name: "responses", checked: false },
 
             ]
         }
@@ -36,7 +36,7 @@ class Filter extends Component {
     }
 
     handleSearch = () => {
-        let keywordSearch = [ ...this.state.keywordSearch ]
+        let keywordSearch = [...this.state.keywordSearch]
         let checkedCheckboxes = keywordSearch.filter(keyword => keyword.checked === true)
         let options = checkedCheckboxes
         this.search(options, this.state.keyword)
@@ -44,33 +44,35 @@ class Filter extends Component {
 
     getAllPosts = async () => {
         let response = await Axios.get('http://localhost:4000/data/posts')
-        this.setState({posts: response.data})
+        this.setState({ posts: response.data })
     }
 
     search = (options, text) => {
-        debugger
         let searchArray = text.toLowerCase()
         let filteredPosts = []
+        let nothing
         this.state.posts.map(post => {
-             options.forEach(option => {
-                 if(option.name ==="comments"){
-                     let value = post[option.name.content].toLowerCase()
-                     if (value.includes(searchArray)) {
-                         filteredPosts.push(post)
-                     } else { return undefined }
-                 } else {
-                     let value = post[option.name].toLowerCase()
-                         if (value.includes(searchArray)) {
-                             filteredPosts.push(post)
-                         } else { return undefined }
-                 }
+            options.forEach(option => {
+                if (option.name === "comments" || option.name === "responses") {
+                    post[option.name].forEach(name => {
+                        let value = name.content.toLowerCase()
+                        if (value.includes(searchArray)) {
+                            filteredPosts.includes(post) ? nothing = null : filteredPosts.push(post)
+                        } else { return undefined }
+                    })
+                } else {
+                    let value = post[option.name].toLowerCase()
+                    if (value.includes(searchArray)) {
+                        filteredPosts.includes(post) ? nothing = null : filteredPosts.push(post)
+                    } else { return undefined }
+                }
             })
         })
         this.setState({ found: filteredPosts })
         this.props.saveFoundPosts(filteredPosts)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getAllPosts()
     }
 
@@ -92,7 +94,7 @@ class Filter extends Component {
                 </div>
                 <div>
                     <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleChange} />
-                    <label htmlFor="response-checkbox">response</label>
+                    <label htmlFor="responses-checkbox">responses</label>
                 </div>
                 <button onClick={this.handleSearch}>Search</button>
             </div>

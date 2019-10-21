@@ -12,7 +12,6 @@ class Search extends Component {
     }
 
     saveFoundPosts = (posts) => {
-        debugger
         this.setState({foundPosts : posts})
     }
 
