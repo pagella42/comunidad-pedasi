@@ -35,7 +35,12 @@ router.post('/data/post/:usersPhone', async (req, res) => {
     post.user = await User.findOne({
         "phone": req.params.usersPhone
     })
+<<<<<<< HEAD
+    console.log(post.user)
+    post.save((err, doc) => console.log(doc))
+=======
     post.save()
+>>>>>>> master
 
     updateUserPosts(req.params.usersPhone, post)
         .then((doc) => res.send(doc))
@@ -86,5 +91,6 @@ router.put('/data/post/status/:status/:postId', (req, res) => {
         }
     },{new:true},(err,doc)=>res.send(doc))
 })
+
 
 module.exports= router
