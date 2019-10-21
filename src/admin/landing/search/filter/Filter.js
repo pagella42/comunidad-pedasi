@@ -10,7 +10,7 @@ class Filter extends Component {
             posts: [],
             keywordSearch: [
                 {name: "title", checked: false},
-                {name: "text", checked: false},
+                {name: "content", checked: false},
                 {name: "comments", checked: false},
                 {name: "responses", checked: false},
 
@@ -48,17 +48,26 @@ class Filter extends Component {
     }
 
     search = (options, text) => {
+        debugger
         let searchArray = text.toLowerCase()
         let filteredPosts = []
         this.state.posts.map(post => {
              options.forEach(option => {
-                let value = post[option.name].toLowerCase()
-                if (value.includes(searchArray)) {
-                    filteredPosts.push(post)
-                } else { return undefined }
+                 if(option.name ==="comments"){
+                     let value = post[option.name.content].toLowerCase()
+                     if (value.includes(searchArray)) {
+                         filteredPosts.push(post)
+                     } else { return undefined }
+                 } else {
+                     let value = post[option.name].toLowerCase()
+                         if (value.includes(searchArray)) {
+                             filteredPosts.push(post)
+                         } else { return undefined }
+                 }
             })
         })
         this.setState({ found: filteredPosts })
+        this.props.saveFoundPosts(filteredPosts)
     }
 
     componentDidMount(){
@@ -74,8 +83,8 @@ class Filter extends Component {
                     <label htmlFor="title-checkbox">title</label>
                 </div>
                 <div>
-                    <input type="checkbox" name="search-keyword" id="text" onClick={this.handleChange} />
-                    <label htmlFor="text-checkbox">text</label>
+                    <input type="checkbox" name="search-keyword" id="content" onClick={this.handleChange} />
+                    <label htmlFor="content-checkbox">content</label>
                 </div>
                 <div>
                     <input type="checkbox" name="search-keyword" id="comments" onClick={this.handleChange} />
