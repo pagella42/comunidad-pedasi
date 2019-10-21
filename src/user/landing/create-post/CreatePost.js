@@ -84,13 +84,28 @@ class CreatePost extends Component {
 
     anonymous = () => {
         let post = { ...this.state.post }
-        post.anonymous = !this.state.post.anonymous
+        if(this.state.post.anonymous){
+            post.anonymous = false
+            post.private = false
+        }
+        else{
+            post.anonymous = true
+            post.private = false
+        }
+        
         this.setState({ post: post })
     }
 
     private = () => {
         let post = { ...this.state.post }
-        post.private = !this.state.post.private
+        if(this.state.post.private){
+            post.private = false
+            post.anonymous= false
+        }
+        else{
+            post.private = true
+            post.anonymous= false
+        }
         this.setState({ post: post })
     }
 
@@ -104,11 +119,6 @@ class CreatePost extends Component {
                     {this.state.categories.map(category => <option value={category}>{category}</option>)}
                 </select>
                 <ImageUpload saveUrl={this.saveUrl} />
-                <button onClick={this.verifyPost}>Submit</button>
-                {/* Pop up : please review your post */}
-                {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
-
-
                 {this.state.post.private ?
                     <div>Cant hide username when post is private</div> :
 
@@ -129,8 +139,13 @@ class CreatePost extends Component {
                         {this.state.post.private ? "Post to feed" : "Send only to Municipality"}
                     </button>
 
-                    {this.state.post.anonymous ? "-->Sending only to Municipality" : "-->Posting to feed"}
+                    {this.state.post.private ? "-->Sending only to Municipality" : "-->Posting to feed"}
                 </div>
+                <button onClick={this.verifyPost}>Submit</button>
+                {/* Pop up : please review your post */}
+                {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
+
+
 
             </div>
         );

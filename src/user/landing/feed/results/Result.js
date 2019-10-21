@@ -68,7 +68,7 @@ class Result extends Component {
         return (<div>
             <br />
             {/* show or not username */}
-           <div> {post.anonymous ? "Anonymous Post" : post.user.name}</div>
+           <div> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span> }</div>
             
 
             <div>{post.title}</div>
