@@ -34,23 +34,24 @@ router.post('/data/comment', async (req, res) => {
 })
 
 router.get('/data/comments/:postId', (req, res) => {
-    Post.findById(req.params.postId)
-        .populate({
-            path: 'comments',
-            populate: {
-                path: "user"
-            }
+    Comment.find({
+            "post": req.params.postId
         })
-        .exec((err, post) => {
-            let comments = post.comments.map(c => {
+        .populate('user')
+        .sort('-date')
+        .exec((err, comments) => {
+            comments = comments.map(c => {
                 return {
-                    content: c.content,
+                    _id: c._id,
                     user: c.user.name,
-                    date: c.date
+                    content:c.content,
+                    date:c.date
                 }
             })
             res.send(comments)
+
         })
 })
+
 
 module.exports = router
