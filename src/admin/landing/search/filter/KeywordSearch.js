@@ -69,11 +69,14 @@ class KeywordSearch extends Component {
             })
         })
         this.setState({ found: filteredPosts })
-        this.props.saveFoundPosts(filteredPosts)
+        this.props.saveFoundPosts(filteredPosts, "keyword")
     }
 
-    componentDidMount() {
-        this.getAllPosts()
+    componentDidUpdate() {
+        debugger
+        this.props.foundPosts.length > 0 
+        ? this.setState({posts: this.props.foundPosts}) 
+        : this.getAllPosts()
     }
 
     render() {

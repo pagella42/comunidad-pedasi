@@ -25,6 +25,7 @@ class UserSearch extends Component {
         let posts = this.state.posts
         let postFromUser = posts.filter(post => post.user.phone === this.state.user.phone)
         this.setState({postFromUser : postFromUser})
+        this.props.saveFoundPosts(postFromUser, "user")
     }
 
     getAllPosts = async () => {

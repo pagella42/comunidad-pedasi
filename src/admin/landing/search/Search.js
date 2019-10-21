@@ -3,24 +3,32 @@ import Filter from './filter/Filter';
 import SearchResults from './searchResults/SearchResults';
 
 class Search extends Component {
-    constructor(){
+    constructor() {
         super()
         this.state = {
             posts: [],
-            foundPosts: [],
+            foundPosts: {
+                filter: [], 
+                user: [],
+                keywords: [],
+                done: [],
+            }
         }
     }
 
-    saveFoundPosts = (posts) => {
-        this.setState({foundPosts : posts})
+    saveFoundPosts = (posts, where) => {
+        let foundPosts = {...this.state.foundPosts}
+        foundPosts[where] = posts
+        this.setState({ foundPosts: posts })
     }
 
     render() {
         return (
             <div>
                 <div>Search</div>
-                <Filter saveFoundPosts={this.saveFoundPosts}/>
-                <SearchResults foundPosts={this.state.foundPosts}/>
+                <Filter saveFoundPosts={this.saveFoundPosts} foundPosts={this.state.foundPosts.user} />
+                <SearchResults foundPosts={this.state.foundPosts} />
+                {/* Need to add hierarchy:  first user, then filtering, then keywords */}
             </div>
         );
     }
