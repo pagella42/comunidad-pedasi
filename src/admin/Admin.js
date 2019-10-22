@@ -8,7 +8,7 @@ class Admin extends Component {
     constructor() {
         super()
         this.state = {
-            login: {
+            adminLogin: {
                 username: "",
                 isLoggedIn: false,
             },
@@ -18,43 +18,43 @@ class Admin extends Component {
 
     login = (username, password) => {
         if (password === this.state.password) {
-            let login = { username: username, isLoggedIn: true }
-            this.setState({ login: login })
-            localStorage.login = JSON.stringify(login)
+            let adminLogin = { username: username, isLoggedIn: true }
+            this.setState({ adminLogin: adminLogin })
+            localStorage.adminLogin = JSON.stringify(adminLogin)
         } else {
             alert("Wrong password")
         }
     }
     logout = () => {
-        localStorage.clear()
-        let login = { username: "", isLoggedIn: false }
-        this.setState({ login: login })
+        let adminLogin = { username: "", isLoggedIn: false }
+        localStorage.adminLogin = JSON.stringify(adminLogin)
+        this.setState({ adminLogin: adminLogin })
     }
 
     componentDidMount() {
-        let login
-        if (localStorage.login) {
-            login = JSON.parse(localStorage.login)
+        let adminLogin
+        if (localStorage.adminLogin !== undefined) {
+            adminLogin = JSON.parse(localStorage.adminLogin)
         } else {
-            login = this.state.login
+            adminLogin = this.state.adminLogin
         }
-        this.setState({ login: login })
+        this.setState({ adminLogin: adminLogin })
     }
 
-    render() {
-        return (
-            <div>
-                {this.state.login.isLoggedIn ?
-                    <div> <Landing />
-                        <button onClick={this.logout}>Log out</button>
-                    </div>
-                    : <Login login={this.login} />}
+render() {
+    return (
+        <div>
+            {this.state.adminLogin.isLoggedIn ?
+                <div> <Landing />
+                    <button onClick={this.logout}>Log out</button>
+                </div>
+                : <Login login={this.login} />}
 
-                {/* ==== Admin Routes below ====  */}
-                {/* <Route path="/admin/explore" exact render={() => <Explore />} />
+            {/* ==== Admin Routes below ====  */}
+            {/* <Route path="/admin/explore" exact render={() => <Explore />} />
                 <Route path="/admin/search" exact render={() => <Search />} /> */}
-            </div>
-        )
-    }
+        </div>
+    )
+}
 }
 export default Admin;

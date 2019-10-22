@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../schemas/User')
+const Post = require('../schemas/Post')
+
+
 
 router.post('/data/user',(req,res)=>{
     let user = new User(req.body)
@@ -9,13 +12,14 @@ router.post('/data/user',(req,res)=>{
     res.end()
 })
 router.get('/data/user/:usersPhone',(req,res)=>{
+    
     User.findOne({phone:req.params.usersPhone})
-    .populate('posts')
     .exec((err,user)=>res.send(user))
 })
 router.put('/data/user/:usersPhone',(req,res)=>{
+    
     User.findOneAndUpdate({phone:req.params.usersPhone},{
-        $set:{[req.body.key]:req.body.value}
+        $set:req.body
     },(()=>res.end()))
 })
 router.get('/data/users', (req,res)=> {
@@ -23,6 +27,13 @@ router.get('/data/users', (req,res)=> {
 })
 
 
+router.get('/data/posts/:usersPhone', async (req,res)=>{
+    let user = await User.findOne({phone:req.params.usersPhone})
+    Post.find({'user':user._id})
+    .populate('comments responses user')
+    .sort('-date')
+    .exec((err,doc)=>res.send(doc))
+})
 
 
 

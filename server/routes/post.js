@@ -24,7 +24,6 @@ function makeFilterObject(category,status,language,private,user){
     language? obj.language=language: null
     private? obj.private=private: null
     user? obj.user=user:null
-    console.log(obj)
     return obj
 }
 
@@ -46,7 +45,7 @@ router.post('/data/posts', async (req,res)=>{
     let{sort,category,status,language,private,user}=req.body
     Post.find(makeFilterObject(category,status,language,private,user))
     .populate(`user comments responses`)
-    .sort(sort ? {[sort.by]:sort.order} : null)
+    .sort(sort ? {[sort.by]:sort.order} : {date:-1})
     .exec((err,doc)=>res.send(doc))
 })
 
