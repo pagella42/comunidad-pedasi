@@ -16,10 +16,7 @@ function updateUserPosts(usersPhone, post) {
         "new": true
     })
 }
-function getFullDate(){
-    let d= new Date()
-    return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
-}
+
 function makeFilterObject(category,status,language){
     let obj={}
     category? obj.category=category:null
@@ -68,11 +65,7 @@ router.get('/data/posts', async (req, res) => {
             res.send(posts)
         })
 })
-router.put('/data/date/:postId',(req,res)=>{
-    Post.findByIdAndUpdate(req.params.postId,{
-        $set:{date:new Date(2017, 11, 16)}
-    },{new:true}).exec((err,doc)=>res.send(doc.date))
-})
+
 
 
 
