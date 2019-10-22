@@ -39,10 +39,20 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 
 })
 
-router.post('/data/posts',(req,res)=>{
+router.post('/data/posts', async (req,res)=>{
     let{sort,category,status,language}=req.body
+    
+    // this is a hack. Should find a better way to determine whether there are filter params or not
+    if(!req.body.sort){
+        const allPosts = await Post.find({})
+        .populate(`user comments responses`)
+
+        return res.send(allPosts)
+    }
+
     Post.find(makeFilterObject(category,status,language))
-    .sort(sort?{[sort.by]:sort.order}:null)
+    .populate(`user comments responses`)
+    .sort({[sort.by]:sort.order})
     .exec((err,doc)=>res.send(doc))
     
 })
