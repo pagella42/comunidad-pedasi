@@ -17,20 +17,31 @@ class Search extends Component {
                 filter: false, 
                 user: false, 
                 keywords: false,
+            }, 
+            search: {
+                filter: false,
+                user: false,
+                keywords: false,
             }
         }
     }
 
-    saveFoundPosts = (posts, where) => {
+    executeSearch = () => {
+        let search = {...this.state.search}
+        search.user = true
+        this.setState({search : search})
+    }
+
+    saveFoundPosts = async (posts, where) => {
         debugger
         let foundPosts = {...this.state.foundPosts}
         foundPosts[where] = posts
         let didSearch = {...this.state.didSearch}
         didSearch[where] = true
-        this.setState({ foundPosts: foundPosts, didSearch : didSearch  })
+        await this.setState({ foundPosts: foundPosts, didSearch : didSearch  })
     }
 
-    searchDone = () => {
+    searchDone = async () => {
         debugger
         let foundPosts = {...this.state.foundPosts}
         foundPosts.all = foundPosts.keywords
@@ -38,14 +49,21 @@ class Search extends Component {
         didSearch.filter = false
         didSearch.user = false
         didSearch.keywords = false
-        this.setState({foundPosts : foundPosts, didSearch : didSearch})
+        await this.setState({foundPosts : foundPosts, didSearch : didSearch})
     }
+
 
     render() {
         return (
             <div>
                 <div>Search</div>
-                <Filter searchDone={this.searchDone} saveFoundPosts={this.saveFoundPosts} foundPosts={this.state.foundPosts} didSearch={this.state.didSearch}/>
+                <Filter 
+                searchDone={this.searchDone} 
+                saveFoundPosts={this.saveFoundPosts} 
+                foundPosts={this.state.foundPosts} 
+                didSearch={this.state.didSearch}
+                search={this.state.search}/>
+
                 <SearchResults foundPosts={this.state.foundPosts} />
             </div>
         );

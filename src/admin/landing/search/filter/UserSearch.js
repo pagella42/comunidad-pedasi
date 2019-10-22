@@ -21,29 +21,34 @@ class UserSearch extends Component {
         this.setState({user: user})
     }
 
+    
     search = () => {
         let posts = this.state.posts
         let postFromUser = posts.filter(post => post.user.phone === this.state.user.phone)
         this.setState({postFromUser : postFromUser})
         this.props.saveFoundPosts(postFromUser, "user")
+        this.props.doNotExecute("executeUserSearch")
     }
-
+    
     getAllPosts = async () => {
         let response = await Axios.get('http://localhost:4000/data/posts')
         this.setState({ posts: response.data })
     }
-
+    
     getAllUsers = async () => {
         let response = await Axios.get('http://localhost:4000/data/users')
         this.setState({ users: response.data })
     }
-
-    async componentDidUpdate() {
-        if(this.props.executeUserSearch){
+    
+    // If this.props.search ? ex
+    ecute search : do nothing
+    async componentWillReceiveProps() {
+        if(this.props.search){
             if(this.props.didSearch){
-                await this.setState({posts : this.props.posts})
+                // await this.setState({posts : this.props.posts})
+                await this.getAllPosts()
             } else {
-                await this.getAllPosts() 
+                await this.getAllPosts() // Just for the beginning because filter not here yet
             }
             if(this.state.user.name !== ""){
                 this.search()
@@ -66,7 +71,7 @@ class UserSearch extends Component {
                 <datalist id="data">
                     {this.state.users.map(user => <option value={user.name} key={user._id} />)}
                 </datalist>
-                <button onClick={this.search}>Search for posts from user</button>
+                {/* <button onClick={this.search}>Search for posts from user</button> */}
             </div>
         );
     }

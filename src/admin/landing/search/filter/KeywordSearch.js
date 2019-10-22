@@ -35,19 +35,19 @@ class KeywordSearch extends Component {
         }
     }
 
-    handleSearch = () => {
+    handleSearch = async () => {
         let keywordSearch = [...this.state.keywordSearch]
         let checkedCheckboxes = keywordSearch.filter(keyword => keyword.checked === true)
         let options = checkedCheckboxes
-        this.search(options, this.state.keyword)
+        await this.search(options, this.state.keyword)
     }
 
-    getAllPosts = async () => {
-        let response = await Axios.get('http://localhost:4000/data/posts')
-        this.setState({ posts: response.data })
-    }
+    // getAllPosts = async () => {
+    //     let response = await Axios.get('http://localhost:4000/data/posts')
+    //     this.setState({ posts: response.data })
+    // }
 
-    search = (options, text) => {
+    search = async (options, text) => {
         let searchArray = text.toLowerCase()
         let filteredPosts = []
         let nothing
@@ -69,14 +69,16 @@ class KeywordSearch extends Component {
             })
         })
         this.setState({ found: filteredPosts })
-        this.props.saveFoundPosts(filteredPosts, "keyword")
+        await this.props.saveFoundPosts(filteredPosts, "keyword")
+        await this.searchDone()
     }
 
-    componentDidUpdate() {
+    async componentDidUpdate() {
         debugger
-        this.props.foundPosts.length > 0 
-        ? this.setState({posts: this.props.foundPosts}) 
-        : this.getAllPosts()
+        if(this.props.executeKeywordSearch){
+            await this.setState({posts: this.props.foundPosts}) 
+            await this.handleSearch()
+        }
     }
 
     render() {
@@ -99,7 +101,7 @@ class KeywordSearch extends Component {
                     <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleChange} />
                     <label htmlFor="responses-checkbox">responses</label>
                 </div>
-                <button onClick={this.handleSearch}>Search</button>
+                {/* <button onClick={this.handleSearch}>Search</button> */}
             </div>
         );
     }
