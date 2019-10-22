@@ -35,7 +35,7 @@ class NewUserSearch extends Component {
         this.setState({ posts: response.data, userResults: response.data })
     }
 
-    getAllUsers = async () => {
+    getUsers = async () => {
         let response = await Axios.get('http://localhost:4000/data/users')
         this.setState({ users: response.data })
     }

@@ -17,11 +17,12 @@ function updateUserPosts(usersPhone, post) {
     })
 }
 
-function makeFilterObject(category,status,language){
+function makeFilterObject(category,status,language,user){
     let obj={}
     category? obj.category=category:null
     status? obj.status=status:null
     language? obj.language=language:null
+    user? obj.user=user:null
     return obj
 }
 
@@ -40,7 +41,7 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 })
 
 router.post('/data/posts', async (req,res)=>{
-    let{sort,category,status,language}=req.body
+    let{sort,category,status,language,user}=req.body
     
     // this is a hack. Should find a better way to determine whether there are filter params or not
     if(!req.body.sort){
@@ -50,7 +51,7 @@ router.post('/data/posts', async (req,res)=>{
         return res.send(allPosts)
     }
 
-    Post.find(makeFilterObject(category,status,language))
+    Post.find(makeFilterObject(category,status,language,user))
     .populate(`user comments responses`)
     .sort({[sort.by]:sort.order})
     .exec((err,doc)=>res.send(doc))
