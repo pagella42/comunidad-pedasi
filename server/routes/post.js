@@ -24,7 +24,6 @@ function makeFilterObject(category,status,language,private,user){
     language? obj.language=language: null
     private? obj.private=private: null
     user? obj.user=user:null
-    console.log(obj)
     return obj
 }
 
