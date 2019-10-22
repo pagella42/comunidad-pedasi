@@ -8,8 +8,12 @@ class Results extends Component {
         return (<div>
             {
                 this.props.posts.map(d => {
-                    if(!d.private || this.props.phone === d.user.phone){
-                        console.log(this.props.posts.map(p => p.title && p.points))
+                    if(!d.private  || this.props.phone === d.user.phone){
+                        console.log(d.title)
+                        console.log(d.points);
+                        console.log('---');
+                        
+                        
                       return  <Result phone={this.props.phone} post={d} /> 
                     } 
                     

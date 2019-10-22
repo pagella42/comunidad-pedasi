@@ -18,7 +18,7 @@ class Filter extends Component {
     };
   }
   filter = async () => {
-    let filter = this.state.filter;
+    let filter = {...this.state.filter};
     switch (this.state.sort) {
       case "dh":
         filter.sort.by = "date";
@@ -32,12 +32,12 @@ class Filter extends Component {
         break;
       case "ph":
         filter.sort.by = "points";
-        filter.sort.order = 1;
+        filter.sort.order = -1;
 
         break;
       case "pl":
         filter.sort.by = "points";
-        filter.sort.order = -1;
+        filter.sort.order = 1;
 
         break;
       default:

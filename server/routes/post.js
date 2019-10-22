@@ -48,6 +48,8 @@ router.post('/data/posts', async (req,res)=>{
     // this is a hack. Should find a better way to determine whether there are filter params or not
     if(!req.body.sort){
         const allPosts = await Post.find({})
+        .populate(`user comments responses`)
+
         return res.send(allPosts)
     }
 
