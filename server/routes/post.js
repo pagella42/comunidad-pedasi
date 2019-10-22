@@ -48,17 +48,8 @@ router.post('/data/posts', async (req,res)=>{
     .populate(`user comments responses`)
     .sort(sort ? {[sort.by]:sort.order} : null)
     .exec((err,doc)=>res.send(doc))
-    
 })
 
-router.get('/data/posts', async (req, res) => {
-    Post.find()
-        .populate(`user comments responses`)
-        .sort({date:-1})
-        .exec((err, posts) => {
-            res.send(posts)
-        })
-})
 
 
 
