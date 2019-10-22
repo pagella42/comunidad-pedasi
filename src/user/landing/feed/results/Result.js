@@ -67,7 +67,10 @@ class Result extends Component {
         let post = this.props.post
         return (<div>
             <br />
-            <div>{post.user.name}</div>
+            {/* show or not username */}
+           <div> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span> }</div>
+            
+
             <div>{post.title}</div>
             <div>Points: {this.state.vote.votesCount}</div>
 
@@ -103,6 +106,9 @@ class Result extends Component {
                 </div>
                 : <div>No Comments.</div>
             }
+            {post.date}
+            {post.status}
+            -----------------------------------------
         </div>)
     }
 }
