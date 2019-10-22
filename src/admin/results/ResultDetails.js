@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import '../styles/ResultDetails.css'
+import { Responses } from '../responses/Responses';
+import { Banner } from '../banner/Banner';
 
 class ResultDetail extends Component {
 
@@ -10,20 +12,10 @@ class ResultDetail extends Component {
             post: [],
             comments: [],
             responses: [],
-            content: "",
-            employee: "",
-            status: "",
         }
     }
 
     update = event => this.setState({ [event.target.name]: event.target.value })
-
-    sendResp = async () => {
-        await axios.post(`http://localhost:4000/data/response/${this.state.post._id}`,
-            { content: this.state.content, date: new Date(), employee: this.state.employee })
-        await axios.put(`http://localhost:4000/data/post/status/${this.state.status}/${this.state.post._id}`)
-        this.getData()
-    }
 
     getData = async () => {
         const pID = this.props.match.params.id
@@ -43,8 +35,10 @@ class ResultDetail extends Component {
             <div >{p
                 ?
                 <div id="container">
-                {console.log(c)}
-                    <div id="user_info">{p.user ? p.user.name : ""}</div>
+                    <div id="user_info">
+                        <h3>{p.user ? p.user.name : ""}</h3>
+                        {p.user ? < Banner userPhone={p.user.phone} /> : ""}
+                    </div>
                     <div id="title_problem"><h3 >{p.title}</h3></div>
                     <div id="description">{p.content}</div>
                     <div id="comments">{c.map(c => <div key={c._id}>{c.content} - {c.user} - {c.date}</div>)}</div>
@@ -53,10 +47,7 @@ class ResultDetail extends Component {
                     <div id="address">{p.address}</div>
                     <div id="container_response">
                         {r.map(c => <div key={c._id}>{c.content} - {c.employee} - {c.date}</div>)}
-                        <div id="content">Response<input type="text" name="content" value={this.state.name} onChange={this.update} /></div>
-                        <div id="employee">Employee<input type="text" name="employee" value={this.state.name} onChange={this.update} /></div>
-                        <div id="status">Status<input type="text" name="status" value={this.state.name} onChange={this.update} /></div>
-                        <div><button type="submit" onClick={this.sendResp} >Send</button></div>
+                        < Responses idPost={this.state.post._id} getData={this.getData} />
                     </div>
                     <div id="status_post">{p.status}</div>
                 </div>
