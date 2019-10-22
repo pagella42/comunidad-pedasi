@@ -106,6 +106,9 @@ class Result extends Component {
                 </div>
                 : <div>No Comments.</div>
             }
+            {post.date}
+            {post.status}
+            -----------------------------------------
         </div>)
     }
 }

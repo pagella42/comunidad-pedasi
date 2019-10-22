@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Results from './results/Results'
 import axios from 'axios';
 import CreatePost from '../create-post/CreatePost';
+import Filter from './filter/Filter';
 class Feed extends Component {
     constructor(){
         super()
@@ -10,16 +11,19 @@ class Feed extends Component {
         }
     }
 
-    getAllPosts = async () => {
+    getPosts = async (filter) => {
         // create a loader here
-        let response = await axios.get("http://localhost:4000/data/posts")
+       
+        let response = await axios.post("http://localhost:4000/data/posts", filter)
         let posts = response.data
-        posts.sort((a, b) => (a.date > b.date) ? -1 : 1)
-        this.setState({posts : posts})
+       
+
+        await this.setState({posts : posts}) 
+       
     }
 
     async componentDidMount(){
-        await this.getAllPosts()
+        await this.getPosts()
     }
 
    
@@ -27,8 +31,8 @@ class Feed extends Component {
     render() {
         return (
             <div>
-            {/* call filter comp */}
-            <CreatePost phone={this.props.phone} getAllPosts={this.getAllPosts}/>
+            <CreatePost phone={this.props.phone} getPosts={this.getPosts}/>
+            <Filter getPosts={this.getPosts}/>
             <Results posts={this.state.posts} phone={this.props.phone}/>
         </div>
         )
