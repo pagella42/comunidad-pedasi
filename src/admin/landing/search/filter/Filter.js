@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-class NewNewFilter extends Component {
+class Filter extends Component {
     constructor() {
         super();
         this.state = {
@@ -195,4 +195,4 @@ class NewNewFilter extends Component {
         );
     }
 }
-export default NewNewFilter;
+export default Filter;

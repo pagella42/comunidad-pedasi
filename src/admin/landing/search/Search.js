@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SearchResults from './searchResults/SearchResults';
-import NewNewFilter from './filter/NewNewFilter';
+import Filter from './filter/Filter';
 import axios from 'axios'
-class NewNewSearch extends Component {
+class Search extends Component {
     constructor(){
         super()
         this.state={
@@ -11,7 +11,6 @@ class NewNewSearch extends Component {
     }
 
     searchByKeyword = async (options, text, posts) => {
-        debugger
         let searchArray = text.toLowerCase()
         let filteredPosts = []
         let nothing
@@ -49,7 +48,7 @@ class NewNewSearch extends Component {
     render() {
         return (
             <div>
-                <NewNewFilter getPosts={this.getPosts} />
+                <Filter getPosts={this.getPosts} />
                 {this.state.posts.length > 0 ? 
                 <SearchResults foundPosts={this.state.posts} />
                 : <div>No results.</div>
@@ -59,4 +58,4 @@ class NewNewSearch extends Component {
     }
 }
 
-export default NewNewSearch;
+export default Search;
