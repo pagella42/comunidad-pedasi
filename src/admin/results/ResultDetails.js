@@ -13,10 +13,24 @@ class ResultDetail extends Component {
             content: "",
             employee: "",
             status: "",
+            ban: "",
+            banReason: ""
         }
     }
 
     update = event => this.setState({ [event.target.name]: event.target.value })
+
+    banner = () => {
+        this.setState({
+            ban: true,
+            banReason: this.state.banReason
+        }, () => {
+            console.log(this.state.ban)
+            console.log(this.state.banReason)
+            axios.put(`http://localhost:4000/data/user/${this.state.post.user.phone}`, { key: "ban", value: this.state.ban })
+            axios.put(`http://localhost:4000/data/user/${this.state.post.user.phone}`, { key: "banReason", value: this.state.banReason })
+        })
+    }
 
     sendResp = async () => {
         await axios.post(`http://localhost:4000/data/response/${this.state.post._id}`,
@@ -30,21 +44,25 @@ class ResultDetail extends Component {
         const post = await axios.get(`http://localhost:4000/data/posts/id/${pID}`)
         const responses = await axios.get(`http://localhost:4000/data/responses/${pID}`)
         const comments = await axios.get(`http://localhost:4000/data/comments/${pID}`)
-        this.setState({ post: post.data, responses: responses.data, comments: comments.data })
+        this.setState({ post: post.data, responses: responses.data, comments: comments.data }, () => console.log(this.state.post))
     }
 
-    componentDidMount = () => this.getData()
+    componentDidMount = () => { this.getData() }
 
     render() {
         const p = this.state.post
         const r = this.state.responses
         const c = this.state.comments
+        const b = this.state.ban
         return (
             <div >{p
                 ?
                 <div id="container">
-                {console.log(c)}
-                    <div id="user_info">{p.user ? p.user.name : ""}</div>
+                    <div id="user_info">
+                        <h3>{p.user ? p.user.name : ""}</h3>
+                        <input type="text" placeholder="Reason to ban" name="banReason" value={this.state.name} onChange={this.update} />
+                        <button value={this.state.ban} onClick={this.banner}>Ban user</button>
+                    </div>
                     <div id="title_problem"><h3 >{p.title}</h3></div>
                     <div id="description">{p.content}</div>
                     <div id="comments">{c.map(c => <div key={c._id}>{c.content} - {c.user} - {c.date}</div>)}</div>
@@ -55,7 +73,13 @@ class ResultDetail extends Component {
                         {r.map(c => <div key={c._id}>{c.content} - {c.employee} - {c.date}</div>)}
                         <div id="content">Response<input type="text" name="content" value={this.state.name} onChange={this.update} /></div>
                         <div id="employee">Employee<input type="text" name="employee" value={this.state.name} onChange={this.update} /></div>
-                        <div id="status">Status<input type="text" name="status" value={this.state.name} onChange={this.update} /></div>
+                        <div id="status">Status
+                            <select type="text" name="status" value={this.state.name} onChange={this.update} >
+                                <option value="Attending">Attending</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Solved">Solved</option>
+                            </select>
+                        </div>
                         <div><button type="submit" onClick={this.sendResp} >Send</button></div>
                     </div>
                     <div id="status_post">{p.status}</div>
