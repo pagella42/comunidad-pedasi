@@ -6,43 +6,50 @@ class User extends Component {
   constructor() {
     super();
     this.state = {
-      login: { phone: "", isLoggedIn: false }
+      userLogin: { phone: "", isLoggedIn: false }
     };
   }
 
   login = phone => {
-    let login = { phone: phone, isLoggedIn: true };
-    this.setState({ login: login });
-    localStorage.login = JSON.stringify(login);
+    let userLogin = { phone: phone, isLoggedIn: true };
+    this.setState({ userLogin: userLogin });
+    localStorage.userLogin = JSON.stringify(userLogin);
   };
 
   logout = () => {
-    localStorage.clear();
-    let login = { username: "", isLoggedIn: false };
-    this.setState({ login: login });
+    let userLogin = { username: "", isLoggedIn: false };
+    localStorage.userLogin = userLogin
+    this.setState({ userLogin: userLogin });
   };
 
   componentDidMount() {
-    let login;
-    if (localStorage.login) {
-      login = JSON.parse(localStorage.login);
+    let userLogin;
+    debugger
+    if (localStorage.userLogin !== undefined) {
+      let isLoggedIn = JSON.parse(localStorage.userLogin).isLoggedIn
+      if (isLoggedIn) {
+        userLogin = JSON.parse(localStorage.userLogin);
+      } else {
+        userLogin = this.state.userLogin;
+      }
+      this.setState({ userLogin: userLogin });
     } else {
-      login = this.state.login;
+      userLogin = this.state.userLogin;
     }
-    this.setState({ login: login });
+    this.setState({ userLogin: userLogin });
   }
 
   render() {
     return (
       <div>
-        {this.state.login.isLoggedIn ? (
+        {this.state.userLogin.isLoggedIn ? (
           <div>
             <button onClick={this.logout}>Log out</button>
-            <Landing phone={this.state.login.phone} />
+            <Landing phone={this.state.userLogin.phone} />
           </div>
         ) : (
-          <Login login={this.login} />
-        )}
+            <Login login={this.login} />
+          )}
       </div>
     );
   }
