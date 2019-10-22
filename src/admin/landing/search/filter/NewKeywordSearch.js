@@ -12,7 +12,7 @@ class NewKeywordSearch extends Component {
                 { name: "responses", checked: false },
             ],
             allPosts: [],
-            keyword: "",
+            keyword: "", 
         }
     }
 

@@ -55,7 +55,7 @@ class NewFilter extends Component {
         currentlySearching.keywords = true
         this.setState({currentlySearching: currentlySearching})
     }
-
+ 
     render() {
         return (
             <div>

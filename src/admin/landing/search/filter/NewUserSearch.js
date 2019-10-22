@@ -10,7 +10,7 @@ class NewUserSearch extends Component {
             user: { name: "", phone: "" },
             userResults : [],
         }
-    }
+    } 
 
     handleChange = async (e) => {
         let name = e.target.value
