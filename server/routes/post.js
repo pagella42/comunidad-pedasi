@@ -17,14 +17,6 @@ function updateUserPosts(usersPhone, post) {
     })
 }
 
-<<<<<<< HEAD
-function makeFilterObject(category,status,language,user){
-    let obj={}
-    category? obj.category=category:null
-    status? obj.status=status:null
-    language? obj.language=language:null
-    user? obj.user=user:null
-=======
 function makeFilterObject(category,status,language,private,user){
     let obj={}
     category? obj.category=category:null
@@ -33,7 +25,6 @@ function makeFilterObject(category,status,language,private,user){
     private? obj.private=private: null
     user? obj.user=user:null
     console.log(obj)
->>>>>>> master
     return obj
 }
 
