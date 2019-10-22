@@ -52,7 +52,7 @@ router.post('/data/posts',(req,res)=>{
 
 router.get('/data/posts', async (req, res) => {
     Post.find()
-        .populate(`user`)
+        .populate(`user comments responses`)
         .sort({date:-1})
         .exec((err, posts) => {
             res.send(posts)
