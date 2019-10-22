@@ -16,11 +16,13 @@ export class Responses extends Component {
     update = event => this.setState({ [event.target.name]: event.target.value })
 
     sendResp = async () => {
-        console.log(this.props.idPost)
-        await axios.post(`http://localhost:4000/data/response/${this.props.idPost}`,
-            { content: this.state.content, date: new Date(), employee: this.state.employee })
-        await axios.put(`http://localhost:4000/data/post/status/${this.state.status}/${this.props.idPost}`)
-        this.props.getData()
+        if (window.confirm("Confirm Response")) {
+            await axios.post(`http://localhost:4000/data/response/${this.props.idPost}`,
+                { content: this.state.content, date: new Date(), employee: this.state.employee })
+            await axios.put(`http://localhost:4000/data/post/status/${this.state.status}/${this.props.idPost}`)
+            this.props.getData()
+        }
+        else alert("No sended")
     }
 
     render() {

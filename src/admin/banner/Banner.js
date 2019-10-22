@@ -20,15 +20,17 @@ export class Banner extends Component {
     }
 
     banner = () => {
-        this.setState({
-            ban: this.state.ban ? false : true,
-            banReason: this.state.banReason
-        }, async () => {
-            console.log(this.props.userPhone)
-            await axios.put(`http://localhost:4000/data/user/${this.props.userPhone}`, { ban: this.state.ban })
-            await axios.put(`http://localhost:4000/data/user/${this.props.userPhone}`, { banReason: this.state.banReason })
-            this.getUser()
-        })
+        if (window.confirm("Confirm?")) {
+            this.setState({
+                ban: this.state.ban ? false : true,
+                banReason: this.state.banReason
+            }, async () => {
+                await axios.put(`http://localhost:4000/data/user/${this.props.userPhone}`, { ban: this.state.ban })
+                await axios.put(`http://localhost:4000/data/user/${this.props.userPhone}`, { banReason: this.state.banReason })
+                this.getUser()
+            })
+        }
+        else alert("Canceled")
     }
 
     componentDidMount = () => { this.getUser() }
