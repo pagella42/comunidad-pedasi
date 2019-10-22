@@ -13,7 +13,7 @@ class NewFilter extends Component {
             searchResults: {
                 // filter: [],
                 user: [],
-                keywords: []
+                // keywords: []
             },
             finalResult : []
         }
@@ -22,12 +22,14 @@ class NewFilter extends Component {
     createFinalResult = () => {
         // this checks if results are in user and keywords
         let finalResult = [...this.state.finalResult]
-        this.state.searchResults.user.forEach(post => {
-            if(this.state.searchResults.keywords.includes(post)){
-                finalResult.push(post)
-            }
-        })
-        this.setState({finalResult: finalResult})
+        // this.state.searchResults.user.forEach(post => {
+        //     if(this.state.searchResults.keywords.includes(post)){
+        //         finalResult.push(post)
+        //     }
+        // })
+        // this.setState({finalResult: finalResult})
+        finalResult = this.state.searchResults.user
+        this.props.saveFinalResult(finalResult)
     }
 
     checkIfSearchingDone = () => {
@@ -49,16 +51,14 @@ class NewFilter extends Component {
     search = () => {
         let currentlySearching = {...this.state.currentlySearching}
         currentlySearching.user = true
-        currentlySearching.keywords = true
+        // currentlySearching.keywords = true
+        this.setState({currentlySearching: currentlySearching})
     }
 
     render() {
         return (
             <div>
-                <NewUserSearch />
-                {this.state.finalResult.length > 0 ? 
-                // call results else say that there are no results    
-            }
+                <NewUserSearch saveResults={this.saveResults}/>
                 <button onClick={this.search}>Search</button>
             </div>
         );

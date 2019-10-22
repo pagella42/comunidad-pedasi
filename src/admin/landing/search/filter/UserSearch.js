@@ -40,8 +40,7 @@ class UserSearch extends Component {
         this.setState({ users: response.data })
     }
     
-    // If this.props.search ? ex
-    ecute search : do nothing
+    // If this.props.search ? execute search : do nothing
     async componentWillReceiveProps() {
         if(this.props.search){
             if(this.props.didSearch){
