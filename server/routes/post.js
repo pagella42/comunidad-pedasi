@@ -17,11 +17,12 @@ function updateUserPosts(usersPhone, post) {
     })
 }
 
-function makeFilterObject(category,status,language){
+function makeFilterObject(category,status,language,private){
     let obj={}
     category? obj.category=category:null
     status? obj.status=status:null
-    language? obj.language=language:null
+    language? obj.language=language: null
+    private? obj.private=private: null
     return obj
 }
 
@@ -40,8 +41,8 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 })
 
 router.post('/data/posts',(req,res)=>{
-    let{sort,category,status,language}=req.body
-    Post.find(makeFilterObject(category,status,language))
+    let{sort,category,status,language,private}=req.body
+    Post.find(makeFilterObject(category,status,language,private))
     .sort(sort?{[sort.by]:sort.order}:null)
     .exec((err,doc)=>res.send(doc))
     
