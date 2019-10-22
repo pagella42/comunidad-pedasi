@@ -60,16 +60,15 @@ router.get('/data/posts', async (req, res) => {
 })
 router.put('/data/date/:postId',(req,res)=>{
     Post.findByIdAndUpdate(req.params.postId,{
-        $set:{date:new Date(req.body.date)}
-    },{new:true}).exec((err,doc)=>doc.date)
+        $set:{date:new Date(2017, 11, 16)}
+    },{new:true}).exec((err,doc)=>res.send(doc.date))
 })
 
 
 
 router.get('/data/posts/id/:id', (req, res) => {
     Post.findById(req.params.id)
-        .populate("user comments")
-        .sort({"comments":"-date"})
+        .populate("user comments responses")
         .exec((err, post) => res.send(post))
 })
 
