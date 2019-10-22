@@ -23,6 +23,7 @@ class NewUserSearch extends Component {
     }
 
     search = async () => {
+        debugger
         let posts = [...this.state.posts]
         let userResults = posts.filter(post => post.user.phone === this.state.user.phone)
         await this.setState({userResults : userResults})

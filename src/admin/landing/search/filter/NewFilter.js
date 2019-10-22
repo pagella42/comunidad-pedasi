@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewUserSearch from './NewUserSearch';
+import NewKeywordSearch from './NewKeywordSearch';
 
 class NewFilter extends Component {
     constructor(){
@@ -13,7 +14,7 @@ class NewFilter extends Component {
             searchResults: {
                 // filter: [],
                 user: [],
-                // keywords: []
+                keywords: []
             },
             finalResult : []
         }
@@ -22,13 +23,13 @@ class NewFilter extends Component {
     createFinalResult = () => {
         // this checks if results are in user and keywords
         let finalResult = [...this.state.finalResult]
-        // this.state.searchResults.user.forEach(post => {
-        //     if(this.state.searchResults.keywords.includes(post)){
-        //         finalResult.push(post)
-        //     }
-        // })
-        // this.setState({finalResult: finalResult})
-        finalResult = this.state.searchResults.user
+        this.state.searchResults.user.forEach(post => {
+            if(this.state.searchResults.keywords.includes(post)){
+                finalResult.push(post)
+            }
+        })
+        this.setState({finalResult: finalResult})
+        // finalResult = this.state.searchResults.user
         this.props.saveFinalResult(finalResult)
     }
 
@@ -42,16 +43,16 @@ class NewFilter extends Component {
     saveResults = async (data, where)=>{
         let searchResults = {...this.state.searchResults}
         searchResults[where] = data
-        let currentlySearching = {...this.state.currentlySearching}
-        currentlySearching[where] = false
-        await this.setState({searchResults: searchResults, currentlySearching: currentlySearching})
+        // let currentlySearching = {...this.state.currentlySearching}
+        // currentlySearching[where] = false // this has to happen somewhere else - set state after
+        await this.setState({searchResults: searchResults})
         this.checkIfSearchingDone()
     }
 
     search = () => {
         let currentlySearching = {...this.state.currentlySearching}
         currentlySearching.user = true
-        // currentlySearching.keywords = true
+        currentlySearching.keywords = true
         this.setState({currentlySearching: currentlySearching})
     }
 
@@ -59,6 +60,7 @@ class NewFilter extends Component {
         return (
             <div>
                 <NewUserSearch saveResults={this.saveResults}/>
+                <NewKeywordSearch saveResults={this.saveResults} />
                 <button onClick={this.search}>Search</button>
             </div>
         );

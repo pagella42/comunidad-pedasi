@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-
-class KeywordSearch extends Component {
+import Axios from 'axios'
+class NewKeywordSearch extends Component {
     constructor() {
         super()
         this.state = {
-            keyword: "",
-            found: [],
-            posts: [],
+            keywordResults: [],
             keywordSearch: [
                 { name: "title", checked: false },
                 { name: "content", checked: false },
                 { name: "comments", checked: false },
                 { name: "responses", checked: false },
-
-            ]
+            ],
+            allPosts: [],
+            keyword: "",
         }
     }
 
-    handleChange = (e) => {
+    handleChange = async (e) => {
         let name = e.target.name
         if (name === "search-keyword") {
             let choice = e.target.id
@@ -27,12 +25,13 @@ class KeywordSearch extends Component {
             let keywordSearch = [...this.state.keywordSearch]
             let keywordIndex = keywordSearch.findIndex(keyword => keyword.name === choice)
             keywordSearch[keywordIndex].checked = checked
-            this.setState({ keywordSearch: keywordSearch })
+            await this.setState({ keywordSearch: keywordSearch })
 
         } else {
             let value = e.target.value
-            this.setState({ [name]: value })
+            await this.setState({ [name]: value })
         }
+        this.handleSearch()
     }
 
     handleSearch = async () => {
@@ -42,10 +41,6 @@ class KeywordSearch extends Component {
         await this.search(options, this.state.keyword)
     }
 
-    getAllPosts = async () => {
-        let response = await Axios.get('http://localhost:4000/data/posts')
-        this.setState({ posts: response.data })
-    }
 
     search = async (options, text) => {
         let searchArray = text.toLowerCase()
@@ -68,17 +63,18 @@ class KeywordSearch extends Component {
                 }
             })
         })
-        this.setState({ found: filteredPosts })
-        await this.props.saveFoundPosts(filteredPosts, "keyword")
-        await this.searchDone()
+        this.setState({ keywordResults: filteredPosts, posts: filteredPosts })
+        await this.props.saveResults(filteredPosts, "keyword")
     }
 
-    async componentDidUpdate() {
-        debugger
-        if(this.props.executeKeywordSearch){
-            await this.setState({posts: this.props.foundPosts}) 
-            await this.handleSearch()
-        }
+
+    getAllPosts = async () => {
+        let response = await Axios.get('http://localhost:4000/data/posts')
+        this.setState({ posts: response.data })
+    }
+
+    componentDidMount() {
+        this.getAllPosts()
     }
 
     render() {
@@ -101,10 +97,10 @@ class KeywordSearch extends Component {
                     <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleChange} />
                     <label htmlFor="responses-checkbox">responses</label>
                 </div>
-                {/* <button onClick={this.handleSearch}>Search</button> */}
             </div>
         );
     }
+
 }
 
-export default KeywordSearch;
+export default NewKeywordSearch;
