@@ -3,6 +3,8 @@ const router = express.Router()
 const User = require('../schemas/User')
 const Post = require('../schemas/Post')
 
+
+
 router.post('/data/user',(req,res)=>{
     let user = new User(req.body)
     user.ban=false
@@ -15,7 +17,7 @@ router.get('/data/user/:usersPhone',(req,res)=>{
 })
 router.put('/data/user/:usersPhone',(req,res)=>{
     User.findOneAndUpdate({phone:req.params.usersPhone},{
-        $set:{[req.body.key]:req.body.value}
+        $set:req.body
     },(()=>res.end()))
 })
 router.get('/data/users', (req,res)=> {
