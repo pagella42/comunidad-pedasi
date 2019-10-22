@@ -15,14 +15,15 @@ class MyPosts extends Component {
         //get data for this user, and sorted by recent 
         let data = await axios.get(`http://localhost:4000/data/posts/${phone}`)
         await this.setState({ posts: data })
+        
     }
     render() {
+       
        
         
         return (<div>
             <Header />
-            
-            <MyResults posts={this.state.posts} />
+            <MyResults posts={this.state.posts.data} />
         </div>)
     }
 }

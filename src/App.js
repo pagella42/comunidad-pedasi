@@ -7,11 +7,8 @@ import CreatePost from './user/landing/create-post/CreatePost';
 import Explore from './admin/landing/explore/Explore';
 import ImageUpload from './ImageUpload/ImageUpload';
 import ResultDetail from './admin/results/ResultDetails';
-<<<<<<< HEAD
 import MyPosts from './user/landing/my-posts/MyPosts';
-=======
 import Search from './admin/landing/search/Search';
->>>>>>> master
 
 class App extends Component {
 
