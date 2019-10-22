@@ -11,13 +11,14 @@ class CreatePost extends Component {
             post: {
                 title: "",
                 content: "",
-                category: "Other",
+                category: "other",
                 points: 0,
                 date: "",
                 address: "",
                 picture: "",
                 anonymous: false,
                 private: false,
+                language:''
             },
             verifyPost: {
                 show: false,
@@ -64,7 +65,7 @@ class CreatePost extends Component {
         let response = await axios.get("http://localhost:4000/data/categories")
         let categories = []
         if (response.data[0] === undefined) {
-            categories = ["Other"]
+            categories = ["other"]
         } else {
             response.data.forEach(category => categories.push(category.name))
         }
@@ -109,6 +110,12 @@ class CreatePost extends Component {
         }
         this.setState({ post: post })
     }
+    update = async event => {
+        await this.setState({
+              [event.target.name]: event.target.value
+            })
+     
+      };
 
     render() {
         return (
@@ -119,6 +126,7 @@ class CreatePost extends Component {
                 <select name="category" value={this.state.post.category} onChange={this.handleInputChange}>
                     {this.state.categories.map(category => <option value={category}>{category}</option>)}
                 </select>
+                <select name='language' value={this.state.}></select>
                 <ImageUpload saveUrl={this.saveUrl} />
                 {this.state.post.private ?
                     <div>Cant hide username when post is private</div> :
