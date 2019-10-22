@@ -18,6 +18,10 @@ router.put('/data/user/:usersPhone',(req,res)=>{
         $set:{[req.body.key]:req.body.value}
     },(()=>res.end()))
 })
+router.get('/data/users', (req,res)=> {
+    User.find({}, (error, response) => res.send(response) )
+})
+
 
 router.get('/data/posts/:usersPhone', async (req,res)=>{
     let user = await User.findOne({phone:req.params.usersPhone})
