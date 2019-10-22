@@ -11,7 +11,7 @@ class CreatePost extends Component {
             post: {
                 title: "",
                 content: "",
-                category: "Other",
+                category: "other",
                 points: 0,
                 date: "",
                 address: "",
@@ -64,7 +64,7 @@ class CreatePost extends Component {
         let response = await axios.get("http://localhost:4000/data/categories")
         let categories = []
         if (response.data[0] === undefined) {
-            categories = ["Other"]
+            categories = ["other"]
         } else {
             response.data.forEach(category => categories.push(category.name))
         }

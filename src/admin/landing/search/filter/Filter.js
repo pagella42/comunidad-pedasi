@@ -67,11 +67,12 @@ class Filter extends Component {
     };
 
     update = async event => {
-        debugger
         let filter = { ...this.state.filter };
         if (event.target.name === "user") {
             let user = this.state.users.filter(user => user.name === event.target.value)
-            filter[event.target.name] = user[0]._id
+            if(user.length > 0){
+                filter[event.target.name] = user[0]._id
+            }
         } else {
             filter[event.target.name] = event.target.value
         }
@@ -167,8 +168,8 @@ class Filter extends Component {
                     id=""
                 >
                     <option value="">All</option>
-                    <option value="pending aproval">pending aproval</option>
-                    <option value="in discussion">In Discussion</option>
+                    <option value="pending">pending</option>
+                    <option value="In Discussion">In Discussion</option>
                     <option value="Resovled">Resovled</option>
                 </select>
 
