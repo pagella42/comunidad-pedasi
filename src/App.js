@@ -7,6 +7,7 @@ import CreatePost from './user/landing/create-post/CreatePost';
 import Explore from './admin/landing/explore/Explore';
 import ImageUpload from './ImageUpload/ImageUpload';
 import ResultDetail from './admin/results/ResultDetails';
+import MyPosts from './user/landing/my-posts/MyPosts';
 
 class App extends Component {
 
@@ -17,6 +18,7 @@ class App extends Component {
          {/* ==== User routes below ==== */}
          <Route path="/user" exact render={() => <User />} />
          <Route path="/user/createPost" exact render={() => <CreatePost />} />
+         <Route path="/user/myposts" exact render={() => <MyPosts/>} />
          {/* ==== Admin routes below ==== */}
          <Route path="/admin" exact render={() => <Admin />}/>
          <Route path="/admin/explore" exact render={() => <Explore />} />
