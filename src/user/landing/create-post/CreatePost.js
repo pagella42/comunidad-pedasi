@@ -126,7 +126,7 @@ class CreatePost extends Component {
                 <select name="category" value={this.state.post.category} onChange={this.handleInputChange}>
                     {this.state.categories.map(category => <option value={category}>{category}</option>)}
                 </select>
-                <select name='language' value={this.state.}></select>
+                {/* <select name='language' value={this.state}></select> */}
                 <ImageUpload saveUrl={this.saveUrl} />
                 {this.state.post.private ?
                     <div>Cant hide username when post is private</div> :
