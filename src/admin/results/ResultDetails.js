@@ -25,7 +25,7 @@ class ResultDetail extends Component {
         this.setState({ post: post.data, responses: responses.data, comments: comments.data })
     }
 
-    componentDidMount = () => { this.getData() }
+    componentDidMount = () => this.getData()
 
     render() {
         const p = this.state.post

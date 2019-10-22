@@ -3,6 +3,7 @@ import axios from 'axios'
 
 
 export class Responses extends Component {
+
     constructor() {
         super()
         this.state = {
@@ -28,7 +29,8 @@ export class Responses extends Component {
                 <div id="content">Response<input type="text" name="content" value={this.state.name} onChange={this.update} /></div>
                 <div id="employee">Employee<input type="text" name="employee" value={this.state.name} onChange={this.update} /></div>
                 <div id="status">Status
-                            <select type="text" name="status" value={this.state.name} onChange={this.update} >
+                    <select type="text" name="status" value={this.state.name} onChange={this.update} >
+                        <option value="Select">Select</option>
                         <option value="Attending">Attending</option>
                         <option value="Pending">Pending</option>
                         <option value="Solved">Solved</option>
