@@ -81,4 +81,5 @@ router.put('/data/post/status/:status/:postId', (req, res) => {
     },{new:true},(err,doc)=>res.send(doc))
 })
 
+
 module.exports= router
