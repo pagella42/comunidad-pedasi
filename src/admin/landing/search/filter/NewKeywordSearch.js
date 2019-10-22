@@ -31,7 +31,6 @@ class NewKeywordSearch extends Component {
             let value = e.target.value
             await this.setState({ [name]: value })
         }
-        this.handleSearch()
     }
 
     handleSearch = async () => {

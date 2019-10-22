@@ -17,6 +17,13 @@ class NewNewFilter extends Component {
             },
             categories: [],
             users: [],
+            keywordSearch: [
+                { name: "title", checked: false },
+                { name: "content", checked: false },
+                { name: "comments", checked: false },
+                { name: "responses", checked: false },
+            ],
+            keyword: "",
         };
     }
     filter = async () => {
@@ -50,7 +57,7 @@ class NewNewFilter extends Component {
 
         this.setState({ filter });
 
-        this.props.getPosts(this.state.filter);
+        this.props.getPosts(this.state.filter, this.state.keywordSearch, this.state.keyword);
     };
 
     updateSort = async event => {
@@ -74,6 +81,22 @@ class NewNewFilter extends Component {
     };
 
 
+    handleCheckboxChange = async (e) => {
+        let name = e.target.name
+        if (name === "search-keyword") {
+            let choice = e.target.id
+            let checked = e.target.checked
+
+            let keywordSearch = [...this.state.keywordSearch]
+            let keywordIndex = keywordSearch.findIndex(keyword => keyword.name === choice)
+            keywordSearch[keywordIndex].checked = checked
+            await this.setState({ keywordSearch: keywordSearch })
+
+        } else {
+            let value = e.target.value
+            await this.setState({ [name]: value })
+        }
+    }
 
     getCategories = async () => {
         let response = await Axios.get('http://localhost:4000/data/categories')
@@ -92,6 +115,26 @@ class NewNewFilter extends Component {
     render() {
         return (
             <div>
+                <div>
+                    <input type="text" name="keyword" placeholder="Search by Keyword" onChange={this.handleCheckboxChange} />
+                    <div>
+                        <input type="checkbox" name="search-keyword" id="title" onClick={this.handleCheckboxChange} />
+                        <label htmlFor="title-checkbox">title</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="search-keyword" id="content" onClick={this.handleCheckboxChange} />
+                        <label htmlFor="content-checkbox">content</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="search-keyword" id="comments" onClick={this.handleCheckboxChange} />
+                        <label htmlFor="comments-checkbox">comments</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleCheckboxChange} />
+                        <label htmlFor="responses-checkbox">responses</label>
+                    </div>
+                </div>
+                <br />
                 <label htmlFor="">sort by</label>
                 <select
                     name="sort"
@@ -141,7 +184,6 @@ class NewNewFilter extends Component {
                     <option value="en">English</option>
                 </select>
 
-                {/* I dont know if that works */}
                 <label htmlFor="">User</label>
                 <input type="text" list="data" name="user" placeholder="User name" onChange={this.update} />
                 <datalist id="data" name="user">
