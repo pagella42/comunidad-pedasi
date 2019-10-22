@@ -27,39 +27,34 @@ class Admin extends Component {
     }
     logout = () => {
         let adminLogin = { username: "", isLoggedIn: false }
-        localStorage.adminLogin = adminLogin
+        localStorage.adminLogin = JSON.stringify(adminLogin)
         this.setState({ adminLogin: adminLogin })
     }
 
     componentDidMount() {
         let adminLogin
-        if(localStorage.adminLogin !== undefined){
-            let isLoggedIn = JSON.parse(localStorage.adminLogin).isLoggedIn
-            if (isLoggedIn) {
-                adminLogin = JSON.parse(localStorage.adminLogin)
-            } else {
-                adminLogin = this.state.adminLogin
-            }
+        if (localStorage.adminLogin !== undefined) {
+            adminLogin = JSON.parse(localStorage.adminLogin)
         } else {
             adminLogin = this.state.adminLogin
         }
         this.setState({ adminLogin: adminLogin })
     }
 
-    render() {
-        return (
-            <div>
-                {this.state.adminLogin.isLoggedIn ?
-                    <div> <Landing />
-                        <button onClick={this.logout}>Log out</button>
-                    </div>
-                    : <Login login={this.login} />}
+render() {
+    return (
+        <div>
+            {this.state.adminLogin.isLoggedIn ?
+                <div> <Landing />
+                    <button onClick={this.logout}>Log out</button>
+                </div>
+                : <Login login={this.login} />}
 
-                {/* ==== Admin Routes below ====  */}
-                {/* <Route path="/admin/explore" exact render={() => <Explore />} />
+            {/* ==== Admin Routes below ====  */}
+            {/* <Route path="/admin/explore" exact render={() => <Explore />} />
                 <Route path="/admin/search" exact render={() => <Search />} /> */}
-            </div>
-        )
-    }
+        </div>
+    )
+}
 }
 export default Admin;

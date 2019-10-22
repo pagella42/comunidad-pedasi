@@ -18,24 +18,19 @@ class User extends Component {
 
   logout = () => {
     let userLogin = { username: "", isLoggedIn: false };
-    localStorage.userLogin = userLogin
+    debugger
+    localStorage.userLogin = JSON.stringify(userLogin)
     this.setState({ userLogin: userLogin });
   };
 
   componentDidMount() {
-    let userLogin;
+    let userLogin
     if (localStorage.userLogin !== undefined) {
-      let isLoggedIn = JSON.parse(localStorage.userLogin).isLoggedIn
-      if (isLoggedIn) {
-        userLogin = JSON.parse(localStorage.userLogin);
-      } else {
-        userLogin = this.state.userLogin;
-      }
-      this.setState({ userLogin: userLogin });
+      userLogin = JSON.parse(localStorage.userLogin)
     } else {
-      userLogin = this.state.userLogin;
+      userLogin = this.state.userLogin
     }
-    this.setState({ userLogin: userLogin });
+    this.setState({ userLogin: userLogin })
   }
 
   render() {
