@@ -24,7 +24,6 @@ class User extends Component {
 
   componentDidMount() {
     let userLogin;
-    debugger
     if (localStorage.userLogin !== undefined) {
       let isLoggedIn = JSON.parse(localStorage.userLogin).isLoggedIn
       if (isLoggedIn) {
