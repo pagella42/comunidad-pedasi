@@ -33,26 +33,25 @@ router.post('/data/comment', async (req, res) => {
 
 })
 
-router.get('/data/comments/:postId/:sortBy?', (req, res) => {
-    const sortBy= req.params.sortBy
-    Post.findById(req.params.postId)
-        .populate({
-            path: 'comments',
-            populate: {
-                path: "user"
-            }
+router.get('/data/comments/:postId', (req, res) => {
+    Comment.find({
+            "post": req.params.postId
         })
-        // .sort(sortBy==='points'? {points:-1}: {date:-1})
-        .exec((err, post) => {
-            let comments = post.comments.map(c => {
+        .populate('user')
+        .sort('-date')
+        .exec((err, comments) => {
+            comments = comments.map(c => {
                 return {
-                    content: c.content,
+                    _id: c._id,
                     user: c.user.name,
-                    date: c.date
+                    content:c.content,
+                    date:c.date
                 }
             })
             res.send(comments)
+
         })
 })
+
 
 module.exports = router

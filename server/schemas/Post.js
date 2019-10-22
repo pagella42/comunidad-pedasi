@@ -15,6 +15,7 @@ const postSchema=new Schema({
     responses:[{type: Schema.Types.ObjectId, ref: 'Response'}],
     address:String,
     picture:String,
+    language:String,
 })
 
 const Post = mongoose.model('Post',postSchema)

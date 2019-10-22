@@ -4,9 +4,12 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
     name:String,
     phone:String,
-    adress:String,
+    address:String,
     posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
-    comments: [{type: Schema.Types.ObjectId, ref:'Comment'}]
+    comments: [{type: Schema.Types.ObjectId, ref:'Comment'}],
+    ban:Boolean,
+    banReason:String,
+    isActive:Boolean
 })
 
 const User = mongoose.model('User',userSchema)
