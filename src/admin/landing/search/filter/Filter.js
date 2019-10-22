@@ -168,9 +168,9 @@ class Filter extends Component {
                     id=""
                 >
                     <option value="">All</option>
-                    <option value="pending">pending</option>
-                    <option value="In Discussion">In Discussion</option>
-                    <option value="Resovled">Resovled</option>
+                    <option value="pending">Pending</option>
+                    <option value="in progress">In Discussion</option>
+                    <option value="resovled">Resovled</option>
                 </select>
 
                 <label htmlFor="">language</label>
