@@ -25,8 +25,7 @@ class ResultDetail extends Component {
             ban: true,
             banReason: this.state.banReason
         }, () => {
-            console.log(this.state.ban)
-            console.log(this.state.banReason)
+
             axios.put(`http://localhost:4000/data/user/${this.state.post.user.phone}`, { key: "ban", value: this.state.ban })
             axios.put(`http://localhost:4000/data/user/${this.state.post.user.phone}`, { key: "banReason", value: this.state.banReason })
         })
