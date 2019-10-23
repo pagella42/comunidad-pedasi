@@ -9,7 +9,10 @@ const userSchema = new Schema({
     comments: [{type: Schema.Types.ObjectId, ref:'Comment'}],
     ban:Boolean,
     banReason:String,
-    isActive:Boolean
+    isActive:Boolean,
+    username:String,
+    ID:String,
+    email:String
 })
 
 const User = mongoose.model('User',userSchema)

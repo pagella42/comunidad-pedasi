@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-class theCodeOfConduct extends Component {
+class TheCodeOfConduct extends Component {
+
+  
+
   render() {
-    return (
-      <div>
+    
+    return this.props.terms?(
+      <div id='terms' style={{position:"absolute", backgroundColor: 'rgba(0,80,80,0.7)'}}>
         <div>
           1. DON'T provide confidential or other proprietary information. If
           there's any question in your mind, err on the side of keeping silent.
@@ -53,8 +57,9 @@ class theCodeOfConduct extends Component {
           10. DO your best to add value by providing worthwhile information and
           perspective rather than mere opinion and bluster.
         </div>
+        <button onClick={this.props.toggleTerms}>Confirm</button>
       </div>
-    );
+    ):null;
   }
 }
-export default theCodeOfConduct;
+export default TheCodeOfConduct;

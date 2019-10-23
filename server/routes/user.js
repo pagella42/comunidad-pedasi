@@ -26,6 +26,16 @@ router.get('/data/users', (req,res)=> {
     User.find({}, (error, response) => res.send(response) )
 })
 
+router.post('/data/user/availability',async(req,res)=>{
+    let arr = Object.keys(req.body)
+    let available = {}
+    for(let o of arr){
+        let obj = {[o]:req.body[o]}
+        await User.findOne(obj,((err,doc)=>doc ? available[o] = true : null))
+    }
+    console.log(available)
+    res.send(available)
+})
 
 router.get('/data/posts/:usersPhone', async (req,res)=>{
     let user = await User.findOne({phone:req.params.usersPhone})
