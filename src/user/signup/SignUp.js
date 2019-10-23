@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { stat } from 'fs';
 import axios from 'axios';
-import TheCodeOfConduct from './theCodeOfConduct'
+import TheCodeOfConduct from '../theCodeOfConduct'
 
 class SignUp extends Component {
     constructor(){
