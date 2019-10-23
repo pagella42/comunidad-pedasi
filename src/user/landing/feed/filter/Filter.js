@@ -8,7 +8,7 @@ class Filter extends Component {
       filter: {
         sort: {
           by: "date",
-          order: 1
+          order: -1
         },
         category: 0,
         status: 0,
@@ -22,12 +22,12 @@ class Filter extends Component {
     switch (this.state.sort) {
       case "dh":
         filter.sort.by = "date";
-        filter.sort.order = 1;
+        filter.sort.order = -1;
 
         break;
       case "dl":
         filter.sort.by = "date";
-        filter.sort.order = -1;
+        filter.sort.order = 1;
 
         break;
       case "ph":
@@ -42,7 +42,7 @@ class Filter extends Component {
         break;
       default:
         filter.sort.by = "date";
-        filter.sort.order = 1;
+        filter.sort.order = -1;
         break;
     }
 
@@ -62,7 +62,7 @@ class Filter extends Component {
     filter[event.target.name] = event.target.value;
 
     await this.setState({
-      filter
+      filter: filter
     });
   };
 
@@ -86,7 +86,7 @@ class Filter extends Component {
           value={this.state.sort}
           id=""
         >
-          <option value="cl">date high to low</option>
+          <option value="dh">date high to low</option>
           <option value="dl">date low to hight</option>
           <option value="ph">Points high to low</option>
           <option value="pl">Points low to high</option>
@@ -111,9 +111,9 @@ class Filter extends Component {
           id=""
         >
           <option value="">All</option>
-          <option value="pending aproval">pending aproval</option>
-          <option value="in discussion">In Discussion</option>
-          <option value="Resovled">Resovled</option>
+          <option value="pending">Pending</option>
+          <option value="in progress">In progress</option>
+          <option value="resovled">Resovled</option>
         </select>
 
         <label htmlFor="">language</label>

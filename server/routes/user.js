@@ -12,10 +12,12 @@ router.post('/data/user',(req,res)=>{
     res.end()
 })
 router.get('/data/user/:usersPhone',(req,res)=>{
+    
     User.findOne({phone:req.params.usersPhone})
     .exec((err,user)=>res.send(user))
 })
 router.put('/data/user/:usersPhone',(req,res)=>{
+    
     User.findOneAndUpdate({phone:req.params.usersPhone},{
         $set:req.body
     },(()=>res.end()))
