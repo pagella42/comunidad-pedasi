@@ -9,6 +9,7 @@ import ImageUpload from './ImageUpload/ImageUpload';
 import ResultDetail from './admin/results/ResultDetails';
 import MyPosts from './user/landing/my-posts/MyPosts';
 import Search from './admin/landing/search/Search';
+import SignUp from './user/SignUp'
 
 class App extends Component {
 
@@ -20,6 +21,7 @@ class App extends Component {
          <Route path="/user" exact render={() => <User />} />
          <Route path="/user/createPost" exact render={() => <CreatePost />} />
          <Route path="/user/myposts" exact render={() => <MyPosts/>} />
+         <Route path="/user/signUp" exact render={() => <SignUp/>} /> {/**remove after */}
          {/* ==== Admin routes below ==== */}
          <Route path="/admin" exact render={() => <Admin />}/>
          <Route path="/admin/explore" exact render={() => <Explore />} />
