@@ -22,7 +22,6 @@ class MyPosts extends Component {
        
         
         return (<div>
-            <Header />
             <MyResults posts={this.state.posts.data} />
         </div>)
     }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Landing from "./landing/Landing";
 import Login from "./Login";
-import Header from './Header';
+import Header from './landing/Header';
 
 
 class User extends Component {
@@ -9,7 +9,7 @@ class User extends Component {
     super();
     this.state = {
       userLogin: { phone: "", isLoggedIn: false },
-      loginPopup: false,
+      
     };
   }
 
@@ -17,11 +17,11 @@ class User extends Component {
     let userLogin = { phone: phone, isLoggedIn: true };
     this.setState({ userLogin: userLogin });
     localStorage.userLogin = JSON.stringify(userLogin);
+    this.setState({ loginPopup: false });
   };
 
   logout = () => {
     let userLogin = { username: "", isLoggedIn: false };
-    debugger
     localStorage.userLogin = JSON.stringify(userLogin)
     this.setState({ userLogin: userLogin });
   };
@@ -35,29 +35,17 @@ class User extends Component {
     }
     this.setState({ userLogin: userLogin })
   }
-loginPopup=()=>{
-  this.setState({
-    loginPopup: !this.state.loginPopup
-  })
-}
+
+ 
 
   render() {
     return (
       <div>
-      <Header isLoggedIn={this.state.userLogin.isLoggedIn} loginPopup={this.loginPopup}/>
-    
-      {/* //   {this.state.userLogin.isLoggedIn ? (
-      //     <div>
-      //       <button onClick={this.logout}>Log out</button>
-      //       <Landing phone={this.state.userLogin.phone} />
-      //     </div>
-      //   ) : (
-      //       <Login login={this.login} />
-      //     )}
-      // </div>
-       */}
-          <Landing  phone={this.state.userLogin.phone} />
-    </div>
+        <Header logout={this.logout} isLoggedIn={this.state.userLogin.isLoggedIn} loginPopup={this.props.loginPopup} />
+
+        {this.props.loginPopupState ? <Login loginPopup={this.props.loginPopup} login={this.login} /> : null}
+
+      </div>
     );
   }
 }

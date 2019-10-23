@@ -120,6 +120,7 @@ class CreatePost extends Component {
     render() {
         return (
             <div>
+                <div onClick={this.props.showCreatePost}>X</div>
                 <input type="text" name="title" placeholder="Title" onChange={this.handleInputChange} />
                 <input type="text" name="content" placeholder="Text" onChange={this.handleInputChange} />
                 <input type="text" name="address" placeholder="Adress" onChange={this.handleInputChange} />
