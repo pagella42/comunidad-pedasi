@@ -8,6 +8,7 @@ const responseSchema = new Schema({
     post:{type: Schema.Types.ObjectId, ref: 'Post'},
 })
 
+
 const Response = mongoose.model('Response',responseSchema)
 
 module.exports = Response

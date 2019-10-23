@@ -18,7 +18,7 @@ class CreatePost extends Component {
                 picture: "",
                 anonymous: false,
                 private: false,
-                language:''
+                language:""
             },
             verifyPost: {
                 show: false,
@@ -59,6 +59,12 @@ class CreatePost extends Component {
         if (action === "confirm") {
             this.confirmPost()
         }
+    }
+
+    validate = () => {
+        this.state.post.language?
+        this.verifyPost():
+        alert('Please choose a language')
     }
 
     getCategories = async () => {
@@ -110,12 +116,7 @@ class CreatePost extends Component {
         }
         this.setState({ post: post })
     }
-    update = async event => {
-        await this.setState({
-              [event.target.name]: event.target.value
-            })
-     
-      };
+    
 
     render() {
         return (
@@ -126,7 +127,11 @@ class CreatePost extends Component {
                 <select name="category" value={this.state.post.category} onChange={this.handleInputChange}>
                     {this.state.categories.map(category => <option value={category}>{category}</option>)}
                 </select>
-                {/* <select name='language' value={this.state}></select> */}
+                <select name='language' value={this.state.post.language} onChange={this.handleInputChange}>
+                    <option value={0}>-</option>
+                    <option value='en'>English</option>
+                    <option value='es'>Español</option>
+                </select>
                 <ImageUpload saveUrl={this.saveUrl} />
                 {this.state.post.private ?
                     <div>Cant hide username when post is private</div> :
@@ -150,7 +155,7 @@ class CreatePost extends Component {
 
                     {this.state.post.private ? "-->Sending only to Municipality" : "-->Posting to feed"}
                 </div>
-                <button onClick={this.verifyPost}>Submit</button>
+                <button onClick={this.validate}>Submit</button>
                 {/* Pop up : please review your post */}
                 {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
 
