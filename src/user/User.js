@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import Landing from "./landing/Landing";
 import Login from "./Login";
+import Header from './Header';
+
 
 class User extends Component {
   constructor() {
     super();
     this.state = {
-      userLogin: { phone: "", isLoggedIn: false }
+      userLogin: { phone: "", isLoggedIn: false },
+      loginPopup: false,
     };
   }
 
@@ -32,19 +35,29 @@ class User extends Component {
     }
     this.setState({ userLogin: userLogin })
   }
+loginPopup=()=>{
+  this.setState({
+    loginPopup: !this.state.loginPopup
+  })
+}
 
   render() {
     return (
       <div>
-        {this.state.userLogin.isLoggedIn ? (
-          <div>
-            <button onClick={this.logout}>Log out</button>
-            <Landing phone={this.state.userLogin.phone} />
-          </div>
-        ) : (
-            <Login login={this.login} />
-          )}
-      </div>
+      <Header isLoggedIn={this.state.userLogin.isLoggedIn} loginPopup={this.loginPopup}/>
+    
+      {/* //   {this.state.userLogin.isLoggedIn ? (
+      //     <div>
+      //       <button onClick={this.logout}>Log out</button>
+      //       <Landing phone={this.state.userLogin.phone} />
+      //     </div>
+      //   ) : (
+      //       <Login login={this.login} />
+      //     )}
+      // </div>
+       */}
+          <Landing  phone={this.state.userLogin.phone} />
+    </div>
     );
   }
 }
