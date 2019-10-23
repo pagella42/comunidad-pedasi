@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { stat } from 'fs';
 import axios from 'axios';
+import TheCodeOfConduct from './theCodeOfConduct'
 
 class SignUp extends Component {
     constructor(){
@@ -19,8 +20,8 @@ class SignUp extends Component {
     }
 
     toggleTerms = () =>{
-        this.state.updating ?
-        this.setState({terms: false}):
+        this.state.terms ?
+        this.setState({terms: false}) :
         this.setState({terms:true})
     }
 
@@ -66,7 +67,8 @@ class SignUp extends Component {
                     <div>*=Required</div>
                     <input type='submit' onSubmit={this.verifyUser} value='submit'/> 
                 </form>
-                <Terms toggleTerms = {this.toggleTerms} />
+                <TheCodeOfConduct terms = {this.state.terms}
+                    toggleTerms = {this.toggleTerms} />
             </div>
         );
     }
