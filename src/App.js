@@ -10,20 +10,41 @@ import ResultDetail from './admin/results/ResultDetails';
 import MyPosts from './user/landing/my-posts/MyPosts';
 import Search from './admin/landing/search/Search';
 import Update from './user/landing/Update';
+
 import SignUp from './user/SignUp'
 
+import Landing from './user/landing/Landing';
+
+
 class App extends Component {
+constructor(){
+  super()
+  this.state={
+    loginPopupState: false,
+  }
+}
+
+loginPopup = () => {
+  this.setState({
+    loginPopupState: !this.state.loginPopupState
+  })
+}
+
 
  render() {
    return (
      <Router>
        <div>
          {/* ==== User routes below ==== */}
-         <Route path="/user" exact render={() => <User />} />
-         <Route path="/user/createPost" exact render={() => <CreatePost />} />
+         <Route path="/user"  render={() => <User loginPopup={this.loginPopup} loginPopupState={this.state.loginPopupState}/>} />
          <Route path="/user/myposts" exact render={() => <MyPosts/>} />
-         <Route path="/user/signUp" exact render={() => <SignUp/>} /> {/**remove after */}
-         <Route path='/user/updateinfo' exact render ={() => <Update /> } />
+
+         <Route path="/user/signUp" exact render={() => <SignUp/>} /> 
+
+        <Route path='/user/updateinfo' exact render ={() => <Update /> } />
+        <Route path='/user/home' exact render ={() =>  <Landing loginPopup={this.loginPopup}/>} />
+      
+
          {/* ==== Admin routes below ==== */}
          <Route path="/admin" exact render={() => <Admin />}/>
          <Route path="/admin/explore" exact render={() => <Explore />} />
