@@ -157,7 +157,7 @@ const resources = {
       "Not sent": "No enviado"
     }
   }
-
+}
 
 
 i18next

@@ -12,9 +12,9 @@ import Search from './admin/landing/search/Search';
 import Update from './user/update/Update';
 
 import SignUp from './user/signup/SignUp'
-import Update from './user/landing/Update';
+// import Update from './user/landing/Update';
 import { withTranslation } from 'react-i18next';
-import SignUp from './user/SignUp'
+// import SignUp from './user/SignUp'
 
 import Landing from './user/landing/Landing';
 

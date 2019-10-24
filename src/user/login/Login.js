@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import './login.css'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,10 +14,8 @@ import Typography from '@material-ui/core/Typography';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-=======
 import { withTranslation } from 'react-i18next';
 
->>>>>>> master
 
 
 class Login extends Component {

@@ -35,10 +35,7 @@ class Feed extends Component {
             <div id='feedcontainer'>
                 <div id="feedinnercont">
                 {
-                    this.state.user.ban ?
-
-                        <h3>{this.state.user.banReason}</h3> :
-
+                    
                         <div>
                               <div id='postbuttoncont'><Fab  onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >{t("POST SOMETHING")}</Fab></div>
                            
@@ -46,7 +43,7 @@ class Feed extends Component {
                                 <CreatePost showCreatePost={this.showCreatePost} phone={this.props.phone} getPosts={this.getPosts} /> : null
                             }
                             <Filter getPosts={this.getPosts} />
-                            <Results loginPopup={this.props.loginPopup}  posts={this.state.posts} phone={this.props.phone} />
+                            <Results loginPopup={this.props.loginPopup} getPosts={this.getPosts}  posts={this.state.posts} phone={this.props.phone} />
                         </div>
                 }
                 </div>

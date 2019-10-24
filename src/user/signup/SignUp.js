@@ -3,9 +3,8 @@ import { stat } from 'fs';
 import axios from 'axios';
 import TheCodeOfConduct from './theCodeOfConduct'
 
-import TheCodeOfConduct from './theCodeOfConduct'
 import {withTranslation} from 'react-i18next'
-import Success from './Success'
+import Success from '../Success'
 
 class SignUp extends Component {
     constructor(){
