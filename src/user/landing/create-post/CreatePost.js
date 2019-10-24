@@ -22,6 +22,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { withTranslation } from 'react-i18next';
+
 
 class CreatePost extends Component {
     constructor() {
@@ -81,10 +83,11 @@ class CreatePost extends Component {
         }
     }
 
-    validate = () => {
-        this.state.post.language ?
-            this.verifyPost() :
-            alert('Please choose a language')
+    validate = (event) => {
+        event.preventDefault()
+        this.state.post.language?
+        this.verifyPost():
+        alert('Please choose a language')
     }
 
     getCategories = async () => {
@@ -139,6 +142,7 @@ class CreatePost extends Component {
 
 
     render() {
+        const {t,i18next} = this.props
         return (
             <div className='createpostcontainer'>
                 <Card className='createpost' style={{ maxWidth: 600 }}>
@@ -183,16 +187,12 @@ class CreatePost extends Component {
                     </CardActions>
                 </Card>
 
-
-
-
-
-
-               
                     {/* {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>} */}
+
+
                 </div>
                 );
             }
         }
         
-export default CreatePost;
+export default withTranslation('translation') (CreatePost);

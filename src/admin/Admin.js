@@ -4,6 +4,9 @@ import Landing from './landing/Landing'
 import Login from './login/Login'
 import Explore from './landing/explore/Explore'
 import Search from './landing/search/Search'
+import { withTranslation } from 'react-i18next';
+import HeaderAdmin from './landing/HeaderAdmin';
+
 class Admin extends Component {
     constructor() {
         super()
@@ -17,12 +20,13 @@ class Admin extends Component {
     }
 
     login = (username, password) => {
+        const t = this.props.t
         if (password === this.state.password) {
             let adminLogin = { username: username, isLoggedIn: true }
             this.setState({ adminLogin: adminLogin })
             localStorage.adminLogin = JSON.stringify(adminLogin)
         } else {
-            alert("Wrong password")
+            alert(t("Wrong password"))
         }
     }
     logout = () => {
@@ -41,20 +45,22 @@ class Admin extends Component {
         this.setState({ adminLogin: adminLogin })
     }
 
-render() {
-    return (
-        <div>
-            {this.state.adminLogin.isLoggedIn ?
-                <div> <Landing />
-                    <button onClick={this.logout}>Log out</button>
-                </div>
-                : <Login login={this.login} />}
+    render() {
+        const { t, i18n } = this.props
+        return (
+            <div>
+                {this.state.adminLogin.isLoggedIn ?
+                    <div>
+                        <HeaderAdmin changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.adminLogin.isLoggedIn} loginPopup={this.props.loginPopup} />
+                        <Landing logout={this.logout} />
+                    </div>
+                    : <Login login={this.login} />}
 
-            {/* ==== Admin Routes below ====  */}
-            {/* <Route path="/admin/explore" exact render={() => <Explore />} />
+                {/* ==== Admin Routes below ====  */}
+                {/* <Route path="/admin/explore" exact render={() => <Explore />} />
                 <Route path="/admin/search" exact render={() => <Search />} /> */}
-        </div>
-    )
+            </div>
+        )
+    }
 }
-}
-export default Admin;
+export default withTranslation('translation')(Admin);

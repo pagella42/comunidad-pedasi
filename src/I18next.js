@@ -1,0 +1,175 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import {
+  I18nextProvider,
+  initReactI18next
+} from 'react-i18next';
+import i18next from 'i18next';
+
+
+const resources = {
+
+  en: {
+    translation: {
+      "Sign Up": "Sign Up",
+      "Full Name": "Full name",
+      "Username": "Username",
+      "ID": "ID",
+      "Address": "Address",
+      "E-Mail": "E-Mail",
+      "Phone Number": "Phone Number",
+      "I agree to the": "I agree to the",
+      "Terms and Conditions": "Terms and Conditions",
+      "Required": "Required",
+      "Submit": "Submit",
+      "My Posts": "My Posts",
+      "Home": "Home",
+      "Update": "Update",
+      "Log out": "Log Out",
+      "Login": "Login",
+      "POST SOMETHING": "POST SOMETHING",
+      "sort by": "Sort by",
+      "date high to low": "Date high to low",
+      "date low to high": "Date low to high",
+      "Points high to low": "Points high to low",
+      "Points low to high": "Points low to high",
+      "category": "Category",
+      "All": "All",
+      "Status": "Status",
+      "Pending": "Pending",
+      "In progress": "In progress",
+      "Resolved": "Resolved",
+      "language": "Language",
+      "Send": "Send",
+      "User": "User",
+      "Points": "Points",
+      "vote": "Vote",
+      "Comment something": "Comment Something",
+      "Send comment": "Send Comment",
+      "No Comments": "No Comments",
+      "No response": "No response",
+      "phone number": "Phone Number",
+      "password": "Password",
+      "Log In": "Log In",
+      "Don't have an account? SignUp": "Don't have an account? SignUp!",
+      "Choose File": "Choose File",
+      "No file chosen": "No file chosen",
+      "Title": "Title",
+      "Text": "Text",
+      "other": "Other",
+      "Hide": "Hide",
+      "Show": "Show",
+      "Showing": "Showing",
+      "Hiding": "Hiding",
+      "Cant hide username when post is private": "Cant hide username when post is private",
+      "Sending": "Sending",
+      "only to Municipality": "Only to Municipality",
+      "Posting to feed": "Posting to feed",
+      "Please choose a language": "Please choose a language",
+      "Signed Up Successfuly": "Signed Up Successfuly",
+      "Redirecting to Home page...": "Redirecting to Home page...",
+      "Explore": "Explore",
+      "Search": "Search",
+      "Search by Keyword": "Search by Keyword",
+      "content": "Content",
+      "comments": "Comments",
+      "responses": "Responses",
+      "Response": "Response",
+      "Employee": "Employee",
+      "Banned": "Banned",
+      "Reason": "Reason",
+      "Ban user": "Ban user",
+      "Not sent": "Not sent"
+    }
+  },
+  es: {
+    translation: {
+      "Sign Up": "Registrarme",
+      "Full Name": "Nombre Completo",
+      "Username": "Nombre de Usuario",
+      "ID": "ID",
+      "Address": "Dirección",
+      "E-Mail": "e-mail",
+      "Phone Number": "Número de Teléfono",
+      "I agree to the": "Acepto los",
+      "Terms and Conditions": "Términos y condiciones",
+      "Required": "Requerido",
+      "Submit": "Enviar",
+      "My Posts": "Mis Publicaciones",
+      "Home": "Pagina Principal",
+      "Update": "Actualizar Info",
+      "Log out": "Cerrar Sesión",
+      "Login": "Iniciar Sesión",
+      "POST SOMETHING": "CREAR PUBLICACIÓN",
+      "sort by": "Ordenar por",
+      "date high to low": "Ordenar por fecha (más reciente)",
+      "date low to high": "Ordenar por fecha (menos reciente)",
+      "Points high to low": "Puntos de mayor a menor",
+      "Points low to high": "Puntos de menor a mayor",
+      "category": "Categoría",
+      "All": "Todo",
+      "Status": "Estado",
+      "Pending": "Pendiente",
+      "In progress": "En Progreso",
+      "Resolved": "Resuelto",
+      "language": "Languaje",
+      "Send": "Enviar",
+      "User": "Usuario",
+      "Points": "Puntos",
+      "vote": "Vota",
+      "Comment something": "Comenta la publicación",
+      "Send comment": "Añadir Comentario",
+      "No Comments": "No Hay Comentarios",
+      "No response": "Sin respuesta",
+      "phone number": "Número de teléfono",
+      "password": "Contraseña",
+      "Log In": "Inicia Sesión",
+      "Don't have an account? SignUp": "¿No tienes cuenta? ¡Regístrate!",
+      "Choose File": "Selecionar Archivo",
+      "No file chosen": "Ningún Archivo Seleccionado",
+      "Title": "Título",
+      "Text": "Text",
+      "other": "Otro",
+      "Hide": "Ocultar",
+      "Show": "Mostrar",
+      "Showing": "Mostrando",
+      "Hiding": "Ocultando",
+      "Cant hide username when post is private": "No es posible ocultar el nombre de usuario cuando un post es privado",
+      "Sending": "Enviando",
+      "only to Municipality": "Solo a la Municipalidad",
+      "Posting to feed": "Publicando para todos",
+      "Please choose a language": "Elija Idioma",
+      "Signed Up Successfuly": "Registro Exitoso",
+      "Redirecting to Home page...": "Redireccionar a Pagina Principal...",
+      "Explore": "Explorar",
+      "Search": "Buscar",
+      "Search by Keyword": "Buscar por Palabra Clave",
+      "content": "Contenido",
+      "comments": "Comentarios",
+      "responses": "Respuestas",
+      "Response": "Respuesta",
+      "Employee": "Empleado",
+      "Banned": "Suspendido",
+      "Reason": "Razón",
+      "Ban user": "Suspender Usuario",
+      "Not sent": "No enviado"
+    }
+  }
+
+
+
+i18next
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: "en",
+
+    keySeparator: false,
+
+    interpolation: {
+      escapeValue: false
+    }
+  })
+export default i18next

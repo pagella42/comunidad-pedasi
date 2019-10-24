@@ -6,6 +6,7 @@ const Post = require('../schemas/Post')
 
 
 router.post('/data/user',(req,res)=>{
+    console.log(req.body)
     let user = new User(req.body)
     user.ban=false
     user.save()

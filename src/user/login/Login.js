@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import './login.css'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +15,10 @@ import Typography from '@material-ui/core/Typography';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+=======
+import { withTranslation } from 'react-i18next';
+
+>>>>>>> master
 
 
 class Login extends Component {
@@ -41,6 +46,7 @@ class Login extends Component {
     }
 
     render() {
+        const{t,i18n}=this.props
         return (
 
             <Card  className='logincontainer' style={{ maxWidth: 345 }}>
@@ -62,4 +68,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withTranslation ('translation') (Login);

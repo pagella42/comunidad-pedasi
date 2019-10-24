@@ -20,6 +20,7 @@ library.add(
     faThumbsUpRegular,
     faThumbsUpSolid
 )
+import { withTranslation } from 'react-i18next';
 
 class Result extends Component {
     constructor() {
@@ -65,6 +66,10 @@ class Result extends Component {
         this.getVotes()
     }
 
+    componentDidUpdate(){
+        this.getVotes()
+    }
+
     vote = async (e) => {
         let name = e.currentTarget.id
         if (name === "post") {
@@ -73,6 +78,7 @@ class Result extends Component {
             await axios.delete(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
         }
         await axios.put(`http://localhost:4000/data/post/points/${this.props.post._id}/${name}`)
+        await this.props.getPosts()
         this.getVotes()
     }
 
@@ -84,6 +90,8 @@ class Result extends Component {
 
 
     render() {
+        const {t,i18n}=this.props
+
         let post = this.props.post
         return (<div class="resultcontainer">
             <ExpansionPanel>
@@ -147,4 +155,4 @@ class Result extends Component {
         </div>)
     }
 }
-export default Result;
+export default withTranslation('translation') (Result);

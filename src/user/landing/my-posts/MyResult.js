@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import './myresult.css'
 
 
@@ -19,9 +20,13 @@ library.add(
     faThumbsUpRegular,
     faThumbsUpSolid 
 )
+=======
+import { withTranslation } from 'react-i18next';
+>>>>>>> master
 
 class MyResult extends Component {
     render() {
+        const {t,i18n}= this.props
         let post = this.props.post
         return (<div id="myresultcontainer">
              <ExpansionPanel>
@@ -39,8 +44,8 @@ class MyResult extends Component {
 
             {/* render responses */}
             {post.responses.length === 0
-                ? <div>No response.</div>
-                : post.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+                ? <div>{t("No response")}.</div>
+                : post.responses.map(r => <div> {t("Response")}: {r.content} {t("Employee")}: {r.employee} </div>)}
 
 
             {/* render comments \/ */}
@@ -52,7 +57,7 @@ class MyResult extends Component {
                         </div>
                     })}
                 </div>
-                : <div>No Comments.</div>
+                : <div>{t("No Comments")}.</div>
             }
             {post.date}
             {post.status}
@@ -62,4 +67,4 @@ class MyResult extends Component {
         </div>)
     }
 }
-export default MyResult;
+export default withTranslation('translation') (MyResult);

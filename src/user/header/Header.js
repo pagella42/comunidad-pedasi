@@ -12,6 +12,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { withTranslation } from 'react-i18next';
+
+
+
 
 
 
@@ -28,10 +32,12 @@ class Header extends Component {
     edit= async ()=>{ await this.setState({where: "Edit my profile"})}
     
     render() {
+
         let isLoggedIn = this.props.isLoggedIn
 
         return (
             <div className="header" style={{ flexGrow: 1 }}>
+            {/* <button onClick={changeLanguage}>{english? "Español": "English"}</button> */}
                 <AppBar position="static">
                     <Toolbar>
 
@@ -58,24 +64,4 @@ class Header extends Component {
 }
 export default Header;
 
-// <div>
-// {isLoggedIn ?
-//     <div id="header">
-//         <div id="headercont">
-//             <Link id="homeicon" to="/user/home"><FontAwesomeIcon  icon={faHome} /></Link>
-//             <Link to="/user/myposts">My Posts</Link>
-//             <Link to='/user/updateinfo'>My profile</Link>
-//         </div>
-//         <div id="headerlogin">
-//             <Link class="headerlogbutt" to="/user/home"><div  onClick={this.props.logout}>Log out</div> </Link>
-//         </div>
-//     </div> :
-//     <div id="header">
-//         <div id="headercont"></div>
-//         <div id="headerlogin">
-//         <div class="headerlogbutt" onClick={this.props.loginPopup}>Login</div>
-//         </div>
-//     </div>
-// }
 
-// </div>

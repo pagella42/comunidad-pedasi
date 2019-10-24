@@ -9,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { withTranslation } from 'react-i18next';
+
 
 class Filter extends Component {
   constructor() {
@@ -87,6 +89,7 @@ class Filter extends Component {
     this.getCategories()
   }
   render() {
+    const {t,i18n}=this.props
     return (
       <div id="filtercontainer">
         <FormControl  variant="outlined" >
@@ -131,4 +134,4 @@ class Filter extends Component {
     );
   }
 }
-export default Filter;
+export default withTranslation('translation') (Filter);

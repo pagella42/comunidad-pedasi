@@ -8,12 +8,10 @@ class Results extends Component {
         return (<div>
             {
                 this.props.posts.map(d => {
-                    if(!d.private  || this.props.phone === d.user.phone){
-                        
-                        
-                      return  <Result loginPopup={this.props.loginPopup} phone={this.props.phone} post={d} /> 
-                    } 
-                    
+                    if (!d.private || this.props.phone === d.user.phone) {
+                        return <Result loginPopup={this.props.loginPopup} getPosts={this.props.getPosts} phone={this.props.phone} post={d} />
+                    }
+
                 }
                 )
             }

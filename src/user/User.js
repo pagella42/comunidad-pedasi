@@ -41,7 +41,7 @@ class User extends Component {
   render() {
     return (
       <div>
-        <Header logout={this.logout} isLoggedIn={this.state.userLogin.isLoggedIn} loginPopup={this.props.loginPopup} />
+        <Header changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.userLogin.isLoggedIn} loginPopup={this.props.loginPopup} />
 
         {this.props.loginPopupState ? <Login loginPopup={this.props.loginPopup} login={this.login} /> : null}
 

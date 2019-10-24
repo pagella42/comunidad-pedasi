@@ -8,40 +8,30 @@ import Fab from '@material-ui/core/Fab';
 
 
 import Button from '@material-ui/core/Button';
+import { withTranslation } from 'react-i18next';
+
 class Feed extends Component {
     constructor() {
         super()
         this.state = {
             posts: [],
-            showCreate: false,
-            user: [],
+            showCreate: false
         }
     }
 
     getPosts = async (filter) => {
         let response = await axios.post("http://localhost:4000/data/posts", filter)
-        const user = await axios.get(`http://localhost:4000/data/user/${this.props.phone}`)
-        this.setState({ posts: response.data, user: user.data })
+        this.setState({ posts: response.data })
     }
 
-    componentDidMount() {
-        this.getPosts()
+    componentDidMount = () => this.getPosts()
 
-
-    }
-
-    showCreatePost = async () => {
-        if (this.props.isLoggedIn) {
-            await this.setState({ showCreate: !this.state.showCreate })
-        }
-        else {
-            this.props.loginPopup()
-        }
-    }
-
+    showCreatePost = async () => this.props.isLoggedIn ? this.setState({ showCreate: !this.state.showCreate }) : this.props.loginPopup()
 
     render() {
+        const {t,i18n} = this.props
         return (
+
             <div id='feedcontainer'>
                 <div id="feedinnercont">
                 {
@@ -50,7 +40,7 @@ class Feed extends Component {
                         <h3>{this.state.user.banReason}</h3> :
 
                         <div>
-                              <div id='postbuttoncont'><Fab  onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >Post something </Fab></div>
+                              <div id='postbuttoncont'><Fab  onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >{t("POST SOMETHING")}</Fab></div>
                            
                             {this.state.showCreate ?
                                 <CreatePost showCreatePost={this.showCreatePost} phone={this.props.phone} getPosts={this.getPosts} /> : null
@@ -60,8 +50,9 @@ class Feed extends Component {
                         </div>
                 }
                 </div>
+
             </div>
         )
     }
 }
-export default Feed;
+export default withTranslation('translation') (Feed);
