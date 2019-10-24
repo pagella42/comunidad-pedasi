@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import { withTranslation } from 'react-i18next';
+
 class Filter extends Component {
     constructor() {
         super();
@@ -114,86 +116,87 @@ class Filter extends Component {
         this.getUsers()
     }
     render() {
+        const {t,i18n} = this.props
         return (
             <div>
                 <div>
-                    <input type="text" name="keyword" placeholder="Search by Keyword" onChange={this.handleCheckboxChange} />
+                    <input type="text" name="keyword" placeholder={t("Search by Keyword")} onChange={this.handleCheckboxChange} />
                     <div>
                         <input type="checkbox" name="search-keyword" id="title" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="title-checkbox">title</label>
+                        <label htmlFor="title-checkbox">{t("title")}</label>
                     </div>
                     <div>
                         <input type="checkbox" name="search-keyword" id="content" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="content-checkbox">content</label>
+                        <label htmlFor="content-checkbox">{t("content")}</label>
                     </div>
                     <div>
                         <input type="checkbox" name="search-keyword" id="comments" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="comments-checkbox">comments</label>
+                        <label htmlFor="comments-checkbox">{t("comments")}</label>
                     </div>
                     <div>
                         <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="responses-checkbox">responses</label>
+                        <label htmlFor="responses-checkbox">{t("response")}</label>
                     </div>
                 </div>
                 <br />
-                <label htmlFor="">sort by</label>
+                <label htmlFor="">{t("sort by")}</label>
                 <select
                     name="sort"
                     onChange={this.updateSort}
                     value={this.state.sort}
                     id=""
                 >
-                    <option value="cl">date high to low</option>
-                    <option value="dl">date low to hight</option>
-                    <option value="ph">Points high to low</option>
-                    <option value="pl">Points low to high</option>
+                    <option value="cl">{t("date high to low")}</option>
+                    <option value="dl">{t("date low to hight")}</option>
+                    <option value="ph">{t("Points high to low")}</option>
+                    <option value="pl">{t("Points low to high")}</option>
                 </select>
-                <label htmlFor="">category</label>
+                <label htmlFor="">{t("category")}</label>
                 <select
                     name="category"
                     onChange={this.update}
                     value={this.state.filter.category}
                     id=""
                 >
-                    <option value=''>All</option>
-                    {this.state.categories.map(c => <option value={c.toLowerCase()}>{c}</option>)}
+                    <option value=''>{t("All")}</option>
+                    {this.state.categories.map(c => <option value={c.toLowerCase()}>{t(c)}</option>)}
 
                 </select>
 
-                <label htmlFor="">status</label>
+                <label htmlFor="">{t("status")}</label>
                 <select
                     name="status"
                     onChange={this.update}
                     value={this.state.filter.status}
                     id=""
                 >
-                    <option value="">All</option>
-                    <option value="pending">Pending</option>
-                    <option value="in progress">In Progress</option>
-                    <option value="resovled">Resovled</option>
+                    <option value="">{t("All")}</option>
+                    <option value="pending">{t("Pending")}</option>
+                    <option value="in progress">{t("In Progress")}</option>
+                    <option value="resovled">{t("Resovled")}</option>
                 </select>
 
-                <label htmlFor="">language</label>
+                <label htmlFor="">{t("language")}</label>
                 <select
                     name="language"
                     onChange={this.update}
                     value={this.state.filter.language}
                     id=""
                 >
-                    <option value="">All</option>
+                    <option value="">{t("All")}</option>
                     <option value="es">Espanol</option>
                     <option value="en">English</option>
                 </select>
 
-                <label htmlFor="">User</label>
+                <label htmlFor="">{t("User")}</label>
                 <input type="text" list="data" name="user" placeholder="User name" onChange={this.update} />
                 <datalist id="data" name="user">
                     {this.state.users.map(user => <option value={user.name} key={user._id} />)}
                 </datalist>
 
-                <button onClick={this.filter}>Send</button>
+                <button onClick={this.filter}>{t("Send")}</button>
             </div>
         );
     }
 }
-export default Filter;
+export default withTranslation('translation') (Filter);

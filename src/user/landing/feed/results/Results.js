@@ -11,7 +11,7 @@ class Results extends Component {
                     if(!d.private  || this.props.phone === d.user.phone){
                         
                         
-                      return  <Result phone={this.props.phone} post={d} /> 
+                      return  <Result getPosts={this.props.getPosts} phone={this.props.phone} post={d} /> 
                     } 
                     
                 }

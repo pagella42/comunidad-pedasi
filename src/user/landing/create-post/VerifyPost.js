@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next'
 class VerifyPost extends Component {
 
     reviewPost = (event) => {
@@ -7,20 +8,21 @@ class VerifyPost extends Component {
     }
 
     render() {
+        const {t,i18n}=this.props
         return (
             <div>
-                <div>Are you sure to post this post ? </div>
+                <div>{t("Are you sure to post this post")} ? </div>
                 <div>
-                    <div>Title: {this.props.post.title}</div>
-                    <div>Content: {this.props.post.content}</div>
-                    <div>Address: {this.props.post.address}</div>
-                    <div>Category: {this.props.post.category}</div>
+                    <div>{t("Title")}: {this.props.post.title}</div>
+                    <div>{t("Content")}: {this.props.post.content}</div>
+                    <div>{t("Address")}: {this.props.post.address}</div>
+                    <div>{t("Category")}: {this.props.post.category}</div>
                 </div>
-                <button name="confirm" onClick={this.reviewPost}>Confirm</button>
-                <button name="review" onClick={this.reviewPost}>Go back to post</button>
+                <button name="confirm" onClick={this.reviewPost}>{t("Confirm")}</button>
+                <button name="review" onClick={this.reviewPost}>{t("Go back to post")}</button>
             </div>
         );
     }
 }
 
-export default VerifyPost;
+export default withTranslation('translation') (VerifyPost);

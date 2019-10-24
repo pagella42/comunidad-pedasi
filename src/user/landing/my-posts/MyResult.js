@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+
 class MyResult extends Component {
     render() {
+        const {t,i18n}= this.props
         let post = this.props.post
         return (<div>
             <div>{post.title}</div>
-            <div>Points: {post.points}</div>
+            <div>{t("Points")}: {post.points}</div>
             <div>{post.content}</div>
             <div>{post.address}</div>
             <div>{post.category}</div>
@@ -12,8 +15,8 @@ class MyResult extends Component {
 
             {/* render responses */}
             {post.responses.length === 0
-                ? <div>No response.</div>
-                : post.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+                ? <div>{t("No response")}.</div>
+                : post.responses.map(r => <div> {t("Response")}: {r.content} {t("Employee")}: {r.employee} </div>)}
 
 
             {/* render comments \/ */}
@@ -25,11 +28,11 @@ class MyResult extends Component {
                         </div>
                     })}
                 </div>
-                : <div>No Comments.</div>
+                : <div>{t("No Comments")}.</div>
             }
             {post.date}
             {post.status}
         </div>)
     }
 }
-export default MyResult;
+export default withTranslation('translation') (MyResult);

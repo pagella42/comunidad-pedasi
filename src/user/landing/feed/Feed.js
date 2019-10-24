@@ -3,58 +3,40 @@ import Results from './results/Results'
 import axios from 'axios';
 import CreatePost from '../create-post/CreatePost';
 import Filter from './filter/Filter';
+import { withTranslation } from 'react-i18next';
+
 class Feed extends Component {
     constructor() {
         super()
         this.state = {
             posts: [],
-            showCreate: false,
-            user: [],
+            showCreate: false
         }
     }
 
     getPosts = async (filter) => {
         let response = await axios.post("http://localhost:4000/data/posts", filter)
-        const user = await axios.get(`http://localhost:4000/data/user/${this.props.phone}`)
-        this.setState({ posts: response.data, user: user.data })
+        this.setState({ posts: response.data })
     }
 
-    componentDidMount() {
-        this.getPosts()
+    componentDidMount = () => this.getPosts()
 
-
-    }
-
-    showCreatePost = async () => {
-        if (this.props.isLoggedIn) {
-            await this.setState({ showCreate: !this.state.showCreate })
-        }
-        else {
-            this.props.loginPopup()
-        }
-    }
-
+    showCreatePost = async () => this.props.isLoggedIn ? this.setState({ showCreate: !this.state.showCreate }) : this.props.loginPopup()
 
     render() {
+        const {t,i18n} = this.props
         return (
             <div>
-                {
-                    this.state.user.ban ?
 
-                        <h3>{this.state.user.banReason}</h3> :
-
-                        <div>
-                            <button onClick={this.showCreatePost}>POST SOMETHING</button>
-                            {this.state.showCreate ?
-                                <CreatePost showCreatePost={this.showCreatePost} phone={this.props.phone} getPosts={this.getPosts} /> : null
-                            }
-                            <Filter getPosts={this.getPosts} />
-                            <Results posts={this.state.posts} phone={this.props.phone} />
-                        </div>
+                <button onClick={this.showCreatePost}>{t("POST SOMETHING")}</button>
+                {this.state.showCreate ?
+                    <CreatePost showCreatePost={this.showCreatePost} phone={this.props.phone} getPosts={this.getPosts} /> 
+                    : null
                 }
-
+                <Filter getPosts={this.getPosts} />
+                <Results posts={this.state.posts} phone={this.props.phone} getPosts={this.getPosts} />
             </div>
         )
     }
 }
-export default Feed;
+export default withTranslation('translation') (Feed);

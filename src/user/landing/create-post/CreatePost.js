@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import VerifyPost from './VerifyPost';
 import ImageUpload from '../../../ImageUpload/ImageUpload'
+import { withTranslation } from 'react-i18next';
+
 
 class CreatePost extends Component {
     constructor() {
@@ -61,7 +63,8 @@ class CreatePost extends Component {
         }
     }
 
-    validate = () => {
+    validate = (event) => {
+        event.preventDefault()
         this.state.post.language?
         this.verifyPost():
         alert('Please choose a language')
@@ -119,47 +122,45 @@ class CreatePost extends Component {
     
 
     render() {
+        const {t,i18next} = this.props
         return (
             <div>
+                <form onSubmit={this.validate}>
                 <div onClick={this.props.showCreatePost}>X</div>
-                <input type="text" name="title" placeholder="Title" onChange={this.handleInputChange} />
-                <input type="text" name="content" placeholder="Text" onChange={this.handleInputChange} />
-                <input type="text" name="address" placeholder="Adress" onChange={this.handleInputChange} />
+                <input required type="text" name="title" placeholder={t("Title")} onChange={this.handleInputChange} />
+                <input required type="text" name="content" placeholder={t("Text")} onChange={this.handleInputChange} />
+                <input required type="text" name="address" placeholder={t("Adress")} onChange={this.handleInputChange} />
                 <select name="category" value={this.state.post.category} onChange={this.handleInputChange}>
-                    {this.state.categories.map(category => <option value={category}>{category}</option>)}
+                    {this.state.categories.map(category => <option value={category}>{t(category)}</option>)}
                 </select>
-                <select name='language' value={this.state.post.language} onChange={this.handleInputChange}>
+                <select required name='language' value={this.state.post.language} onChange={this.handleInputChange}>
                     <option value={0}>-</option>
                     <option value='en'>English</option>
                     <option value='es'>Español</option>
                 </select>
+                
                 <ImageUpload saveUrl={this.saveUrl} />
                 {this.state.post.private ?
-                    <div>Cant hide username when post is private</div> :
-
+                    <input disabled type='button'  value={t("Hide username")}/>:
                     <div>
                         {/* button to post anonymously */}
-                        <button onClick={this.anonymous}>
-                            {this.state.post.anonymous ? "Show username" : "Hide username"}
-                        </button>
-
-                        {this.state.post.anonymous ? "-->Hiding username" : "-->Showing username"}
+                        <input type='button' onClick={this.anonymous} value={this.state.post.anonymous ? t("Show username") : t("Hide username")}/>
+                        <br/>
+                        {this.state.post.anonymous ?  t("Hiding username") : t("Showing username")}
                     </div>
 
                 }
 
                 <div>
                     {/* button to post privately */}
-                    <button onClick={this.private}>
-                        {this.state.post.private ? "Post to feed" : "Send only to Municipality"}
-                    </button>
-
-                    {this.state.post.private ? "-->Sending only to Municipality" : "-->Posting to feed"}
+                    <input type='button' onClick={this.private} value={this.state.post.private ? t("Post to feed") : t("Send only to Municipality")}/>
+                    <br/>
+                    {this.state.post.private ? t("Sending only to Municipality") : t("Posting to feed")}
                 </div>
-                <button onClick={this.validate}>Submit</button>
+                <input type='submit' value={t("Submit")}/>
                 {/* Pop up : please review your post */}
                 {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
-
+                </form>
 
 
             </div>
@@ -167,4 +168,4 @@ class CreatePost extends Component {
     }
 }
 
-export default CreatePost;
+export default withTranslation('translation') (CreatePost);

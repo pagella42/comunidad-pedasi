@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { storage } from '../Firebase';
+import { withTranslation } from 'react-i18next';
 
 class ImageUpload extends Component {
     constructor() {
@@ -44,16 +45,17 @@ class ImageUpload extends Component {
     }
 
     render() {
+        const {t,i18next}= this.props
         return (
             <div>
                 <input
                     type="file"
-                    placeholder="file"
+                    placeholder={t("file")}
                     onChange={this.handleChange}
                     accept="image/*"
                     capture="environment"
                 />
-                {this.state.image ? <button onClick={this.handleUpload}>Upload</button> : <br /> }
+                {this.state.image ? <button onClick={this.handleUpload}>{t("Upload")}</button> : <br /> }
                 <br/>
                 
             </div>
@@ -61,4 +63,4 @@ class ImageUpload extends Component {
     }
 }
 
-export default ImageUpload;
+export default withTranslation('translation') (ImageUpload);

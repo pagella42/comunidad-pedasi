@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { withTranslation } from 'react-i18next';
+
 class Update extends Component {
   constructor() {
     super();
@@ -18,7 +20,6 @@ class Update extends Component {
      address: this.state.inputs.address,
 
     }
-    console.log(data)
 
     await axios.put(`http://localhost:4000/data/user/${this.state.login.phone}`, data)
 
@@ -30,34 +31,33 @@ class Update extends Component {
     this.setState({ inputs });
   };
   componentDidMount = async () => {
-      console.log(this.state.login.phone)
     let userData = await axios.get(`http://localhost:4000/data/user/${this.state.login.phone}`);
     await this.setState({ userData: userData.data });
-    console.log("userData: ",this.state.userData);
   };
   render() {
+    const {t,i18n} = this.props
     return (
       <div>
           <div>
         {this.state.userData
           ? this.state.details.map(detail => (
               <div>
-                <label htmlFor="">{detail}</label>
+                <label htmlFor="">{t(detail)}</label>
                 <input
                   type="text"
                   onChange={this.handleInput}
                   value={this.state.inputs[detail]}
                   name={detail}
-                  placeholder={this.state.userData[detail]}
+                  placeholder={t(this.state.userData[detail])}
                 />
               </div>
             ))
           : null}
           </div>
-          <button onClick={this.update}>Click Me</button>
+          <button onClick={this.update}>{t("Click Me")}</button>
 
       </div>
     );
   }
 }
-export default Update;
+export default withTranslation('translation') (Update);

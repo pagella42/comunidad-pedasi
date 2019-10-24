@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Category from "./Category";
 import axios from 'axios'
+import { withTranslation } from 'react-i18next';
+
 class Categories extends Component {
   constructor() {
     super();
@@ -22,17 +24,16 @@ class Categories extends Component {
     
     
     
-    console.log(this.state.categories)
     
 }
   render() {
+    const {t,i18n} = this.props
     return (
       <div>
-        <div></div>
         {this.state.categories.map(c => {
                 return (
                     <div>
-                        <div>{c}</div>
+                        <div>{t(c)}</div>
                         <Category category={c} />
                     </div>
                     
@@ -43,4 +44,4 @@ class Categories extends Component {
     );
   }
 }
-export default Categories;
+export default withTranslation('translation') (Categories);

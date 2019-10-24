@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { withTranslation } from 'react-i18next';
+
+
 class Filter extends Component {
   constructor() {
     super();
@@ -77,59 +80,60 @@ class Filter extends Component {
       this.getCategories()
   }
   render() {
+    const {t,i18n}=this.props
     return (
       <div>
-        <label htmlFor="">sort by</label>
+        <label htmlFor="">{t("sort by")}</label>
         <select
           name="sort"
           onChange={this.updateSort}
           value={this.state.sort}
           id=""
         >
-          <option value="dh">date high to low</option>
-          <option value="dl">date low to hight</option>
-          <option value="ph">Points high to low</option>
-          <option value="pl">Points low to high</option>
+          <option value="dh">{t("date high to low")}</option>
+          <option value="dl">{t("date low to high")}</option>
+          <option value="ph">{t("Points high to low")}</option>
+          <option value="pl">{t("Points low to high")}</option>
         </select>
-        <label htmlFor="">category</label>
+        <label htmlFor="">{t("category")}</label>
         <select
           name="category"
           onChange={this.update}
           value={this.state.filter.category}
           id=""
         >
-            <option value=''>All</option>
-            {this.state.categories.map(c => <option value={c.toLowerCase()}>{c}</option>)}
+            <option value=''>{t("All")}</option>
+            {this.state.categories.map(c => <option value={c.toLowerCase()}>{t(c)}</option>)}
 
         </select>
 
-        <label htmlFor="">status</label>
+        <label htmlFor="">{t("Status")}</label>
         <select
           name="status"
           onChange={this.update}
           value={this.state.filter.status}
           id=""
         >
-          <option value="">All</option>
-          <option value="pending">Pending</option>
-          <option value="in progress">In progress</option>
-          <option value="resovled">Resovled</option>
+          <option value="">{t("All")}</option>
+          <option value="pending">{t("Pending")}</option>
+          <option value="in progress">{t("In progress")}</option>
+          <option value="resolved">{t("Resolved")}</option>
         </select>
 
-        <label htmlFor="">language</label>
+        <label htmlFor="">{t("language")}</label>
         <select
           name="language"
           onChange={this.update}
           value={this.state.filter.language}
           id=""
         >
-          <option value="">All</option>
+          <option value="">{t("All")}</option>
           <option value="es">Espanol</option>
           <option value="en">English</option>
         </select>
-        <button onClick={this.filter}>Send</button>
+        <button onClick={this.filter}>{t("Send")}</button>
       </div>
     );
   }
 }
-export default Filter;
+export default withTranslation('translation') (Filter);

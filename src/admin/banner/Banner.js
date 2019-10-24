@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { withTranslation } from 'react-i18next';
 
-export class Banner extends Component {
+
+class Banner extends Component {
     constructor() {
         super()
         this.state = {
@@ -15,7 +17,6 @@ export class Banner extends Component {
 
     getUser = async () => {
         const user = await axios.get(`http://localhost:4000/data/user/${this.props.userPhone}`)
-        console.log(user.data)
         this.setState({ user: user.data, ban: user.data.ban, banReason: user.data.banReason })
     }
 
@@ -36,15 +37,16 @@ export class Banner extends Component {
     componentDidMount = () => { this.getUser() }
 
     render() {
+        const {t, i18n} = this.props
         const u = this.state.user
         return (
             <div>
-                <div>Ban Status: {u.ban ? "Banned" : "No banned"} - Reason: {u.banReason}</div>
-                <input type="text" placeholder="Reason" name="banReason" value={this.state.name} onChange={this.update} />
-                <button onClick={this.banner}>{u.ban ? "Unban user" : "Ban user"}</button>
+                <div>{t("Ban Status")}: {u.ban ? t("Banned") : t("Active")} - {t("Reason")}: {u.banReason}</div>
+                <input type="text" placeholder={t("Reason")} name="banReason" value={this.state.name} onChange={this.update} />
+                <button onClick={this.banner}>{u.ban ? t("Unban user") : t("Ban user")}</button>
             </div>
         )
     }
 }
 
-export default Banner
+export default withTranslation('translation') (Banner);
