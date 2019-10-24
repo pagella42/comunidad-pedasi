@@ -4,6 +4,10 @@ import axios from 'axios';
 import CreatePost from '../create-post/CreatePost';
 import Filter from './filter/Filter';
 import './feed.css'
+import Fab from '@material-ui/core/Fab';
+
+
+import Button from '@material-ui/core/Button';
 class Feed extends Component {
     constructor() {
         super()
@@ -46,7 +50,8 @@ class Feed extends Component {
                         <h3>{this.state.user.banReason}</h3> :
 
                         <div>
-                            <button onClick={this.showCreatePost}>POST SOMETHING</button>
+                              <div id='postbuttoncont'><Fab  onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >Post something </Fab></div>
+                           
                             {this.state.showCreate ?
                                 <CreatePost showCreatePost={this.showCreatePost} phone={this.props.phone} getPosts={this.getPosts} /> : null
                             }

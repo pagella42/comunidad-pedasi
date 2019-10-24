@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import './filter.css'
+import Button from '@material-ui/core/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -27,7 +28,7 @@ class Filter extends Component {
     };
   }
   filter = async () => {
-    let filter = {...this.state.filter};
+    let filter = { ...this.state.filter };
     switch (this.state.sort) {
       case "dh":
         filter.sort.by = "date";
@@ -76,67 +77,57 @@ class Filter extends Component {
   };
 
   getCategories = async () => {
-     let response= await  axios.get('http://localhost:4000/data/categories')
-     let categories = response.data.map(p => p.name)
-     await this.setState({categories})
-    
+    let response = await axios.get('http://localhost:4000/data/categories')
+    let categories = response.data.map(p => p.name)
+    await this.setState({ categories })
+
   }
 
   componentDidMount = () => {
-      this.getCategories()
+    this.getCategories()
   }
   render() {
     return (
-      <div>
-        <label htmlFor="">sort by</label>
-        <select
-          name="sort"
-          onChange={this.updateSort}
-          value={this.state.sort}
-          id=""
-        >
-          <option value="dh">date high to low</option>
-          <option value="dl">date low to hight</option>
-          <option value="ph">Points high to low</option>
-          <option value="pl">Points low to high</option>
-        </select>
-        <label htmlFor="">category</label>
-        <select
-          name="category"
-          onChange={this.update}
-          value={this.state.filter.category}
-          id=""
-        >
-            <option value=''>All</option>
-            {this.state.categories.map(c => <option value={c.toLowerCase()}>{c}</option>)}
+      <div id="filtercontainer">
+        <FormControl  variant="outlined" >
+          <InputLabel  htmlFor="outlined-sort-simple">  Sort By  </InputLabel>
+          <Select name="sort" onChange={this.updateSort} value={this.state.sort}  labelWidth={'55'}  inputProps={{ name: 'sort', id: 'outlined-sort-simple', }} >
+            <MenuItem value="">  <em>None</em> </MenuItem>
+            <MenuItem value='dh'>Date high to low</MenuItem>
+            <MenuItem value='dl'>Date low to high</MenuItem>
+            <MenuItem value='ph'>Likes high to low</MenuItem>
+            <MenuItem value='pl'>Likes low to high</MenuItem>
+          </Select>
+        </FormControl>
+       
+        <FormControl variant="outlined" >
+          <InputLabel  htmlFor="outlined-sort-simple">  Categories </InputLabel>
+          <Select name="category" onChange={this.update} value={this.state.filter.category} labelWidth={'75'}  inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
+            <MenuItem value=''>All</MenuItem>
+             {this.state.categories.map(c => <MenuItem value={c.toLowerCase()}>{c}</MenuItem>)}
+          </Select>
+        </FormControl>
+        
+        <FormControl variant="outlined" >
+          <InputLabel  htmlFor="outlined-sort-simple"> Status </InputLabel>
+          <Select name="status" onChange={this.update} value={this.state.filter.status} labelWidth={'55'}  inputProps={{ name: 'status', id: 'outlined-status-simple', }} >
+            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='pending'>Pending</MenuItem>
+            <MenuItem value='in progress'>In progress</MenuItem>
+            <MenuItem value='resolved'>Resolved</MenuItem>
+          </Select>
+        </FormControl>
 
-        </select>
-
-        <label htmlFor="">status</label>
-        <select
-          name="status"
-          onChange={this.update}
-          value={this.state.filter.status}
-          id=""
-        >
-          <option value="">All</option>
-          <option value="pending">Pending</option>
-          <option value="in progress">In progress</option>
-          <option value="resovled">Resovled</option>
-        </select>
-
-        <label htmlFor="">language</label>
-        <select
-          name="language"
-          onChange={this.update}
-          value={this.state.filter.language}
-          id=""
-        >
-          <option value="">All</option>
-          <option value="es">Espanol</option>
-          <option value="en">English</option>
-        </select>
-        <button onClick={this.filter}>Send</button>
+        <FormControl variant="outlined" >
+          <InputLabel  htmlFor="outlined-sort-simple"> Language </InputLabel>
+          <Select   name="language" onChange={this.update} value={this.state.filter.language} labelWidth={'70'}  inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
+            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='es'>Español</MenuItem>
+            <MenuItem value='en'>English</MenuItem>
+          </Select>
+        </FormControl>
+        
+        <Button onClick={this.filter} variant="outlined" > Filer </Button>
       </div>
     );
   }

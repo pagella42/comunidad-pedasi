@@ -1,11 +1,34 @@
 import React, { Component } from 'react';
+
+
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp as faThumbsUpRegular} from '@fortawesome/free-regular-svg-icons'
+import { faThumbsUp as faThumbsUpSolid} from '@fortawesome/free-solid-svg-icons'
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+
+library.add(
+    faThumbsUpRegular,
+    faThumbsUpSolid 
+)
+
 class MyResult extends Component {
     render() {
         let post = this.props.post
         return (<div>
-            <div>{post.title}</div>
-            <div>Points: {post.points}</div>
-            <div>{post.content}</div>
+             <ExpansionPanel>
+                <ExpansionPanelSummary  expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                    <Typography > {post.title} <span className='viewlike'>{post.points}<FontAwesomeIcon icon={['fas', 'thumbs-up']} /></span> </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                <div>{post.content}</div>
             <div>{post.address}</div>
             <div>{post.category}</div>
             <div><img src={post.picture} alt="concern picture" /></div>
@@ -29,6 +52,9 @@ class MyResult extends Component {
             }
             {post.date}
             {post.status}
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+          
         </div>)
     }
 }
