@@ -1,0 +1,42 @@
+
+
+
+@media only screen and (max-width: 800px) {
+   .headericonbig{
+       display: none;
+   }
+   .headerwhere{
+    display: none;
+   }
+
+   .MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters{
+    display: grid;
+    align-items: center;
+    justify-items: start;
+    padding-right: 0;
+    padding-left: 0;
+   }
+
+   .headcont{
+    width: 100vw;
+    justify-content: space-evenly;
+    display: flex;
+    align-items: center;
+   }
+  
+   .loginbuttcont{
+       left: 40px;
+       height: inherit;
+   }
+}
+
+@media only screen and (min-width: 800px) {
+    .headericonsmall{
+        display: none;
+
+    }
+}
+
+.iconheader{
+    font-size: 1.5em;
+}

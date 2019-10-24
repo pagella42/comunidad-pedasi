@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Landing from "./landing/Landing";
-import Login from "./Login";
-import Header from './landing/Header';
+import Login from "./login/Login";
+import Header from './header/Header';
 
 
 class User extends Component {

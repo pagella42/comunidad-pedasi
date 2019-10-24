@@ -3,6 +3,7 @@ import Results from './results/Results'
 import axios from 'axios';
 import CreatePost from '../create-post/CreatePost';
 import Filter from './filter/Filter';
+import './feed.css'
 class Feed extends Component {
     constructor() {
         super()

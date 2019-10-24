@@ -9,9 +9,9 @@ import ImageUpload from './ImageUpload/ImageUpload';
 import ResultDetail from './admin/results/ResultDetails';
 import MyPosts from './user/landing/my-posts/MyPosts';
 import Search from './admin/landing/search/Search';
-import Update from './user/landing/Update';
+import Update from './user/update/Update';
 
-import SignUp from './user/SignUp'
+import SignUp from './user/signup/SignUp'
 
 import Landing from './user/landing/Landing';
 

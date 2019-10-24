@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../Header';
+import Header from '../../header/Header';
 import axios from 'axios';
 import MyResults from './MyResults';
 class MyPosts extends Component {
