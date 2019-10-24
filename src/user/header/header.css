@@ -35,6 +35,9 @@
         display: none;
 
     }
+    .loginbuttcont{
+        height: inherit;
+    }
 }
 
 .iconheader{

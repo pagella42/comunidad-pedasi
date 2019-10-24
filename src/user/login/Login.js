@@ -5,19 +5,29 @@ import './login.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+
 
 class Login extends Component {
     constructor() {
         super()
         this.state = {
             phone: "",
-            password:'',
+            password: '',
         }
     }
     handleInputChange = (event) => {
-        this.setState({ 
+        this.setState({
             [event.target.name]: event.target.value
-            
+
         })
     }
 
@@ -32,28 +42,22 @@ class Login extends Component {
 
     render() {
         return (
-            <div id="logincontainer">
-                <div id="logininnercont">
-                    <div>
-                        <div>Username: </div> <input class="usernamelogin" type="string" placeholder="phone number" name="phone" onChange={this.handleInputChange}  value={this.state.phone}/>
-                    </div>
-                    <div>
-                        <div>National ID: </div><input onChange={this.handleInputChange} name="password" class="passwordlogin" type="password" value={this.state.passwod} placeholder="password" />
-                    </div>
-                    <Link to="/user/signUp" >Don't have an account? SignUp</Link>
 
-                    <div class="loginbuttcont">
-
-                        <div class="cancellogin" onClick={this.props.loginPopup}><Button style={{ margin: 'theme.spacing(1)' }} variant="outlined" color="inherit">Cancel </Button> </div>
-                       
-                         {this.state.phone && this.state.password ?
-                         <div class="submitlogin" onClick={this.loginHandler}><Button variant="contained" style={{ margin: 'theme.spacing(1)' }}>Log In </Button></div>:
-                         <div class="submitlogin" onClick={this.loginHandler}><Button variant="contained" style={{ margin: 'theme.spacing(1)' }} disabled >Log In </Button></div>
-                         }
-                    </div>
-
-                </div>
-            </div>
+            <Card  className='logincontainer' style={{ maxWidth: 345 }}>
+                <CardContent>
+                    <TextField  id="outlined-name" label="Username" margin="normal"  variant="outlined"  type="string" name="phone" onChange={this.handleInputChange}  value={this.state.phone} />
+                    <TextField id="outlined-name" label="National ID" margin="normal" variant="outlined" onChange={this.handleInputChange} name="password" value={this.state.passwod} />
+                   <div><Link to="/user/signUp" >Don't have an account? SignUp</Link></div> 
+                </CardContent>
+                <CardActions>
+                {this.state.phone && this.state.password ?
+                    <Button size="small" color="primary" onClick={this.loginHandler}>Login </Button>:
+                    <Button disabled size="small" color="primary"  onClick={this.loginHandler}>Login </Button>
+                }
+                    <Button onClick={this.props.loginPopup} size="small" color="primary"> Cancel</Button>
+                </CardActions>
+            </Card>
+         
         );
     }
 }

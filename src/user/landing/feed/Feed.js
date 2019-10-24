@@ -38,7 +38,8 @@ class Feed extends Component {
 
     render() {
         return (
-            <div>
+            <div id='feedcontainer'>
+                <div id="feedinnercont">
                 {
                     this.state.user.ban ?
 
@@ -50,10 +51,10 @@ class Feed extends Component {
                                 <CreatePost showCreatePost={this.showCreatePost} phone={this.props.phone} getPosts={this.getPosts} /> : null
                             }
                             <Filter getPosts={this.getPosts} />
-                            <Results posts={this.state.posts} phone={this.props.phone} />
+                            <Results loginPopup={this.props.loginPopup}  posts={this.state.posts} phone={this.props.phone} />
                         </div>
                 }
-
+                </div>
             </div>
         )
     }

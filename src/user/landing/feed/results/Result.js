@@ -1,5 +1,23 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './result.css'
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp as faThumbsUpRegular} from '@fortawesome/free-regular-svg-icons'
+import { faThumbsUp as faThumbsUpSolid} from '@fortawesome/free-solid-svg-icons'
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+
+library.add(
+    faThumbsUpRegular,
+    faThumbsUpSolid 
+)
 
 class Result extends Component {
     constructor() {
@@ -46,7 +64,7 @@ class Result extends Component {
     }
 
     vote = async (e) => {
-        let name = e.currentTarget.name
+        let name = e.currentTarget.id
         if (name === "post") {
             await axios.post(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
         } else {
@@ -65,37 +83,66 @@ class Result extends Component {
 
     render() {
         let post = this.props.post
-        return (<div>
-            <br />
+        return (<div class="resultcontainer">
+            <ExpansionPanel>
+                <ExpansionPanelSummary  expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                    <Typography > {post.title} <span className='viewlike'>{this.state.vote.votesCount}<FontAwesomeIcon icon={['fas', 'thumbs-up']} /></span> </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <div class="postname"> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div>
+                    <div>{post.content}</div>
+                    Location:<div>{post.address}</div>
+                    Category: <div>{post.category}</div>
+                    Posted on:{post.date}
+                    Status: {post.status}
+                    <div><img src={post.picture} alt="concern picture" /></div>
+
+                   <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                        <div>{this.state.vote.userVoted ?
+                            <div class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>
+                            : <div class="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
+                        }</div> :
+                        <div class="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
+                    }
+                    {this.state.vote.votesCount}</div>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+
             {/* show or not username */}
-           <div> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span> }</div>
-            
+            {/* <div> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div> */}
 
-            <div>{post.title}</div>
-            <div>Points: {this.state.vote.votesCount}</div>
+            {/* <div>{post.title}</div>
+            <div>Points: {this.state.vote.votesCount}</div> */}
 
-            {this.state.vote.userVoted ?
-                <button name="delete" onClick={this.vote}>Take out vote</button>
-                : <button name="post" onClick={this.vote}>vote</button>
-            }
+            {/* {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                <div>{this.state.vote.userVoted ?
+                    <button name="delete" onClick={this.vote}>Take out vote</button>
+                    : <button name="post" onClick={this.vote}>vote</button>
+                }</div> :
+                <button name="post" onClick={this.props.loginPopup}>vote</button>
+            } */}
 
-            <div>{post.content}</div>
+            {/* <div>{post.content}</div>
             <div>{post.address}</div>
             <div>{post.category}</div>
-            <div><img src={post.picture} alt="concern picture" /></div>
+            <div><img src={post.picture} alt="concern picture" /></div> */}
 
-
+            {/* 
             {/* render responses */}
-            {this.state.responses.length === 0
+            {/* {this.state.responses.length === 0
                 ? <div>No response.</div>
                 : this.state.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
 
             {/* post comment  \/ */}
-            <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
-            <button onClick={this.comment}>Send comment</button>
+            {/* <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
+
+            {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                <button onClick={this.comment}>Send comment</button> :
+                <button onClick={this.props.loginPopup}>Send comment</button>
+            }
 
             {/* render comments \/ */}
-            {this.state.comments.length !== 0 ?
+            {/* {this.state.comments.length !== 0 ?
                 <div>
                     {this.state.comments.map(c => {
                         return <div>
@@ -105,10 +152,10 @@ class Result extends Component {
                     })}
                 </div>
                 : <div>No Comments.</div>
-            }
-            {post.date}
-            {post.status}
-            -----------------------------------------
+            } */} 
+            
+            {/* {post.date}
+            {post.status} */} 
         </div>)
     }
 }
