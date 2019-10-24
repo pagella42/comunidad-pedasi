@@ -2,10 +2,10 @@
     position: relative;
     z-index: 0;
 }
-.postname{
+/* .postname{
     display: inline-block;
   
-}
+} */
 
 .MuiExpansionPanelDetails-root{
     display: flex;
@@ -26,4 +26,20 @@
 
 .resultcontainer{
     margin-bottom: 20px;
+}
+
+.MuiExpansionPanelSummary-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.postdate{
+    color: gray;
+    font-size: 0.80em;
+}
+.postcategory{
+    font-weight: bold;
+}
+.postlike{
+  color: gray;
 }

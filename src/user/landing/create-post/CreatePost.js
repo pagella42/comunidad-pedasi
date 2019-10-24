@@ -2,6 +2,26 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import VerifyPost from './VerifyPost';
 import ImageUpload from '../../../ImageUpload/ImageUpload'
+import './createpost.css'
+
+
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+
+import TextField from '@material-ui/core/TextField';
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 class CreatePost extends Component {
     constructor() {
@@ -18,7 +38,7 @@ class CreatePost extends Component {
                 picture: "",
                 anonymous: false,
                 private: false,
-                language:""
+                language: ""
             },
             verifyPost: {
                 show: false,
@@ -62,9 +82,9 @@ class CreatePost extends Component {
     }
 
     validate = () => {
-        this.state.post.language?
-        this.verifyPost():
-        alert('Please choose a language')
+        this.state.post.language ?
+            this.verifyPost() :
+            alert('Please choose a language')
     }
 
     getCategories = async () => {
@@ -92,79 +112,87 @@ class CreatePost extends Component {
 
     anonymous = () => {
         let post = { ...this.state.post }
-        if(this.state.post.anonymous){
+        if (this.state.post.anonymous) {
             post.anonymous = false
             post.private = false
         }
-        else{
+        else {
             post.anonymous = true
             post.private = false
         }
-        
+
         this.setState({ post: post })
     }
 
     private = () => {
         let post = { ...this.state.post }
-        if(this.state.post.private){
+        if (this.state.post.private) {
             post.private = false
-            post.anonymous= false
+            post.anonymous = false
         }
-        else{
+        else {
             post.private = true
-            post.anonymous= false
+            post.anonymous = false
         }
         this.setState({ post: post })
     }
-    
+
 
     render() {
         return (
-            <div>
-                <div onClick={this.props.showCreatePost}>X</div>
-                <input type="text" name="title" placeholder="Title" onChange={this.handleInputChange} />
-                <input type="text" name="content" placeholder="Text" onChange={this.handleInputChange} />
-                <input type="text" name="address" placeholder="Adress" onChange={this.handleInputChange} />
-                <select name="category" value={this.state.post.category} onChange={this.handleInputChange}>
-                    {this.state.categories.map(category => <option value={category}>{category}</option>)}
-                </select>
-                <select name='language' value={this.state.post.language} onChange={this.handleInputChange}>
-                    <option value={0}>-</option>
-                    <option value='en'>English</option>
-                    <option value='es'>Español</option>
-                </select>
-                <ImageUpload saveUrl={this.saveUrl} />
-                {this.state.post.private ?
-                    <div>Cant hide username when post is private</div> :
+            <div className='createpostcontainer'>
+                <Card className='createpost' style={{ maxWidth: 600 }}>
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom> {"Create a post"}  </Typography>
 
-                    <div>
-                        {/* button to post anonymously */}
-                        <button onClick={this.anonymous}>
-                            {this.state.post.anonymous ? "Show username" : "Hide username"}
-                        </button>
+                        <div> <TextField type="text" id="outlined-title" label="Title" margin="normal" variant="outlined" onChange={this.handleInputChange} name="title" /></div>
+                        <div>   <TextField type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
+                        <div> <TextField type="text" id="outlined-adress" label="adress" margin="normal" variant="outlined" onChange={this.handleInputChange} name="adress" /></div>
 
-                        {this.state.post.anonymous ? "-->Hiding username" : "-->Showing username"}
-                    </div>
 
-                }
 
-                <div>
-                    {/* button to post privately */}
-                    <button onClick={this.private}>
-                        {this.state.post.private ? "Post to feed" : "Send only to Municipality"}
-                    </button>
+                        <FormControl variant="outlined" >
+                            <InputLabel htmlFor="outlined-sort-simple"> Category  </InputLabel>
+                            <Select name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'55'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
+                                {this.state.categories.map(category => <MenuItem value={category}>{category}</MenuItem>)}
+                            </Select>
+                        </FormControl>
 
-                    {this.state.post.private ? "-->Sending only to Municipality" : "-->Posting to feed"}
+                        <FormControl variant="outlined" >
+                            <InputLabel htmlFor="outlined-sort-simple"> language </InputLabel>
+                            <Select name='language' value={this.state.post.language} onChange={this.handleInputChange} labelWidth={'55'} inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
+                                <MenuItem value={0}>-</MenuItem>
+                                <MenuItem value='en'>English</MenuItem>
+                                <MenuItem value='es'>Español</MenuItem>
+                            </Select>
+                        </FormControl>
+
+                        <ImageUpload saveUrl={this.saveUrl} />
+
+                        {this.state.post.private ?
+                            <Button variant="outlined" disabled onClick={this.anonymous}>  {this.state.post.anonymous ? "Show username" : "Hide username"}  </Button> :
+                            <Button variant="outlined" onClick={this.anonymous}>   {this.state.post.anonymous ? "Show username" : "Hide username"}  </Button>
+                        }
+                        <Button variant="outlined" onClick={this.private}> {this.state.post.private ? "Post to feed" : "Send only to Municipality"} </Button>
+
+
+                    </CardContent>
+                    <CardActions>
+                        <Button onClick={this.validate} size="small" color="primary">Submit</Button>
+                        <Button onClick={this.props.showCreatePost} size="small" color="primary">Cancel</Button>
+                    </CardActions>
+                </Card>
+
+
+
+
+
+
+               
+                    {/* {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>} */}
                 </div>
-                <button onClick={this.validate}>Submit</button>
-                {/* Pop up : please review your post */}
-                {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
-
-
-
-            </div>
-        );
-    }
-}
-
+                );
+            }
+        }
+        
 export default CreatePost;

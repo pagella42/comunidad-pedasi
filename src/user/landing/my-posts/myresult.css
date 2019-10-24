@@ -1,0 +1,21 @@
+
+#myresultcontainer{
+ margin-top: 20px;}
+
+
+
+.MuiExpansionPanelSummary-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.postdate{
+    color: gray;
+    font-size: 0.80em;
+}
+.postcategory{
+    font-weight: bold;
+}
+.postlike{
+  color: gray;
+}

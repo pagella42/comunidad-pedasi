@@ -4,8 +4,10 @@ import './result.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp as faThumbsUpRegular} from '@fortawesome/free-regular-svg-icons'
-import { faThumbsUp as faThumbsUpSolid} from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons'
+import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons'
+
+import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -16,7 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 library.add(
     faThumbsUpRegular,
-    faThumbsUpSolid 
+    faThumbsUpSolid
 )
 
 class Result extends Component {
@@ -85,77 +87,63 @@ class Result extends Component {
         let post = this.props.post
         return (<div class="resultcontainer">
             <ExpansionPanel>
-                <ExpansionPanelSummary  expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                    <Typography > {post.title} <span className='viewlike'>{this.state.vote.votesCount}<FontAwesomeIcon icon={['fas', 'thumbs-up']} /></span> </Typography>
+
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                    <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
+                    <Typography > {post.title}  </Typography>
+                    <span className='postlike'> <FontAwesomeIcon icon={faCommentAlt} />{this.state.comments.length} <FontAwesomeIcon icon={['fas', 'thumbs-up']} />{this.state.vote.votesCount}</span>
                 </ExpansionPanelSummary>
+
                 <ExpansionPanelDetails>
                     <div class="postname"> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div>
                     <div>{post.content}</div>
                     Location:<div>{post.address}</div>
-                    Category: <div>{post.category}</div>
-                    Posted on:{post.date}
                     Status: {post.status}
                     <div><img src={post.picture} alt="concern picture" /></div>
-
-                   <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                    <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
                         <div>{this.state.vote.userVoted ?
                             <div class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>
                             : <div class="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
                         }</div> :
                         <div class="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
                     }
-                    {this.state.vote.votesCount}</div>
+                        {this.state.vote.votesCount}</div>
+
+
+
+{this.state.responses.length === 0
+    ? <div>No response.</div>
+    : this.state.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+
+
+
+<input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
+{JSON.parse(localStorage.userLogin).isLoggedIn ?
+    <button onClick={this.comment}>Send comment</button> :
+    <button onClick={this.props.loginPopup}>Send comment</button>
+}
+
+
+{this.state.comments.length !== 0 ?
+    <div>
+        {this.state.comments.map(c => {
+            return <div>
+                <div>User: {c.user}</div>
+                <div>{c.content}</div>
+            </div>
+        })}
+    </div>
+    : <div>No Comments.</div>
+} 
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            {/* show or not username */}
-            {/* <div> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div> */}
-
-            {/* <div>{post.title}</div>
-            <div>Points: {this.state.vote.votesCount}</div> */}
-
-            {/* {JSON.parse(localStorage.userLogin).isLoggedIn ?
-                <div>{this.state.vote.userVoted ?
-                    <button name="delete" onClick={this.vote}>Take out vote</button>
-                    : <button name="post" onClick={this.vote}>vote</button>
-                }</div> :
-                <button name="post" onClick={this.props.loginPopup}>vote</button>
-            } */}
-
-            {/* <div>{post.content}</div>
-            <div>{post.address}</div>
-            <div>{post.category}</div>
-            <div><img src={post.picture} alt="concern picture" /></div> */}
-
-            {/* 
-            {/* render responses */}
-            {/* {this.state.responses.length === 0
-                ? <div>No response.</div>
-                : this.state.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
-
-            {/* post comment  \/ */}
-            {/* <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
-
-            {JSON.parse(localStorage.userLogin).isLoggedIn ?
-                <button onClick={this.comment}>Send comment</button> :
-                <button onClick={this.props.loginPopup}>Send comment</button>
-            }
-
-            {/* render comments \/ */}
-            {/* {this.state.comments.length !== 0 ?
-                <div>
-                    {this.state.comments.map(c => {
-                        return <div>
-                            <div>User: {c.user}</div>
-                            <div>{c.content}</div>
-                        </div>
-                    })}
-                </div>
-                : <div>No Comments.</div>
-            } */} 
+           
             
-            {/* {post.date}
-            {post.status} */} 
+
+
+        
+
         </div>)
     }
 }

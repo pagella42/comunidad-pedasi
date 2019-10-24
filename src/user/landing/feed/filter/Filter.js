@@ -92,7 +92,6 @@ class Filter extends Component {
         <FormControl  variant="outlined" >
           <InputLabel  htmlFor="outlined-sort-simple">  Sort By  </InputLabel>
           <Select name="sort" onChange={this.updateSort} value={this.state.sort}  labelWidth={'55'}  inputProps={{ name: 'sort', id: 'outlined-sort-simple', }} >
-            <MenuItem value="">  <em>None</em> </MenuItem>
             <MenuItem value='dh'>Date high to low</MenuItem>
             <MenuItem value='dl'>Date low to high</MenuItem>
             <MenuItem value='ph'>Likes high to low</MenuItem>
@@ -101,7 +100,7 @@ class Filter extends Component {
         </FormControl>
        
         <FormControl variant="outlined" >
-          <InputLabel  htmlFor="outlined-sort-simple">  Categories </InputLabel>
+          <InputLabel htmlFor="outlined-sort-simple">  Categories </InputLabel>
           <Select name="category" onChange={this.update} value={this.state.filter.category} labelWidth={'75'}  inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
             <MenuItem value=''>All</MenuItem>
              {this.state.categories.map(c => <MenuItem value={c.toLowerCase()}>{c}</MenuItem>)}
@@ -127,7 +126,7 @@ class Filter extends Component {
           </Select>
         </FormControl>
         
-        <Button onClick={this.filter} variant="outlined" > Filer </Button>
+        <Button className="filterbutton" onClick={this.filter} variant="outlined" > FilTer </Button>
       </div>
     );
   }
