@@ -72,6 +72,7 @@ class CreatePost extends Component {
         let data = post
         await axios.post(`http://localhost:4000/data/post/${usersPhone}`, data)
         this.props.getPosts()
+        this.props.showCreatePost()
     }
 
     reviewPost = (action) => {
@@ -83,11 +84,21 @@ class CreatePost extends Component {
         }
     }
 
-    validate = (event) => {
+    validatelan = (event) => {
         event.preventDefault()
         this.state.post.language?
         this.verifyPost():
         alert('Please choose a language')
+    }
+    validatecat = (event) => {
+        event.preventDefault()
+        this.state.post.category?
+        this.verifyPost():
+        alert('Please choose a category')
+    }
+    validate = (event) =>{
+        this.validatelan(event)
+        this.validatecat(event)
     }
 
     getCategories = async () => {
@@ -165,9 +176,9 @@ class CreatePost extends Component {
                                 <MenuItem value='es'>Español</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormControl className="categorycont" required variant="outlined" >
+                        <FormControl className="categorycont" variant="outlined" >
                             <InputLabel htmlFor="outlined-sort-simple"> Category  </InputLabel>
-                            <Select  name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'68'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
+                            <Select required  name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'68'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
                             <MenuItem value={0}>-</MenuItem>
                                 {this.state.categories.map(category => <MenuItem value={category}>{category}</MenuItem>)}
                             </Select>
@@ -186,16 +197,23 @@ class CreatePost extends Component {
                         }
                         <Button variant="outlined" onClick={this.private}> {this.state.post.private ? "Post to feed" : "Send only to Municipality"} </Button>
                     </div>
-
+                       
                     </CardContent>
+                    
                     <CardActions>
+                    {this.state.verifyPost.show ?  <Typography color="textSecondary" gutterBottom> {"Are you sure you want to post?"}  </Typography> : null}
+                    {this.state.verifyPost.show ? 
+                    <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> :
+                     <div>
                         <Button label='Submit' type='Submit' size="small" color="primary">Submit</Button>
                         <Button onClick={this.props.showCreatePost} size="small" color="primary">Cancel</Button>
+
+                     </div>}
+
                     </CardActions>
                    </form> 
                 </Card>
 
-                    {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
 
 
                 </div>

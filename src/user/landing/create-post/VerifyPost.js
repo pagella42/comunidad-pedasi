@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next'
-import './verifypost.css'
+
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 class VerifyPost extends Component {
 
     reviewPost = (event) => {
@@ -9,21 +12,20 @@ class VerifyPost extends Component {
     }
 
     render() {
-        const {t,i18n}=this.props
+        const { t, i18n } = this.props
         return (
+
             <div>
-                <div>{t("Are you sure to post this post")} ? </div>
-                <div>
-                    <div>{t("Title")}: {this.props.post.title}</div>
-                    <div>{t("Content")}: {this.props.post.content}</div>
-                    <div>{t("Address")}: {this.props.post.address}</div>
-                    <div>{t("Category")}: {this.props.post.category}</div>
-                </div>
-                <button name="confirm" onClick={this.reviewPost}>{t("Confirm")}</button>
-                <button name="review" onClick={this.reviewPost}>{t("Go back to post")}</button>
+                <Button size="small" color="primary" name="confirm" onClick={this.reviewPost}>{t("Confirm")}</Button>
+                    
+                <Button size="small" color="primary" name="review" onClick={this.reviewPost}>{t("Go back to post")}</Button>
             </div>
+
+            
+
+           
         );
     }
 }
 
-export default withTranslation('translation') (VerifyPost);
+export default withTranslation('translation')(VerifyPost);
