@@ -66,7 +66,7 @@ class Result extends Component {
         this.getVotes()
     }
 
-    componentDidUpdate(){
+    UNSAFE_componentWillReceiveProps(){
         this.getVotes()
     }
 
@@ -99,7 +99,7 @@ class Result extends Component {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
                     <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
                     <Typography > {post.title}  </Typography>
-                    <span className='postlike'> <FontAwesomeIcon icon={faCommentAlt} />{this.state.comments.length} <FontAwesomeIcon icon={['fas', 'thumbs-up']} />{this.state.vote.votesCount}</span>
+                    <span className='postlike'> {this.state.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
                 </ExpansionPanelSummary>
 
                 <ExpansionPanelDetails>

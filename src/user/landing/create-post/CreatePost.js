@@ -33,7 +33,7 @@ class CreatePost extends Component {
             post: {
                 title: "",
                 content: "",
-                category: "other",
+                category: "",
                 points: 0,
                 date: "",
                 address: "",
@@ -151,36 +151,41 @@ class CreatePost extends Component {
 
                         <Typography color="textSecondary" gutterBottom> {"Create a post"}  </Typography>
 
-                        <div> <TextField  required type="text" id="outlined-title" label="Title" margin="normal" variant="outlined" onChange={this.handleInputChange} name="title" /></div>
-                        <div>   <TextField required type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
-                        <div> <TextField required type="text" id="outlined-adress" label="adress" margin="normal" variant="outlined" onChange={this.handleInputChange} name="adress" /></div>
-
-
-
-                        <FormControl required variant="outlined" >
-                            <InputLabel htmlFor="outlined-sort-simple"> Category  </InputLabel>
-                            <Select  name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'55'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
-                                {this.state.categories.map(category => <MenuItem value={category}>{category}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-
+                        <div> <TextField  className="titlecont" required type="text" id="outlined-title" label="Title" margin="normal" variant="outlined" onChange={this.handleInputChange} name="title" /></div>
+                        <div>   <TextField  className="contcont" multiline rows="6" required type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
+                        
+                        <div className="fieldcont"> 
+                        <TextField className="adresscont" required type="text" id="outlined-adress" label="adress" margin="normal" variant="outlined" onChange={this.handleInputChange} name="adress" />
+                        
                         <FormControl required variant="outlined" >
                             <InputLabel htmlFor="outlined-sort-simple"> language </InputLabel>
-                            <Select name='language' value={this.state.post.language} onChange={this.handleInputChange} labelWidth={'55'} inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
+                            <Select name='language' value={this.state.post.language} onChange={this.handleInputChange} labelWidth={'70'} inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
                                 <MenuItem value={0}>-</MenuItem>
                                 <MenuItem value='en'>English</MenuItem>
                                 <MenuItem value='es'>Español</MenuItem>
                             </Select>
                         </FormControl>
+                        <FormControl className="categorycont" required variant="outlined" >
+                            <InputLabel htmlFor="outlined-sort-simple"> Category  </InputLabel>
+                            <Select  name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'68'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
+                            <MenuItem value={0}>-</MenuItem>
+                                {this.state.categories.map(category => <MenuItem value={category}>{category}</MenuItem>)}
+                            </Select>
+                        </FormControl>
 
-                        <ImageUpload saveUrl={this.saveUrl} />
+                        </div>
 
+
+
+
+                        <div class="imgcotainerbutt"><ImageUpload saveUrl={this.saveUrl} /></div>
+                    <div id="anoncont">
                         {this.state.post.private ?
                             <Button variant="outlined" disabled onClick={this.anonymous}>  {this.state.post.anonymous ? "Show username" : "Hide username"}  </Button> :
                             <Button variant="outlined" onClick={this.anonymous}>   {this.state.post.anonymous ? "Show username" : "Hide username"}  </Button>
                         }
                         <Button variant="outlined" onClick={this.private}> {this.state.post.private ? "Post to feed" : "Send only to Municipality"} </Button>
-
+                    </div>
 
                     </CardContent>
                     <CardActions>
@@ -190,7 +195,7 @@ class CreatePost extends Component {
                    </form> 
                 </Card>
 
-                    {/* {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>} */}
+                    {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>}
 
 
                 </div>

@@ -50,7 +50,7 @@ class Login extends Component {
                 <CardContent>
                     <TextField  id="outlined-name" label="Username" margin="normal"  variant="outlined"  type="string" name="phone" onChange={this.handleInputChange}  value={this.state.phone} />
                     <TextField id="outlined-name" label="National ID" margin="normal" variant="outlined" onChange={this.handleInputChange} name="password" value={this.state.passwod} />
-                   <div><Link to="/user/signUp" >Don't have an account? SignUp</Link></div> 
+                   <div><Link onClick={this.props.loginPopup} to="/user/signUp" >Don't have an account? SignUp</Link></div> 
                 </CardContent>
                 <CardActions>
                 {this.state.phone && this.state.password ?

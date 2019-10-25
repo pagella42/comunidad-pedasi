@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next'
+import './verifypost.css'
 class VerifyPost extends Component {
 
     reviewPost = (event) => {
