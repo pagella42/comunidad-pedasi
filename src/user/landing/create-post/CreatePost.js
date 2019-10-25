@@ -146,23 +146,25 @@ class CreatePost extends Component {
         return (
             <div className='createpostcontainer'>
                 <Card className='createpost' style={{ maxWidth: 600 }}>
+                    <form onSubmit={this.validate}>
                     <CardContent>
+
                         <Typography color="textSecondary" gutterBottom> {"Create a post"}  </Typography>
 
-                        <div> <TextField type="text" id="outlined-title" label="Title" margin="normal" variant="outlined" onChange={this.handleInputChange} name="title" /></div>
-                        <div>   <TextField type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
-                        <div> <TextField type="text" id="outlined-adress" label="adress" margin="normal" variant="outlined" onChange={this.handleInputChange} name="adress" /></div>
+                        <div> <TextField  required type="text" id="outlined-title" label="Title" margin="normal" variant="outlined" onChange={this.handleInputChange} name="title" /></div>
+                        <div>   <TextField required type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
+                        <div> <TextField required type="text" id="outlined-adress" label="adress" margin="normal" variant="outlined" onChange={this.handleInputChange} name="adress" /></div>
 
 
 
-                        <FormControl variant="outlined" >
+                        <FormControl required variant="outlined" >
                             <InputLabel htmlFor="outlined-sort-simple"> Category  </InputLabel>
-                            <Select name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'55'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
+                            <Select  name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'55'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
                                 {this.state.categories.map(category => <MenuItem value={category}>{category}</MenuItem>)}
                             </Select>
                         </FormControl>
 
-                        <FormControl variant="outlined" >
+                        <FormControl required variant="outlined" >
                             <InputLabel htmlFor="outlined-sort-simple"> language </InputLabel>
                             <Select name='language' value={this.state.post.language} onChange={this.handleInputChange} labelWidth={'55'} inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
                                 <MenuItem value={0}>-</MenuItem>
@@ -182,9 +184,10 @@ class CreatePost extends Component {
 
                     </CardContent>
                     <CardActions>
-                        <Button onClick={this.validate} size="small" color="primary">Submit</Button>
+                        <Button label='Submit' type='Submit' size="small" color="primary">Submit</Button>
                         <Button onClick={this.props.showCreatePost} size="small" color="primary">Cancel</Button>
                     </CardActions>
+                   </form> 
                 </Card>
 
                     {/* {this.state.verifyPost.show ? <VerifyPost reviewPost={this.reviewPost} post={this.state.post} /> : <div></div>} */}
