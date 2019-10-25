@@ -10,6 +10,7 @@ class Result extends Component {
                     <h5 id="post" >
                         <span>{p.title}</span>
                         <span> - ({p._id})</span>
+                        <span> - {p.date}</span>
                     </h5>
                 }</Link>
             </div>)
