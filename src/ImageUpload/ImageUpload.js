@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { storage } from '../Firebase';
 import { withTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+
 
 class ImageUpload extends Component {
     constructor() {
@@ -55,7 +57,7 @@ class ImageUpload extends Component {
                     accept="image/*"
                     capture="environment"
                 />
-                {this.state.image ? <button onClick={this.handleUpload}>{t("Upload")}</button> : <br /> }
+                {this.state.image ? <button  onClick={this.handleUpload}>{t("Upload")}</button> : <br /> }
                 <br/>
                 
             </div>

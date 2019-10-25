@@ -81,7 +81,8 @@ const resources = {
       "Banned": "Banned",
       "Reason": "Reason",
       "Ban user": "Ban user",
-      "Not sent": "Not sent"
+      "Not sent": "Not sent",
+      "post validation": "Are you sure you want to post?"
     }
   },
   es: {
@@ -154,7 +155,8 @@ const resources = {
       "Banned": "Suspendido",
       "Reason": "Razón",
       "Ban user": "Suspender Usuario",
-      "Not sent": "No enviado"
+      "Not sent": "No enviado",
+      "post validation": "Desea confirmar el post?"
     }
   }
 }

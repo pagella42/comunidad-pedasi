@@ -1,4 +1,6 @@
-#filtercontainer{
+
+@media only screen and (min-width: 500px) {
+    #filtercontainer{
     margin-top: 30px;
     display: grid;
     align-items: center;
@@ -15,4 +17,20 @@
 }
 .filterbutton{
     height: 56px;
+}
+}
+@media only screen and (max-width: 500px) {
+    #filtercontainer{
+        margin-top: 30px;
+        display: grid;
+        align-items: center;
+       
+        grid-gap: 4vmin;
+        grid-template-rows: 1fr 1fr ;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
 }
