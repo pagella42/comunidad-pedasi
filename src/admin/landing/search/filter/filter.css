@@ -1,0 +1,16 @@
+#filtercont{
+    margin-bottom: 30px;;
+}
+.uppercont{
+    display: grid;
+    /* align-items: center;
+    justify-items: start; */
+    margin-bottom: 10px;
+}
+#sortcont{
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+
+}
