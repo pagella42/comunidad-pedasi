@@ -46,6 +46,7 @@ loginPopup = () => {
    return (
      <Router>
        <div>
+         
          {/* ==== User routes below ==== */}
          <Route path="/user"  render={() => <User changeLanguage={this.changeLanguage} english={this.state.english} loginPopup={this.loginPopup} loginPopupState={this.state.loginPopupState}/>} />
          <Route path="/user/myposts" exact render={() => <MyPosts/>} />
