@@ -245,9 +245,7 @@ class SignUp extends Component {
                             {t("Terms and Conditions")}
                         </span>
                     </div>
-                    <Button variant="outlined" id="42" type="submit">
-                        {t("submit")}
-                    </Button>
+                    <input disabled variant="outlined" id="42" type="submit" value={t("submit")}/>
                 </form>
                 <TheCodeOfConduct
                     terms={this.state.terms}
