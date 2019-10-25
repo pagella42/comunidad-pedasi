@@ -211,30 +211,30 @@ class SignUp extends Component {
                     </div>
 
 
-                    <div>
-                        <span>
-                            <TextField
-                                id="outlined-name"
-                                margin="normal"
-                                variant="outlined"
-                                label={t("Enter Verification code")}
-                                required
-                                value={this.state.pin}
-                                onChange={this.handleInput}
-                                name="pin"
-                            />
-                        </span>
-			{this.state.test ?
-				<Button
-					variant="outlined"
-					color="primary"
-					type="button"
-					onClick={this.verifycode}
-				>
-					Verify Phone number
-				</Button> : null
-			}
-                    </div>
+		    {this.state.test ?
+			    <div>
+				    <span>
+					    <TextField
+						    id="outlined-name"
+						    margin="normal"
+						    variant="outlined"
+						    label={t("Enter Verification code")}
+						    required
+						    value={this.state.pin}
+						    onChange={this.handleInput}
+						    name="pin"
+					    />
+				    </span>
+				    <Button
+					    variant="outlined"
+					    color="primary"
+					    type="button"
+					    onClick={this.verifycode}
+				    >
+					    Verify Phone number
+				    </Button>
+			    </div> : null
+		    }
                     <div>
                         <input type="checkbox" required />
                         {t("I agree to the")}{" "}
