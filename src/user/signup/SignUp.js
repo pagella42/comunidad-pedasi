@@ -209,7 +209,6 @@ class SignUp extends Component {
               {t("Terms and Conditions")}
             </span>
           </div>
-          <div>*={t("Required")}</div>
           <input id='42' type="submit" disabled value={t("submit")} />
         </form>
         <TheCodeOfConduct

@@ -11,7 +11,7 @@ class ValidateUserPhone extends Component {
     };
   }
 
-  changeState = async number => {
+  setNumber = async number => {
     await this.setState({ phone: number });
   };
 
@@ -19,7 +19,7 @@ class ValidateUserPhone extends Component {
     return (
       <div>
         {!this.state.phone ? (
-          <RequestPhoneNandSend setNumber={this.changeState} />
+          <RequestPhoneNandSend setNumber={this.setNumber} />
         ) : (
           <VerifyCode phone={this.state.phone} />
         )}
