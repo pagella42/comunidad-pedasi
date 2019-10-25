@@ -18,9 +18,12 @@ router.get('/data/user/:usersPhone',(req,res)=>{
     .exec((err,user)=>res.send(user))
 })
 router.put('/data/user/:usersPhone',(req,res)=>{
-    
+    let obj={}
+    Object.keys(req.body).forEach(o=>{
+        if(req.body[o]){obj[o]=req.body[o]}
+    })
     User.findOneAndUpdate({phone:req.params.usersPhone},{
-        $set:req.body
+        $set:obj
     },(()=>res.end()))
 })
 router.get('/data/users', (req,res)=> {

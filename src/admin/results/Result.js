@@ -6,9 +6,11 @@ class Result extends Component {
         const p = this.props.post
         return (
             <div key={p._id} className="post" >
-                <h6><Link to={`/admin/resultdetails/${p._id}`}>{p.title} </Link> - {p.date.slice(0,10)}</h6>
-            </div>)
 
+                <h6><Link to={`/admin/resultdetails/${p._id}`}>{p.title} </Link> - {p.date.slice(0,10)}</h6>
+
+            </div>)
     }
 }
+
 export default Result;

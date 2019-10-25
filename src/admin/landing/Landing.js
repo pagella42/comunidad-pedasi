@@ -11,6 +11,7 @@ class Landing extends Component {
   render() {
     const {t,i18n} = this.props
     return (
+
       
       <div id="landingcont">
         <div>
@@ -30,7 +31,7 @@ class Landing extends Component {
         </div>
 
       </div>
-    );
+    )
   }
 }
 export default withTranslation('translation') (Landing);
