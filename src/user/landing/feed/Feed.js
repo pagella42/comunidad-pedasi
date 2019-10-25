@@ -5,9 +5,7 @@ import CreatePost from '../create-post/CreatePost';
 import Filter from './filter/Filter';
 import './feed.css'
 import Fab from '@material-ui/core/Fab';
-
-
-import Button from '@material-ui/core/Button';
+    import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
 
 class Feed extends Component {
