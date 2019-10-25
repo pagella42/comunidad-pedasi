@@ -1,0 +1,18 @@
+#categoriescont{
+width: 100vw;
+height: 100vh;
+display: grid;
+align-items: center;
+justify-items: center;
+}
+#categoriesinnercont{
+    margin-top: 50px;
+    height: 100vh;
+}
+.categorycont{
+    margin-bottom: 20px;
+}
+.categoriestitle{
+    font-weight: lighter;
+    font-size: 3em;
+}
