@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 import { Link } from "react-router-dom";
 import SearchResults from './searchResults/SearchResults';
 import Filter from './filter/Filter';
-import axios from 'axios'
 import { withTranslation } from 'react-i18next';
 
 class Search extends Component {
@@ -22,8 +22,8 @@ class Search extends Component {
     searchByKeyword = async (options, text, posts) => {
         let searchArray = text.toLowerCase()
         let filteredPosts = []
-        let nothing
-        posts.map(post => {
+        let nothing = null
+        posts.map(post => 
             options.forEach(option => {
                 if (option.name === "comments" || option.name === "responses") {
                     post[option.name].forEach(name => {
@@ -39,8 +39,8 @@ class Search extends Component {
                     } else { return undefined }
                 }
             })
-        })
-        await this.setState({ posts: filteredPosts })
+        )
+        this.setState({ posts: filteredPosts })
     }
 
     getPosts = async (filter, keywordOptions, keyword) => {
@@ -50,7 +50,7 @@ class Search extends Component {
             let options = keywordOptions.filter(keyword => keyword.checked === true)
             await this.searchByKeyword(options, keyword, posts)
         } else {
-            await this.setState({ posts: posts })
+            this.setState({ posts: posts })
         }
     }
 
@@ -60,14 +60,13 @@ class Search extends Component {
             <div>
                 <Link to="/admin"><button onClick={this.logout}>{t("Log out")}</button> </Link>
                 <Link to="/admin/explore">{t("Explore")}</Link>
-                <Link to="/admin/search">{t("Search")}</Link>
                 <Filter getPosts={this.getPosts} />
                 {this.state.posts.length > 0 ?
                     <SearchResults foundPosts={this.state.posts} />
                     : <div>{t("No results")}.</div>
                 }
             </div>
-        );
+        )
     }
 }
 

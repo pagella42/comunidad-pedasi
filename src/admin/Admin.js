@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import Landing from './landing/Landing'
 import Login from './login/Login'
-import Explore from './landing/explore/Explore'
-import Search from './landing/search/Search'
 import { withTranslation } from 'react-i18next';
 import HeaderAdmin from './landing/HeaderAdmin';
+import Button from '@material-ui/core/Button';
 
 class Admin extends Component {
     constructor() {
@@ -52,13 +49,8 @@ class Admin extends Component {
                 {this.state.adminLogin.isLoggedIn ?
                     <div>
                         <HeaderAdmin changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.adminLogin.isLoggedIn} loginPopup={this.props.loginPopup} />
-                        <Landing logout={this.logout} />
                     </div>
                     : <Login login={this.login} />}
-
-                {/* ==== Admin Routes below ====  */}
-                {/* <Route path="/admin/explore" exact render={() => <Explore />} />
-                <Route path="/admin/search" exact render={() => <Search />} /> */}
             </div>
         )
     }

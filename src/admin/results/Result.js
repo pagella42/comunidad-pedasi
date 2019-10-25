@@ -6,9 +6,14 @@ class Result extends Component {
         const p = this.props.post
         return (
             <div key={p._id} className="post" >
-                <Link to={`/admin/resultdetails/${p._id}`}>{<div id="post" ><h6>{p.title} - {p._id}</h6></div>}</Link>
+                <Link to={`/admin/resultdetails/${p._id}`} target="_blank">{
+                    <h5 id="post" >
+                        <span>{p.title}</span>
+                        <span> - ({p._id})</span>
+                    </h5>
+                }</Link>
             </div>)
-
     }
 }
+
 export default Result;
