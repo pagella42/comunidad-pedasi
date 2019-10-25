@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from "react-router-dom";
 import '../styles/ResultDetails.css'
 import Responses from '../responses/Responses';
 import Banner from '../banner/Banner';
+import Landing from '../../admin/landing/Landing';
 import { withTranslation } from 'react-i18next';
 
 
@@ -34,36 +34,36 @@ class ResultDetail extends Component {
         const p = this.state.post
         const r = this.state.responses
         const c = this.state.comments
-        const {t,i18n} = this.props
+        const { t, i18n } = this.props
         return (
             <div >
-                <div>
-                    <Link to="/admin/explore">{t("Explore")}</Link>
-                    <Link to="/admin/search">{t("Search")}</Link>
-                </div>
-                {p
-                    ?
-                    <div id="container">
+                <Landing />
+                <div id="container">
+                    {p.user ?
                         <div id="user_info">
-                            <h3>{p.user ? p.user.name : ""}</h3>
-                            {p.user ? < Banner userPhone={p.user.phone} /> : ""}
+                            <h4> {p.user.name}</h4>
+                            <p>{p.user.ID}</p>
+                            <p>{p.user.phone}</p>
+                            <p>{p.user.address}</p>
+                            <p>{p.user.email}</p>
+                            < Banner userPhone={p.user.phone} />
                         </div>
-                        <div id="title_problem"><h3 >{p.title}</h3></div>
-                        <div id="description">{p.content}</div>
-                        <div id="comments">{c.map(c => <div key={c._id}>{c.content} - {c.user} - {c.date}</div>)}</div>
-                        <div id="photo"><img src={p.picture} alt="Evidence"></img></div>
-                        <div id="category">{p.category}</div>
-                        <div id="address">{p.address}</div>
-                        <div id="container_response">
-                            {r.map(c => <div key={c._id}>{c.content} - {c.employee} - {c.date}</div>)}
-                            < Responses idPost={this.state.post._id} getData={this.getData} />
-                        </div>
-                        <div id="status_post">{p.status}</div>
+                        : null}
+                    <div id="title_problem"><h3 >{p.title}</h3></div>
+                    <div id="description">{p.content}</div>
+                    <div id="comments">{c.map(c => <div key={c._id}>{c.content} - {c.user} - {c.date}</div>)}</div>
+                    <div id="photo"><img src={p.picture} alt="Evidence"></img></div>
+                    <div id="category">{p.category}</div>
+                    <div id="address">{p.address}</div>
+                    <div id="container_response">
+                        {r.map(c => <div key={c._id}>{c.content} - {c.employee} - {c.date}</div>)}
+                        < Responses idPost={this.state.post._id} getData={this.getData} />
                     </div>
-                    : console.log("Wait, no data yet")}
+                    <div id="status_post">{p.status}</div>
+                </div>
             </div>
         )
     }
 }
 
-export default withTranslation('translation') (ResultDetail)
+export default withTranslation('translation')(ResultDetail)
