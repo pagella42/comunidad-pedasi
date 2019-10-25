@@ -20,6 +20,7 @@ class Admin extends Component {
         }
     }
 
+    
     login = (username, password) => {
         const t = this.props.t
         if (password === this.state.password) {
