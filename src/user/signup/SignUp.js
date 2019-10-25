@@ -18,6 +18,8 @@ class SignUp extends Component {
                 email:"",
                 phone:""
             },
+            phone:false,
+            verified:false,
             terms:false,
             load:false, /**loading screen */
             redirect:false //pass down to loading screen
@@ -65,6 +67,15 @@ class SignUp extends Component {
             this.setLoading()
         }
     }
+    sendCode = async () => {
+        let data = { phone: this.state.phone };
+        this.setNumber(this.state.phoneNumber);
+        let status = await axios.post(
+          `http://localhost:4000/verifyPhoneNumber/send`,
+          data
+        );
+        return status;
+      };
 
     submit = () =>{
         axios.post('http://localhost:4000/data/user',this.state.user)
@@ -81,7 +92,11 @@ class SignUp extends Component {
                     <div><span>{t("ID")}<input required value= {this.state.user.ID} onChange= {this.handleInputChange}  name='ID'></input>*</span></div>
                     <div><span>{t("Address")}<input value= {this.state.user.address} onChange= {this.handleInputChange}  name='address'></input></span></div>
                     <div><span>{t("E-Mail")}<input value= {this.state.user.email} onChange= {this.handleInputChange}  name='email'></input></span></div>
-                    <div><span>{t("Phone Number")}<input required value= {this.state.user.phone} onChange= {this.handleInputChange}  name='phone'></input>*</span></div>
+
+                    <div><span>{t("Phone Number")}<input required value= {this.state.user.phone} onChange= {this.handleInputChange}  name='phone'></input>*</span>
+                    <input type='button' onClick={this.sendCode} value='Verify Number' />
+                    </div>
+                     
                     <div><input type='checkbox' required/>{t("I agree to the")} <span style={{color:'blue',cursor:'alias'}} onClick={this.toggleTerms} >{t("Terms and Conditions")}</span></div>
                     <div>*={t("Required")}</div>
                     <input type='submit'  value={t('submit')}/> 
