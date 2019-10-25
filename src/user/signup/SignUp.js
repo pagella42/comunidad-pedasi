@@ -210,6 +210,7 @@ class SignUp extends Component {
 				</Button>
                     </div>
 
+
                     <div>
                         <span>
                             <TextField
@@ -255,6 +256,7 @@ class SignUp extends Component {
             </div>
         );
     }
+
 }
 
 export default withTranslation("translation")(SignUp);
