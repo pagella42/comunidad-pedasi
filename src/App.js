@@ -17,7 +17,6 @@ import { withTranslation } from 'react-i18next';
 // import SignUp from './user/SignUp'
 
 import Landing from './user/landing/Landing';
-import ValidateUserPhone from './user/signup/veriphone/ValidateUserPhone';
 
 
 class App extends Component {
@@ -47,7 +46,7 @@ loginPopup = () => {
    return (
      <Router>
        <div>
-         <ValidateUserPhone />
+         
          {/* ==== User routes below ==== */}
          <Route path="/user"  render={() => <User changeLanguage={this.changeLanguage} english={this.state.english} loginPopup={this.loginPopup} loginPopupState={this.state.loginPopupState}/>} />
          <Route path="/user/myposts" exact render={() => <MyPosts/>} />
