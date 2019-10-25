@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Login from './login/Login'
 import { withTranslation } from 'react-i18next';
 import HeaderAdmin from './landing/HeaderAdmin';
-
+import Landing from './landing/Landing'
 import Header from './Header'
 
 import Button from '@material-ui/core/Button';
@@ -57,7 +57,6 @@ class Admin extends Component {
                         {/* <HeaderAdmin changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.adminLogin.isLoggedIn} loginPopup={this.props.loginPopup} /> */}
                         <Landing logout={this.logout} />
 
-          {/*    <HeaderAdmin changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.adminLogin.isLoggedIn} loginPopup={this.props.loginPopup} /> */}
 
                     </div>
                     : <Login login={this.login} />}
