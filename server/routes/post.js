@@ -41,6 +41,11 @@ router.post('/data/post/:usersPhone', async (req, res) => {
 
 })
 
+router.delete('/data/post/:postId',(req,res)=>{
+    Post.findByIdAndDelete(req.params.postId)
+    .then(()=>res.end())
+})
+
 router.post('/data/posts', async (req,res)=>{
     let{sort,category,status,language,private,user}=req.body
     Post.find(makeFilterObject(category,status,language,private,user))

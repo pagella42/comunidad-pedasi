@@ -9,20 +9,25 @@ class MyPosts extends Component {
             posts: [],
         }
     }
-
-    async componentDidMount() {
+    getPosts = async () =>{
         let phone = JSON.parse(localStorage.userLogin).phone
-        //get data for this user, and sorted by recent 
         let data = await axios.get(`http://localhost:4000/data/posts/${phone}`)
         await this.setState({ posts: data })
-        
+    }
+    deletePost = async e =>{
+        console.log(e.target.name)
+        await axios.delete(`http://localhost:4000/data/post/${e.target.name}`)
+        this.getPosts()
+    }
+    async componentDidMount() {
+        this.getPosts()
     }
     render() {
        
        
         
         return (<div>
-            <MyResults posts={this.state.posts.data} />
+            <MyResults deletePost={this.deletePost} posts={this.state.posts.data} />
         </div>)
     }
 }

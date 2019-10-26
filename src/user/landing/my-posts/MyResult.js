@@ -14,7 +14,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
-
+import Button from "@material-ui/core/Button";
 
 library.add(
     faThumbsUpRegular,
@@ -30,7 +30,7 @@ class MyResult extends Component {
              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
                     <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
                     <Typography > {post.title}  </Typography>
-                    <span className='postlike'> <FontAwesomeIcon icon={faCommentAlt} />{post.comments.length} <FontAwesomeIcon icon={['fas', 'thumbs-up']} />{post.point}</span>
+                    <span className='postlike'> {post.comments.length} Comments • {post.point} Likes </span>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
 
@@ -38,6 +38,7 @@ class MyResult extends Component {
             <div>{post.address}</div>
             <div>{post.category}</div>
             <div><img src={post.picture} alt="concern picture" /></div>
+            <Button name={post._id} onClick={this.props.deletePost}>Delete</Button>
 
             {/* render responses */}
             {post.responses.length === 0
