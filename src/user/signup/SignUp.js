@@ -25,7 +25,8 @@ class SignUp extends Component {
             },
             terms: false,
             load: false /**loading screen */,
-            redirect: false //pass down to loading screen
+            redirect: false, //pass down to loading screen
+		isNumberValid: false
         };
     }
 
@@ -110,6 +111,10 @@ class SignUp extends Component {
         document.getElementById("42").disabled = !valid.data;
         console.log(valid.data);
     };
+	myRegex = (input) => {
+		let re  = /^\+[0-9]{11}$/
+		return input.match(re)
+	}
     render() {
         const { t, i18n } = this.props;
         return (
@@ -194,20 +199,24 @@ class SignUp extends Component {
                                 margin="normal"
                                 variant="outlined"
                                 label={t("Phone Number")}
+				placeholder='+50764494592'
                                 required
                                 value={this.state.user.phone}
                                 onChange={this.handleInputChange}
                                 name="phone"
                             />
                         </span>
+			{this.myRegex( this.state.user.phone ) ?
 				<Button
 					variant="outlined"
 					color="primary"
 					type="button"
 					onClick={this.sendCode}
 				>
-					Send Verification Code
-				</Button>
+					Send Code
+				</Button> 
+					: null
+			}
                     </div>
 
 
