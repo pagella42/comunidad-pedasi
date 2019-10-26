@@ -16,7 +16,8 @@ router.get('/data/posts/category/:category', async (req, res) => {
     let posts = await Post.find({
         "category": req.params.category
     })
-    res.send(posts)
+    .sort({date:-1})
+    .exec(()=>res.send(posts))
 })
 
 router.get('/data/categories', (req, res) => {

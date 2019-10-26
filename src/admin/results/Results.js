@@ -9,18 +9,15 @@ class Results extends Component {
         }
     }
     componentDidMount = async () =>{
-        let data = await axios.get(`http://localhost:4000/data/posts/category/${this.props.category}`
-        )
+        let data = await axios.get(`http://localhost:4000/data/posts/category/${this.props.category}`)
         data = data.data
         
         this.setState({data})
         
     }
     render() {
-        return (<div>  
-            {this.state.data.map(c =>  <div key={c._id}><Result post = {c} /></div>
-            )}
-        </div>)
+        return this.state.data.length<1?
+        null: (<div>{this.state.data.map(c =>  <div key={c._id}><Result post = {c} /></div>)}</div>)
     }
 }
 export default Results;
