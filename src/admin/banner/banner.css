@@ -1,0 +1,12 @@
+#bannerinnercontainer{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+.MuiFormControl-marginDense{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.MuiFormControl-root{
+    vertical-align: 0!important;
+}

@@ -107,7 +107,7 @@ class Result extends Component {
                     <div>{post.content}</div>
                     Location:<div>{post.address}</div>
                     Status: {post.status}
-                    <div><img src={post.picture} alt="concern picture" /></div>
+                    {post.picture ? <img id="img"  src={post.picture} alt="concern picture"></img>: null}
                     <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
                         <div>{this.state.vote.userVoted ?
                             <div class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>

@@ -21,6 +21,7 @@ class ImageUpload extends Component {
         }
     }
 
+
     handleUpload = () => {
         const { image } = this.state
         // .ref is referencing to our bucket in firebase
@@ -39,7 +40,7 @@ class ImageUpload extends Component {
             .then(url => {
                 console.log(url)
                 this.props.saveUrl(url)
-                alert("Image saved.")
+                alert("Image save d.")
             })
         }
 
@@ -54,8 +55,7 @@ class ImageUpload extends Component {
                     type="file"
                     placeholder={t("file")}
                     onChange={this.handleChange}
-                    accept="image/*"
-                    capture="environment"
+                    
                 />
                 {this.state.image ? <button  onClick={this.handleUpload}>{t("Upload")}</button> : <br /> }
                 <br/>
