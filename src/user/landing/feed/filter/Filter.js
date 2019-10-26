@@ -57,7 +57,7 @@ class Filter extends Component {
         filter.sort.order = -1;
         break;
     }
-
+    console.log(filter)
     this.setState({ filter });
 
     this.props.getPosts(this.state.filter);
@@ -106,7 +106,7 @@ class Filter extends Component {
           <InputLabel htmlFor="outlined-sort-simple">  Categories </InputLabel>
           <Select name="category" onChange={this.update} value={this.state.filter.category} labelWidth={'75'}  inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
             <MenuItem value='All'>All</MenuItem>
-             {this.state.categories.map(c => <MenuItem value={c.toLowerCase()}>{c}</MenuItem>)}
+             {this.state.categories.map(c => <MenuItem value={c}>{c}</MenuItem>)}
           </Select>
         </FormControl>
         
