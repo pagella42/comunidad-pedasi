@@ -37,8 +37,6 @@ class Login extends Component {
     }
     verify = async() =>{
         let verify = await axios.post('http://localhost:4000/data/user/verify',this.state.user)
-        console.log(this.state.user)
-        console.log(verify.data)
         return verify.data 
     }
     displayNoMatch = () =>{
@@ -46,8 +44,9 @@ class Login extends Component {
     }
 
     loginHandler =async () => {
-        if(await  this.verify()){
-            this.props.login(this.state.user.username)
+        let user = await this.verify()
+        if(user){
+            this.props.login(user.phone)
             this.props.loginPopup()
         }else{this.setState({noMatch:true})}
     }
