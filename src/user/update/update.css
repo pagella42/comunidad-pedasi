@@ -1,0 +1,27 @@
+.cardContent{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    gap: 3vmin;
+}
+.updateFields{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.verifyFieldsContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.verifyFields{
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+.secondaryButton{
+    display: grid;
+    align-self: center;
+    justify-self: center;
+    width: 200px;
+}

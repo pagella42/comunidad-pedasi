@@ -5,8 +5,7 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { TextField, Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
-import { makeStyles } from "@material-ui/styles";
-
+import './update.css'
 
 class Update extends Component {
   constructor() {
@@ -24,13 +23,10 @@ class Update extends Component {
       pin: null
     };
   }
-  
+
   update = async () => {
     let data = this.state.inputs
-
     await axios.put(`http://localhost:4000/data/user/${this.state.login.phone}`, data)
-
-
   }
   handlePin = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -79,8 +75,8 @@ class Update extends Component {
     return (
       <Container maxWidth="sm">
         <Card>
-          <CardContent>
-            <div>
+          <CardContent className="cardContent">
+            <div className="updateFields">
               {this.state.userData ?
                 this.state.details.map(detail => (
                   <div
@@ -100,7 +96,8 @@ class Update extends Component {
                 ))
                 : null}
             </div>
-            <div>
+            <div className="verifyFieldsContainer">
+            <div className="verifyFields">
               <div>
                 <TextField
                   required
@@ -114,37 +111,45 @@ class Update extends Component {
                 />
 
               </div>
-              <Button
-                // type="button"
-                value="Validate Number"
-                variant="contained" color="secondary"
-                onClick={this.sendCode}
-              >Validate Number</Button>
-            </div>
-
-            <div>
-              <div>
-
-                <TextField
-                  required
-                  id="outlined-name"
-                  margin="normal"
-                  variant="outlined"
-                  label={t("Verify Pin")}
-                  value={this.state.pin}
-                  onChange={this.handlePin}
-                  name="pin"
-
-                />
+              <div className="secondaryButton">
+                <Button
+                  value="Validate Number"
+                  variant="contained" color="secondary"
+                  onClick={this.sendCode}
+                >{t("Validate Number")}</Button>
 
               </div>
-              <Button
-                // type="button"
-                value="Validate"
-                variant="contained" color="secondary"
-                onClick={this.verifycode}
-              >Validate</Button>
             </div>
+
+
+              <div className="verifyFields">
+                <div>
+
+                  <TextField
+                    required
+                    id="outlined-name"
+                    margin="normal"
+                    variant="outlined"
+                    label={t("Verify Pin")}
+                    value={this.state.pin}
+                    onChange={this.handlePin}
+                    name="pin"
+
+                  />
+
+                </div>
+                <div className="secondaryButton">
+                  <Button
+
+                    value="Validate"
+                    variant="contained" color="secondary"
+                    onClick={this.verifycode}
+                  >{t("Validate")}</Button>
+
+                </div>
+              </div>
+            </div>
+
             <Button variant="contained" color="primary" id='edit-verify' onClick={this.update}>{t("Update")}</Button>
           </CardContent>
         </Card>
