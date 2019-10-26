@@ -3,7 +3,7 @@ import axios from "axios";
 import { withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import { TextField, Card } from '@material-ui/core';
+import { TextField, Card, CardActions } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import './update.css'
 
@@ -97,29 +97,29 @@ class Update extends Component {
                 : null}
             </div>
             <div className="verifyFieldsContainer">
-            <div className="verifyFields">
-              <div>
-                <TextField
-                  required
-                  id="outlined-name"
-                  margin="normal"
-                  variant="outlined"
-                  label={t("Phone Number")}
-                  value={this.state.inputs.phone}
-                  onChange={this.handleInput}
-                  name="phone"
-                />
+              <div className="verifyFields">
+                <div>
+                  <TextField
+                    required
+                    id="outlined-name"
+                    margin="normal"
+                    variant="outlined"
+                    label={t("Phone Number")}
+                    value={this.state.inputs.phone}
+                    onChange={this.handleInput}
+                    name="phone"
+                  />
 
-              </div>
-              <div className="secondaryButton">
-                <Button
-                  value="Validate Number"
-                  variant="contained" color="secondary"
-                  onClick={this.sendCode}
-                >{t("Validate Number")}</Button>
+                </div>
+                <div className="secondaryButton">
+                  <Button
+                    value="Validate Number"
+                    variant="contained" color="secondary"
+                    onClick={this.sendCode}
+                  >{t("Validate Number")}</Button>
 
+                </div>
               </div>
-            </div>
 
 
               <div className="verifyFields">
@@ -149,9 +149,11 @@ class Update extends Component {
                 </div>
               </div>
             </div>
-
-            <Button variant="contained" color="primary" id='edit-verify' onClick={this.update}>{t("Update")}</Button>
           </CardContent>
+          <CardActions>
+            <Button color="primary" id='edit-verify' onClick={this.update}>{t("Update")}</Button>
+
+          </CardActions>
         </Card>
       </Container>
     );
