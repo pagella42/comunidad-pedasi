@@ -4,6 +4,15 @@ import { Link } from "react-router-dom";
 import SearchResults from './searchResults/SearchResults';
 import Filter from './filter/Filter';
 import { withTranslation } from 'react-i18next';
+import Header from '../../Header'
+import './search.css'
+import { makeStyles } from '@material-ui/core/styles';
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 class Search extends Component {
     constructor() {
@@ -58,15 +67,27 @@ class Search extends Component {
         const { t, i18n } = this.props
         return (
             <div>
-                <Link to="/admin"><button onClick={this.logout}>{t("Log out")}</button> </Link>
-                <Link to="/admin/explore">{t("Explore")}</Link>
+
+                <Header/>
+            <div id="searchcontainer">
+                <div id="searchinner">
+                
+                {/* <Link to="/admin/explore">{t("Explore")}</Link>
+                <Link to="/admin/search">{t("Search")}</Link> */}
+
                 <Filter getPosts={this.getPosts} />
                 {this.state.posts.length > 0 ?
                     <SearchResults foundPosts={this.state.posts} />
-                    : <div>{t("No results")}.</div>
+                    : <div>
+                    <ExpansionPanel>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
+                        <Typography >No results</Typography>
+                    </ExpansionPanelSummary></ExpansionPanel></div>
                 }
-            </div>
-        )
+
+            </div></div></div>
+        );
+
     }
 }
 

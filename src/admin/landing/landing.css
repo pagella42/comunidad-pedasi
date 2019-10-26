@@ -1,0 +1,29 @@
+#landingcont{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+
+
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+
+    background-color: #4B88A2;
+}
+
+#landinginner{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+.landingbutt{
+width: 300px;
+height: 300px;
+}
+
+.landingbutttext{
+    font-size: 3em;
+    color: white;
+    font-weight: lighter;
+
+}

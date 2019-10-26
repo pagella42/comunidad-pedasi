@@ -15,15 +15,15 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withTranslation } from 'react-i18next';
-
+import axios from 'axios'
 
 
 class Login extends Component {
     constructor() {
         super()
         this.state = {
-            phone: "",
-            password: '',
+            username: "",
+            ID: '',
         }
     }
     handleInputChange = (event) => {
@@ -32,9 +32,15 @@ class Login extends Component {
 
         })
     }
-
+    verify = () =>{
+        axios.post('http://localhost:4000/data/user/verify',this.state)
+        .then((err,res)=>{
+            console.log(res)
+        })
+    }
     login = () => {
-        this.props.login(this.state.phone)
+        this.verify()
+        this.props.login(this.state.username)
     }
 
     loginHandler = () => {
@@ -48,12 +54,12 @@ class Login extends Component {
 
             <Card  className='logincontainer' style={{ maxWidth: 345 }}>
                 <CardContent>
-                    <TextField  id="outlined-name" label="Username" margin="normal"  variant="outlined"  type="string" name="phone" onChange={this.handleInputChange}  value={this.state.phone} />
-                    <TextField id="outlined-name" label="National ID" margin="normal" variant="outlined" onChange={this.handleInputChange} name="password" value={this.state.passwod} />
+                    <TextField  id="outlined-name" label="Username" margin="normal"  variant="outlined"  type="string" name="username" onChange={this.handleInputChange}  value={this.state.username} />
+                    <TextField id="outlined-name" label="National ID" margin="normal" variant="outlined" onChange={this.handleInputChange} name="ID" value={this.state.passwod} />
                    <div><Link onClick={this.props.loginPopup} to="/user/signUp" >Don't have an account? SignUp</Link></div> 
                 </CardContent>
                 <CardActions>
-                {this.state.phone && this.state.password ?
+                {this.state.username && this.state.ID ?
                     <Button size="small" color="primary" onClick={this.loginHandler}>Login </Button>:
                     <Button disabled size="small" color="primary"  onClick={this.loginHandler}>Login </Button>
                 }

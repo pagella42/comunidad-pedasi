@@ -103,6 +103,7 @@ class CreatePost extends Component {
 
     getCategories = async () => {
         let response = await axios.get("http://localhost:4000/data/categories")
+        console.log(response.data)
         let categories = []
         if (response.data[0] === undefined) {
             categories = ["other"]
@@ -154,7 +155,7 @@ class CreatePost extends Component {
 
     render() {
         const {t,i18next} = this.props
-        return (
+        return this.state.categories.length<1? null :(
             <div className='createpostcontainer'>
                 <Card className='createpost' style={{ maxWidth: 600 }}>
                     <form onSubmit={this.validate}>

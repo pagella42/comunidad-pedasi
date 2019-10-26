@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import Login from './login/Login'
 import { withTranslation } from 'react-i18next';
 import HeaderAdmin from './landing/HeaderAdmin';
+import Landing from './landing/Landing'
+import Header from './Header'
+
 import Button from '@material-ui/core/Button';
+
 
 class Admin extends Component {
     constructor() {
@@ -16,6 +20,7 @@ class Admin extends Component {
         }
     }
 
+    
     login = (username, password) => {
         const t = this.props.t
         if (password === this.state.password) {
@@ -46,9 +51,14 @@ class Admin extends Component {
         const { t, i18n } = this.props
         return (
             <div>
+                <Header home={true} logout={this.logout}/>
                 {this.state.adminLogin.isLoggedIn ?
                     <div>
-                        <HeaderAdmin changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.adminLogin.isLoggedIn} loginPopup={this.props.loginPopup} />
+
+                        {/* <HeaderAdmin changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.adminLogin.isLoggedIn} loginPopup={this.props.loginPopup} /> */}
+                        <Landing logout={this.logout} />
+
+
                     </div>
                     : <Login login={this.login} />}
             </div>

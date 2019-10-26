@@ -2,6 +2,25 @@ import React, { Component } from "react";
 import Axios from "axios";
 import { withTranslation } from 'react-i18next';
 
+import Button from '@material-ui/core/Button';
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+import './filter.css'
+
 class Filter extends Component {
     constructor() {
         super();
@@ -10,7 +29,7 @@ class Filter extends Component {
             filter: {
                 sort: {
                     by: "date",
-                    order: 1
+                    order: -1
                 },
                 category: 0,
                 status: 0,
@@ -33,12 +52,12 @@ class Filter extends Component {
         switch (this.state.sort) {
             case "dh":
                 filter.sort.by = "date";
-                filter.sort.order = 1;
+                filter.sort.order = -1;
 
                 break;
             case "dl":
                 filter.sort.by = "date";
-                filter.sort.order = -1;
+                filter.sort.order = 1;
 
                 break;
             case "ph":
@@ -53,7 +72,7 @@ class Filter extends Component {
                 break;
             default:
                 filter.sort.by = "date";
-                filter.sort.order = 1;
+                filter.sort.order = -1;
                 break;
         }
 
@@ -72,7 +91,7 @@ class Filter extends Component {
         let filter = { ...this.state.filter };
         if (event.target.name === "user") {
             let user = this.state.users.filter(user => user.name === event.target.value)
-            if(user.length > 0){
+            if (user.length > 0) {
                 filter[event.target.name] = user[0]._id
             }
         } else {
@@ -116,87 +135,84 @@ class Filter extends Component {
         this.getUsers()
     }
     render() {
-        const {t,i18n} = this.props
+        const { t, i18n } = this.props
         return (
-            <div>
-                <div>
-                    <input type="text" name="keyword" placeholder={t("Search by Keyword")} onChange={this.handleCheckboxChange} />
-                    <div>
-                        <input type="checkbox" name="search-keyword" id="title" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="title-checkbox">{t("title")}</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="search-keyword" id="content" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="content-checkbox">{t("content")}</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="search-keyword" id="comments" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="comments-checkbox">{t("comments")}</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleCheckboxChange} />
-                        <label htmlFor="responses-checkbox">{t("response")}</label>
-                    </div>
-                </div>
-                <br />
-                <label htmlFor="">{t("sort by")}</label>
-                <select
-                    name="sort"
-                    onChange={this.updateSort}
-                    value={this.state.sort}
-                    id=""
-                >
-                    <option value="cl">{t("date high to low")}</option>
-                    <option value="dl">{t("date low to hight")}</option>
-                    <option value="ph">{t("Points high to low")}</option>
-                    <option value="pl">{t("Points low to high")}</option>
-                </select>
-                <label htmlFor="">{t("category")}</label>
-                <select
-                    name="category"
-                    onChange={this.update}
-                    value={this.state.filter.category}
-                    id=""
-                >
-                    <option value=''>{t("All")}</option>
-                    {this.state.categories.map(c => <option value={c.toLowerCase()}>{t(c)}</option>)}
+            <div id="filtercont">
+                <Card className='filtercontainer' style={{ maxWidth: 1000 }}>
+                    <CardContent>
+                        <div class="uppercont">
+                            <TextField id="outlined-name" label="Search by Keyword" type="text" name="keyword" margin="normal" variant="outlined" type="string" name="phone" onChange={this.handleCheckboxChange} />
 
-                </select>
+                            <div>
+                                <input type="checkbox" name="search-keyword" id="Title" onClick={this.handleCheckboxChange} />
+                                <label htmlFor="title-checkbox">{t("title")}</label>
 
-                <label htmlFor="">{t("status")}</label>
-                <select
-                    name="status"
-                    onChange={this.update}
-                    value={this.state.filter.status}
-                    id=""
-                >
-                    <option value="">{t("All")}</option>
-                    <option value="pending">{t("Pending")}</option>
-                    <option value="in progress">{t("In Progress")}</option>
-                    <option value="resovled">{t("Resovled")}</option>
-                </select>
 
-                <label htmlFor="">{t("language")}</label>
-                <select
-                    name="language"
-                    onChange={this.update}
-                    value={this.state.filter.language}
-                    id=""
-                >
-                    <option value="">{t("All")}</option>
-                    <option value="es">Espanol</option>
-                    <option value="en">English</option>
-                </select>
+                                <input type="checkbox" name="search-keyword" id="Content" onClick={this.handleCheckboxChange} />
+                                <label htmlFor="content-checkbox">{t("content")}</label>
 
-                <label htmlFor="">{t("User")}</label>
-                <input type="text" list="data" name="user" placeholder="User name" onChange={this.update} />
-                <datalist id="data" name="user">
-                    {this.state.users.map(user => <option value={user.name} key={user._id} />)}
-                </datalist>
 
-                <button onClick={this.filter}>{t("Send")}</button>
+                                <input type="checkbox" name="search-keyword" id="Comments" onClick={this.handleCheckboxChange} />
+                                <label htmlFor="comments-checkbox">{t("comments")}</label>
+
+
+                                <input type="checkbox" name="search-keyword" id="Responses" onClick={this.handleCheckboxChange} />
+                                <label htmlFor="responses-checkbox">{t("response")}</label>
+                            </div></div>
+                        <hr></hr>
+                        <TextField id="outlined-name" label="Search by name" list="data" name="user" margin="normal" variant="outlined" type="string" name="phone" onChange={this.update} />
+                        <hr></hr>
+                        <div id="sortcont">
+                        
+                            <FormControl variant="outlined" >
+                                <InputLabel htmlFor="outlined-sort-simple">  Sort </InputLabel>
+                                <Select  name="sort" onChange={this.updateSort} value={this.state.sort}  id="" labelWidth={'75'} inputProps={{ name: 'sort', id: 'outlined-category-simple', }} >
+                                <MenuItem value="cl">{t("date high to low")}</MenuItem>
+                                <MenuItem value="dl">{t("date low to hight")}</MenuItem>
+                                <MenuItem value="ph">{t("Points high to low")}</MenuItem>
+                                <MenuItem value="pl">{t("Points low to high")}</MenuItem>
+                                </Select>
+                            </FormControl>
+                            
+                            <FormControl variant="outlined" >
+                                <InputLabel htmlFor="outlined-sort-simple">  Category </InputLabel>
+                                <Select  name="category" onChange={this.update} value={this.state.filter.category} id="" labelWidth={'75'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
+                                <MenuItem value=''>{t("All")}</MenuItem>
+                                    {this.state.categories.map(c => <MenuItem value={c.toLowerCase()}>{t(c)}</MenuItem>)}
+                                </Select>
+                            </FormControl>
+                        
+                            <FormControl variant="outlined" >
+                                <InputLabel htmlFor="outlined-sort-simple">  Status </InputLabel>
+                                <Select  name="status" onChange={this.update} value={this.state.filter.status} labelWidth={'75'} id="" inputProps={{ name: 'status', id: 'outlined-category-simple', }} >
+                                <MenuItem value="">{t("All")}</MenuItem>
+                                    <MenuItem value="pending">{t("Pending")}</MenuItem>
+                                    <MenuItem value="in progress">{t("In Progress")}</MenuItem>
+                                    <MenuItem value="resovled">{t("Resovled")}</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <FormControl variant="outlined" >
+                                <InputLabel htmlFor="outlined-sort-simple">  Language </InputLabel>
+                                <Select  name="language" onChange={this.update}  value={this.state.filter.language}  id="" labelWidth={'75'} inputProps={{ name: 'language', id: 'outlined-category-simple', }} >
+                                <MenuItem value="">{t("All")}</MenuItem>
+                                    <MenuItem value="es">Espanol</MenuItem>
+                                    <MenuItem value="en">English</MenuItem>
+                                </Select>
+                            </FormControl>
+
+
+                                <datalist id="data" name="user">
+                                    {this.state.users.map(user => <option value={user.name} key={user._id} />)}
+                                </datalist>
+
+        <Button className="filterbutton" onClick={this.filter} variant="outlined" >{t("Send")} </Button>
+
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
         );
     }
 }
-export default withTranslation('translation') (Filter);
+export default withTranslation('translation')(Filter);
