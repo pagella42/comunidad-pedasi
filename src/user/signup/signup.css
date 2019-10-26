@@ -1,0 +1,41 @@
+@media only screen and (min-width: 700px) {
+    .signup{
+        width: 40vw !important;
+        display: grid;
+        align-items: center;
+      
+    }
+}
+#signupcontainer{
+display: grid;
+align-items: center;
+justify-items: center;
+margin-top: 30px;
+}
+
+.firstinput{
+    margin-right: 20px !important;
+    margin-left: 20px !important;
+}
+
+.signupinput{
+    width: 40%;
+}
+.MuiButton-outlinedPrimary {
+    margin-left: 20px !important;
+    margin-bottom: 10px !important;
+}
+.signupcheck{
+    margin-left: 20px ;
+    margin-bottom: 20px ;
+}
+
+@media only screen and (max-width: 700px) {
+    .signup{
+        width: 98vw !important;
+        display: grid;
+        align-items: center;
+      
+    }
+
+}
