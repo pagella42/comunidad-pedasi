@@ -22,9 +22,9 @@ class Filter extends Component {
           by: "date",
           order: -1
         },
-        category: 0,
-        status: 0,
-        language: 0
+        category: "",
+        status: "",
+        language: ""
       },
       categories: [],
     };
@@ -57,7 +57,7 @@ class Filter extends Component {
         filter.sort.order = -1;
         break;
     }
-
+    console.log(filter)
     this.setState({ filter });
 
     this.props.getPosts(this.state.filter);
@@ -105,15 +105,15 @@ class Filter extends Component {
         <FormControl variant="outlined" >
           <InputLabel htmlFor="outlined-sort-simple">  Categories </InputLabel>
           <Select name="category" onChange={this.update} value={this.state.filter.category} labelWidth={'75'}  inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
-            <MenuItem value=''>All</MenuItem>
-             {this.state.categories.map(c => <MenuItem value={c.toLowerCase()}>{c}</MenuItem>)}
+            <MenuItem value='All'>All</MenuItem>
+             {this.state.categories.map(c => <MenuItem value={c}>{c}</MenuItem>)}
           </Select>
         </FormControl>
         
         <FormControl variant="outlined" >
           <InputLabel  htmlFor="outlined-sort-simple"> Status </InputLabel>
           <Select name="status" onChange={this.update} value={this.state.filter.status} labelWidth={'55'}  inputProps={{ name: 'status', id: 'outlined-status-simple', }} >
-            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='All'>All</MenuItem>
             <MenuItem value='pending'>Pending</MenuItem>
             <MenuItem value='in progress'>In progress</MenuItem>
             <MenuItem value='resolved'>Resolved</MenuItem>
@@ -123,7 +123,7 @@ class Filter extends Component {
         <FormControl variant="outlined" >
           <InputLabel  htmlFor="outlined-sort-simple"> Language </InputLabel>
           <Select   name="language" onChange={this.update} value={this.state.filter.language} labelWidth={'70'}  inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
-            <MenuItem value=''>All</MenuItem>
+            <MenuItem value='All'>All</MenuItem>
             <MenuItem value='es'>Español</MenuItem>
             <MenuItem value='en'>English</MenuItem>
           </Select>

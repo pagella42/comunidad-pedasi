@@ -15,7 +15,7 @@ class MyResults extends Component {
             <div id="myresultsinner">
             {
             
-               this.props.posts ? this.props.posts.map(d => <MyResult phone={this.props.phone} post={d} />) : null
+               this.props.posts ? this.props.posts.map(d => <MyResult deletePost={this.props.deletePost} phone={this.props.phone} post={d} />) : null
             }
         </div></div>)
         

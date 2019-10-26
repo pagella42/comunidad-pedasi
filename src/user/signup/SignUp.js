@@ -38,7 +38,8 @@ class SignUp extends Component {
             },
             terms: false,
             load: false /**loading screen */,
-            redirect: false //pass down to loading screen
+            redirect: false, //pass down to loading screen
+		isNumberValid: false
         };
     }
 
@@ -123,9 +124,14 @@ class SignUp extends Component {
         document.getElementById("42").disabled = !valid.data;
         console.log(valid.data);
     };
+	myRegex = (input) => {
+		let re  = /^\+[0-9]{11}$/
+		return input.match(re)
+	}
     render() {
         const { t, i18n } = this.props;
         return (
+
             <div id="signupcontainer">
 
             <Card className='signup' style={{ maxWidth: 1200 }}>
@@ -231,6 +237,7 @@ class SignUp extends Component {
                                 >
                                     Send Verification Code
 				</Button>
+
 
 
                             {this.state.test ?

@@ -31,6 +31,7 @@ router.post('/data/post/:usersPhone', async (req, res) => {
     let post = new Post(req.body)
     post.points=0
     post.status="pending"
+    console.log(req.params.usersPhone)
     post.user = await User.findOne({
         "phone": req.params.usersPhone
     })
@@ -39,6 +40,11 @@ router.post('/data/post/:usersPhone', async (req, res) => {
     updateUserPosts(req.params.usersPhone, post)
         .then((doc) => res.send(doc))
 
+})
+
+router.delete('/data/post/:postId',(req,res)=>{
+    Post.findByIdAndDelete(req.params.postId)
+    .then(()=>res.end())
 })
 
 router.post('/data/posts', async (req,res)=>{
