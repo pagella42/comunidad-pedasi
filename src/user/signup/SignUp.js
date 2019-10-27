@@ -36,7 +36,8 @@ class SignUp extends Component {
       terms: false,
       load: false /**loading screen */,
       redirect: false, //pass down to loading screen
-      isNumberValid: false
+      isNumberValid: false,
+      isCodeValid: true,
     };
   }
 
@@ -119,6 +120,7 @@ class SignUp extends Component {
       data
     );
     document.getElementById("42").disabled = !valid.data;
+    this.setState({isCodeValid: valid.data})
     console.log(valid.data);
   };
   myRegex = input => {
@@ -225,7 +227,7 @@ class SignUp extends Component {
                 </div>
                 {this.myRegex(this.state.user.phone) ? (
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     color="primary"
                     type="button"
                     onClick={this.sendCode}
@@ -255,13 +257,14 @@ class SignUp extends Component {
                     </div>
                     <Button
                       className="verificationbutton"
-                      variant="outlined"
+                      variant="contained"
                       color="primary"
                       type="button"
                       onClick={this.verifycode}
                     >
                       Verify Phone number{" "}
                     </Button>
+                    {this.state.isCodeValid ? <p>code enterd is valid, thank you</p> : <p>Code entered is invalid, try again.</p>}
                   </div>
                 ) : null}
                 <div>
