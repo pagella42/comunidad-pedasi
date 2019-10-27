@@ -5,9 +5,7 @@ class Landing extends Component {
     
     render() {
         return (<div>
-            
-            
-            <Feed loginPopup={this.props.loginPopup} isLoggedIn={JSON.parse(localStorage.userLogin).isLoggedIn} phone={JSON.parse(localStorage.userLogin).phone}/>
+            <Feed loginPopup={this.props.loginPopup}/>
         </div>)
     }
 }
