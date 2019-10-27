@@ -9,9 +9,11 @@ const category = require ('./server/routes/category')
 const response = require ('./server/routes/response')
 const votes = require ('./server/routes/votes')
 const twilio = require('./server/routes/twilio')
-
+const path = require('path')
 const app = express()
 const PORT = 4000
+
+app.use(express.static(path.join(__dirname, 'build')))
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
@@ -35,5 +37,9 @@ app.use('/',response)
 app.use('/',votes)
 app.use('/',twilio)
 
+
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(PORT,()=>console.log(`Running on port: ${PORT}`))

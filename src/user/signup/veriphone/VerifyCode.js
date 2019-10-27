@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
-
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 // This component uses twelio server routes to validate the users pin code
 class VerifyCode extends Component {
   constructor() {
@@ -15,11 +16,10 @@ class VerifyCode extends Component {
       phoneNumber: this.props.phone[0],
       code: this.state.code
     };
-    let valid = await Axios.post(
-      `http://localhost:4000/verifyPhoneNumber/verify`,
+    let valid = await Axios.post(CREATE_ROUTE
+      (`verifyPhoneNumber/verify`),
       data
     );
-    console.log(valid.data);
   };
   handleInput = e => this.setState({ [e.target.name]: [e.target.value] });
   render() {

@@ -11,12 +11,14 @@ import Header from '../Header'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
+import Consts from '../../Consts'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class ResultDetail extends Component {
 
@@ -33,9 +35,9 @@ class ResultDetail extends Component {
 
     getData = async () => {
         const pID = this.props.match.params.id
-        const post = await axios.get(`http://localhost:4000/data/posts/id/${pID}`)
-        const responses = await axios.get(`http://localhost:4000/data/responses/${pID}`)
-        const comments = await axios.get(`http://localhost:4000/data/comments/${pID}`)
+        const post = await axios.get(CREATE_ROUTE(`data/posts/id/${pID}`))
+        const responses = await axios.get(CREATE_ROUTE(`data/responses/${pID}`))
+        const comments = await axios.get(CREATE_ROUTE(`data/comments/${pID}`))
         this.setState({ post: post.data, responses: responses.data, comments: comments.data })
     }
 

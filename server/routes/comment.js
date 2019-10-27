@@ -41,7 +41,6 @@ router.get('/data/comments/:postId', (req, res) => {
         .sort('-date')
         .exec((err, comments) => {
             comments = comments.map(c => {
-                console.log(c)
                 return {
                     _id: c._id,
                     user: c.user.name,

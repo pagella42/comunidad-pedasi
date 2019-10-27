@@ -23,7 +23,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withTranslation } from 'react-i18next';
-
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class CreatePost extends Component {
     constructor() {
@@ -70,7 +71,7 @@ class CreatePost extends Component {
         post.date = date
         // the post object contains all information about the post - the usersPhone is used to uniquely identify the user in the backend
         let data = post
-        await axios.post(`http://localhost:4000/data/post/${usersPhone}`, data)
+        await axios.post(CREATE_ROUTE(`data/post/${usersPhone}`), data)
         this.props.getPosts()
         this.props.showCreatePost()
     }
@@ -102,8 +103,7 @@ class CreatePost extends Component {
     }
 
     getCategories = async () => {
-        let response = await axios.get("http://localhost:4000/data/categories")
-        console.log(response.data)
+        let response = await axios.get(CREATE_ROUTE("data/categories"))
         let categories = []
         if (response.data[0] === undefined) {
             categories = ["other"]
@@ -114,7 +114,6 @@ class CreatePost extends Component {
     }
 
     saveUrl = (url) => {
-        console.log(url)
         let post = { ...this.state.post }
         post.picture = url
         this.setState({ post: post })
