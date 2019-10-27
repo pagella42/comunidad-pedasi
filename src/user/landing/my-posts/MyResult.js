@@ -22,9 +22,12 @@ library.add(
 )
 
 class MyResult extends Component {
+
     render() {
+        
         const {t,i18n}= this.props
         let post = this.props.post
+        console.log(post.comments)
         return (<div id="myresultcontainer">
              <ExpansionPanel>
              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
@@ -51,7 +54,7 @@ class MyResult extends Component {
                 <div>
                     {post.comments.map(c => {
                         return <div>
-                            <div>{c.content}</div>
+                            <div>{c.user.name}: {c.content}</div>
                         </div>
                     })}
                 </div>

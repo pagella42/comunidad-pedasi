@@ -16,10 +16,7 @@ class MyPosts extends Component {
         let data = await axios.get(CREATE_ROUTE(`data/posts/${phone}`))
         await this.setState({ posts: data })
     }
-    deletePost = async e =>{
-        await axios.delete(CREATE_ROUTE(`data/post/${e.target.name}`))
-        this.getPosts()
-    }
+    
     async componentDidMount() {
         this.getPosts()
     }
