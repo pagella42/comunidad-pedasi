@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : false}))
 
-mongoose.connect('mongodb://localhost/pedasiDB',{useNewUrlParser:true},()=>console.log("mongood"))
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pedasiDB',{useNewUrlParser:true},()=>console.log("mongood"))
 
 app.use('/',post)
 app.use('/',user)
@@ -42,4 +42,4 @@ app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(PORT,()=>console.log(`Running on port: ${PORT}`))
+app.listen(process.env.PORT || PORT,()=>console.log(`Running on port: ${PORT}`))
