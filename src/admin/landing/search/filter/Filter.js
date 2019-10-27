@@ -36,7 +36,7 @@ class Filter extends Component {
                 category: 0,
                 status: 0,
                 language: 0,
-                user: 0,
+                users: [],
             },
             categories: [],
             users: [],
@@ -91,10 +91,11 @@ class Filter extends Component {
 
     update = async event => {
         let filter = { ...this.state.filter };
-        if (event.target.name === "user") {
-            let user = this.state.users.filter(user => user.name === event.target.value)
-            if (user.length > 0) {
-                filter[event.target.name] = user[0]._id
+        if (event.target.name === "users") {
+            let users = this.state.users.filter(user => user.name.indexOf(event.target.value)!=-1)
+            .map(user=>user._id)
+            if (users.length > 0) {
+                filter.users=users
             }
         } else {
             filter[event.target.name] = event.target.value
@@ -143,7 +144,7 @@ class Filter extends Component {
                 <Card className='filtercontainer' style={{ maxWidth: 1000 }}>
                     <CardContent>
                         <div class="uppercont">
-                            <TextField id="outlined-name" label="Search by Keyword" type="text" name="keyword" margin="normal" variant="outlined" type="string" name="phone" onChange={this.handleCheckboxChange} />
+                            <TextField id="outlined-name" label="Search by Keyword" type="text" name="keyword" margin="normal" variant="outlined" type="string" onChange={this.handleCheckboxChange} />
 
                             <div>
                                 <input type="checkbox" name="search-keyword" id="title" onClick={this.handleCheckboxChange} />
@@ -162,7 +163,7 @@ class Filter extends Component {
                                 <label htmlFor="responses-checkbox">{t("response")}</label>
                             </div></div>
                         <hr></hr>
-                        <TextField id="outlined-name" label="Search by name" list="data" name="user" margin="normal" variant="outlined" type="string" name="phone" onChange={this.update} />
+                        <TextField id="outlined-name" label="Search by name" list="data" name="users" margin="normal" variant="outlined" type="string" onChange={this.update} />
                         <hr></hr>
                         <div id="sortcont">
                         
@@ -179,7 +180,7 @@ class Filter extends Component {
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  Category </InputLabel>
                                 <Select  name="category" onChange={this.update} value={this.state.filter.category} id="" labelWidth={'75'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
-                                <MenuItem value=''>{t("All")}</MenuItem>
+                                <MenuItem value='All'>{t("All")}</MenuItem>
                                     {this.state.categories.map(c => <MenuItem value={c}>{t(c)}</MenuItem>)}
                                 </Select>
                             </FormControl>
@@ -187,7 +188,7 @@ class Filter extends Component {
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  Status </InputLabel>
                                 <Select  name="status" onChange={this.update} value={this.state.filter.status} labelWidth={'75'} id="" inputProps={{ name: 'status', id: 'outlined-category-simple', }} >
-                                <MenuItem value="">{t("All")}</MenuItem>
+                                <MenuItem value="All">{t("All")}</MenuItem>
                                     <MenuItem value="pending">{t("Pending")}</MenuItem>
                                     <MenuItem value="in progress">{t("In Progress")}</MenuItem>
                                     <MenuItem value="resovled">{t("Resovled")}</MenuItem>
@@ -197,7 +198,7 @@ class Filter extends Component {
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  Language </InputLabel>
                                 <Select  name="language" onChange={this.update}  value={this.state.filter.language}  id="" labelWidth={'75'} inputProps={{ name: 'language', id: 'outlined-category-simple', }} >
-                                <MenuItem value="">{t("All")}</MenuItem>
+                                <MenuItem value="All">{t("All")}</MenuItem>
                                     <MenuItem value="es">Espanol</MenuItem>
                                     <MenuItem value="en">English</MenuItem>
                                 </Select>
