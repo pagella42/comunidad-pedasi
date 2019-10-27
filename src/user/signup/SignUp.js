@@ -103,8 +103,8 @@ class SignUp extends Component {
           `http://localhost:4000/verifyPhoneNumber/send`,
           data
           );
-          console.log(status)
-          status ? this.setState({ test: true }) : console.log("PUT THE ERROR IN")
+        
+          status ? this.setState({ test: true }) : console.log("error goes here") // < ignore this
         this.setState({ test: true })
   };
 
