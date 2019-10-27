@@ -103,12 +103,13 @@ class SignUp extends Component {
           `http://localhost:4000/verifyPhoneNumber/send`,
           data
           );
-          console.log("hello")
+        
+          status ? this.setState({ test: true }) : console.log("error goes here") // < ignore this
         this.setState({ test: true })
   };
 
   handleInput = e => {
-    this.setState({ [e.target.name]: [e.target.value] });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   verifycode = async () => {
@@ -121,13 +122,24 @@ class SignUp extends Component {
       data
     );
     document.getElementById("42").disabled = !valid.data;
-    this.setState({isCodeValid: valid.data})
+    await this.setState({isCodeValid: valid.data})
+    
     console.log(valid.data);
   };
   myRegex = input => {
     let re = /^\+[0-9]{11}$/;
     return input.match(re);
   };
+  onInvalid = () => {
+
+    return <p>Code entered is invalid, try again.</p> 
+  }
+
+  onValid = () => {
+    return  <p>Code entered is valid, please complete form, and agree to the terms of servive to complete your registration</p> 
+  }
+  
+  
   render() {
     const { t, i18n } = this.props;
     return (
@@ -218,6 +230,7 @@ class SignUp extends Component {
                     <TextField
                       className="signupinput"
                       id="outlined-name"
+                      variant="outlined"
                       margin="normal"
                       label={t("E-Mail")}
                       required
@@ -236,7 +249,7 @@ class SignUp extends Component {
                   >
                     Send Code
                   </Button>
-                ) : <p>ex: +50784637473</p>}
+                ) : <p>EG: +50784637473</p>}
 
                 {this.state.test ? (
                   <div>
@@ -266,7 +279,7 @@ class SignUp extends Component {
                     >
                       Verify Phone number{" "}
                     </Button>
-                    {this.state.isCodeValid ? null : <p>Code entered is invalid, try again.</p>}
+                    {this.state.isCodeValid ? this.onValid() : this.onInvalid()}
                   </div>
                 ) : null}
                 <div>
