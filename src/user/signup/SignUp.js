@@ -136,7 +136,7 @@ class SignUp extends Component {
   }
 
   onValid = () => {
-    return  <p>Code entered is valid, please complete form and agree to the terms of servicw to complete your registration</p> 
+    return  <p>Code entered is valid, please complete form, and agree to the terms of servive to complete your registration</p> 
   }
   
   
