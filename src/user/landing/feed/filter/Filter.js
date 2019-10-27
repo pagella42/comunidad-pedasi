@@ -57,9 +57,8 @@ class Filter extends Component {
         filter.sort.order = -1;
         break;
     }
-    console.log(filter)
     this.setState({ filter });
-
+    
     this.props.getPosts(this.state.filter);
   };
 
@@ -129,7 +128,7 @@ class Filter extends Component {
           </Select>
         </FormControl>
         
-        <Button className="filterbutton" onClick={this.filter} variant="outlined" > FilTer </Button>
+        <Button className="filterbutton" onClick={this.filter} variant="outlined" > Filter </Button>
       </div>
     );
   }

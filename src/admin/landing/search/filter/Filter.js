@@ -177,7 +177,7 @@ class Filter extends Component {
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  Category </InputLabel>
                                 <Select  name="category" onChange={this.update} value={this.state.filter.category} id="" labelWidth={'75'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
-                                <MenuItem value=''>{t("All")}</MenuItem>
+                                <MenuItem value='All'>{t("All")}</MenuItem>
                                     {this.state.categories.map(c => <MenuItem value={c}>{t(c)}</MenuItem>)}
                                 </Select>
                             </FormControl>
@@ -185,7 +185,7 @@ class Filter extends Component {
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  Status </InputLabel>
                                 <Select  name="status" onChange={this.update} value={this.state.filter.status} labelWidth={'75'} id="" inputProps={{ name: 'status', id: 'outlined-category-simple', }} >
-                                <MenuItem value="">{t("All")}</MenuItem>
+                                <MenuItem value="All">{t("All")}</MenuItem>
                                     <MenuItem value="pending">{t("Pending")}</MenuItem>
                                     <MenuItem value="in progress">{t("In Progress")}</MenuItem>
                                     <MenuItem value="resovled">{t("Resovled")}</MenuItem>
@@ -195,7 +195,7 @@ class Filter extends Component {
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  Language </InputLabel>
                                 <Select  name="language" onChange={this.update}  value={this.state.filter.language}  id="" labelWidth={'75'} inputProps={{ name: 'language', id: 'outlined-category-simple', }} >
-                                <MenuItem value="">{t("All")}</MenuItem>
+                                <MenuItem value="All">{t("All")}</MenuItem>
                                     <MenuItem value="es">Espanol</MenuItem>
                                     <MenuItem value="en">English</MenuItem>
                                 </Select>

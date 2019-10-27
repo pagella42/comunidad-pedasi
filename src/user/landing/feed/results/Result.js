@@ -67,7 +67,7 @@ class Result extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(){
-        this.getVotes()//Not Cool
+        this.getVotes()
     }
 
     vote = async (e) => {

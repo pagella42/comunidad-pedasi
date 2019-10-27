@@ -19,9 +19,9 @@ function updateUserPosts(usersPhone, post) {
 
 function makeFilterObject(category,status,language,private,user){
     let obj={}
-    category? obj.category=category:null
-    status? obj.status=status:null
-    language? obj.language=language: null
+    category!="All"&&category? obj.category=category:null
+    status!="All"&&status? obj.status=status:null
+    language!="All"&&language? obj.language=language: null
     private? obj.private=private: null
     user? obj.user=user:null
     return obj
@@ -31,7 +31,6 @@ router.post('/data/post/:usersPhone', async (req, res) => {
     let post = new Post(req.body)
     post.points=0
     post.status="pending"
-    console.log(req.params.usersPhone)
     post.user = await User.findOne({
         "phone": req.params.usersPhone
     })
