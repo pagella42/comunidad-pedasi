@@ -97,13 +97,14 @@ class SignUp extends Component {
   };
 
   sendCode = async () => {
-    this.setState({ test: true });
-    let data = { phoneNumber: this.state.user.phone };
-    let status = await axios.post(
-      `http://localhost:4000/verifyPhoneNumber/send`,
-      data
-    );
-    console.log(status.data.status)
+
+      let data = { phoneNumber: this.state.user.phone };
+      let status = await axios.post(
+          `http://localhost:4000/verifyPhoneNumber/send`,
+          data
+          );
+          console.log("hello")
+        this.setState({ test: true })
   };
 
   handleInput = e => {
@@ -173,11 +174,12 @@ class SignUp extends Component {
                       id="outlined-name"
                       margin="normal"
                       variant="outlined"
-                      label={t("ID")}
+                      label={t("Document of Identity")}
                       required
                       value={this.state.user.ID}
                       onChange={this.handleInputChange}
                       name="ID"
+                      
                     />
                   </span>
 
@@ -234,7 +236,7 @@ class SignUp extends Component {
                   >
                     Send Code
                   </Button>
-                ) : null}
+                ) : <p>ex: +50784637473</p>}
 
                 {this.state.test ? (
                   <div>
@@ -264,7 +266,7 @@ class SignUp extends Component {
                     >
                       Verify Phone number{" "}
                     </Button>
-                    {this.state.isCodeValid ? <p>code enterd is valid, thank you</p> : <p>Code entered is invalid, try again.</p>}
+                    {this.state.isCodeValid ? null : <p>Code entered is invalid, try again.</p>}
                   </div>
                 ) : null}
                 <div>
