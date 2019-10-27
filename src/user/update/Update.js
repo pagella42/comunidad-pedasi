@@ -73,7 +73,7 @@ class Update extends Component {
   render() {
     const { t, i18n } = this.props
     return (
-      <Container maxWidth="sm">
+      <Container className="updateContainer" maxWidth="sm">
         <Card>
           <CardContent className="cardContent">
             <div className="updateFields">
@@ -114,7 +114,7 @@ class Update extends Component {
                 <div className="secondaryButton">
                   <Button
                     value="Validate Number"
-                    variant="contained" color="secondary"
+                    variant="outlined" color="primary"
                     onClick={this.sendCode}
                   >{t("Validate Number")}</Button>
 
@@ -142,7 +142,7 @@ class Update extends Component {
                   <Button
 
                     value="Validate"
-                    variant="contained" color="secondary"
+                    variant="outlined" color="primary"
                     onClick={this.verifycode}
                   >{t("Validate")}</Button>
 

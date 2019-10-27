@@ -1,19 +1,32 @@
 import React, { Component } from "react";
 import axios from "axios";
 import TheCodeOfConduct from "./theCodeOfConduct";
+import './signup.css'
 
 import { withTranslation } from "react-i18next";
 import Success from "../Success";
 
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+
+
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+
 
 class SignUp extends Component {
     constructor() {
         super();
         this.state = {
-	    test: false,
+            test: false,
             pin: null,
             user: {
                 name: "",
@@ -86,7 +99,7 @@ class SignUp extends Component {
     };
 
     sendCode = async () => {
-	this.setState({test: true })
+        this.setState({ test: true })
         let data = { phoneNumber: this.state.user.phone };
         let status = await axios.post(
             `http://localhost:4000/verifyPhoneNumber/send`,
@@ -118,152 +131,163 @@ class SignUp extends Component {
     render() {
         const { t, i18n } = this.props;
         return (
-            <div id="sign-up">
-                <h4>{t("Sign Up")}</h4>
-                <form onSubmit={this.verifyUser}>
-                    {this.renderLoading()}
-                    <div>
-                        <span>
-                            <TextField
-                                id="outlined-name"
-                                margin="normal"
-                                variant="outlined"
-                                label={t("Full Name")}
-                                required
-                                value={this.state.user.name}
-                                onChange={this.handleInputChange}
-                                name="name"
-                            />
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <TextField
-                                id="outlined-name"
-                                margin="normal"
-                                variant="outlined"
-                                label={t("Username")}
-                                required
-                                value={this.state.user.username}
-                                onChange={this.handleInputChange}
-                                name="username"
-                            />
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <TextField
-                                id="outlined-name"
-                                margin="normal"
-                                variant="outlined"
-                                label={t("ID")}
-                                required
-                                value={this.state.user.ID}
-                                onChange={this.handleInputChange}
-                                name="ID"
-                            />
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <TextField
-                                id="outlined-name"
-                                margin="normal"
-                                variant="outlined"
-                                label={t("Address")}
-                                required
-                                value={this.state.user.address}
-                                onChange={this.handleInputChange}
-                                name="address"
-                            />
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <TextField
-                                id="outlined-name"
-                                margin="normal"
-                                variant="outlined"
-                                label={t("E-Mail")}
-                                required
-                                value={this.state.user.email}
-                                onChange={this.handleInputChange}
-                                name="email"
-                            />
-                        </span>
-                    </div>
-                    <div>
-                        <span>
-                            <TextField
-                                id="outlined-name"
-                                margin="normal"
-                                variant="outlined"
-                                label={t("Phone Number")}
-				placeholder='+50764494592'
-                                required
-                                value={this.state.user.phone}
-                                onChange={this.handleInputChange}
-                                name="phone"
-                            />
-                        </span>
-			{this.myRegex( this.state.user.phone ) ?
-				<Button
-					variant="outlined"
-					color="primary"
-					type="button"
-					onClick={this.sendCode}
-				>
-					Send Code
-				</Button> 
-					: null
-			}
-                    </div>
+
+            <div id="signupcontainer">
+
+            <Card className='signup' style={{ maxWidth: 1200 }}>
+                <CardContent>
+
+                
+                    <div id="sign-up">
+                        <h4>{t("Sign Up")}</h4>
+                        <form onSubmit={this.verifyUser}>
+                            {this.renderLoading()}
+                            <div>
+                                <span>
+                                    <TextField
+                                    className="firstinput signupinput"
+                                        id="outlined-name"
+                                        margin="normal"
+                                        variant="outlined"
+                                        label={t("Full Name")}
+                                        required
+                                        value={this.state.user.name}
+                                        onChange={this.handleInputChange}
+                                        name="name"
+                                    />
+                                </span>
+                           
+                                <span>
+                                    <TextField
+                                    className='signupinput'
+                                        id="outlined-name"
+                                        margin="normal"
+                                        variant="outlined"
+                                        label={t("Username")}
+                                        required
+                                        value={this.state.user.username}
+                                        onChange={this.handleInputChange}
+                                        name="username"
+                                    />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    <TextField
+                                    className="firstinput signupinput"
+                                        id="outlined-name"
+                                        margin="normal"
+                                        variant="outlined"
+                                        label={t("ID")}
+                                        required
+                                        value={this.state.user.ID}
+                                        onChange={this.handleInputChange}
+                                        name="ID"
+                                    />
+                                </span>
+                         
+                                <span>
+                                    <TextField
+                                    className='signupinput'
+                                        id="outlined-name"
+                                        margin="normal"
+                                        variant="outlined"
+                                        label={t("Address")}
+                                        required
+                                        value={this.state.user.address}
+                                        onChange={this.handleInputChange}
+                                        name="address"
+                                    />
+                                </span>
+                            </div>
+                            <div>
+                          
+                                <span>
+                                    <TextField
+                                    className="firstinput signupinput"
+                                        id="outlined-name"
+                                        margin="normal"
+                                        variant="outlined"
+                                        label={"Phone"}
+                                        required
+                                        value={this.state.user.phone}
+                                        onChange={this.handleInputChange}
+                                        name="phone"
+                                    />
+                                </span>
+                                <span>
+                                    <TextField 
+                                    className='signupinput'
+                                        id="outlined-name"
+                                        margin="normal"
+                                        variant="outlined"
+                                        label={t("E-Mail")}
+                                        required
+                                        value={this.state.user.email}
+                                        onChange={this.handleInputChange}
+                                        name="email"
+                                    />
+                                </span>
+                            </div>
+                                <Button
+                                    variant="outlined"
+                                    color="primary"
+                                    type="button"
+                                    onClick={this.sendCode}
+                                >
+                                    Send Verification Code
+				</Button>
 
 
-		    {this.state.test ?
-			    <div>
-				    <span>
-					    <TextField
-						    id="outlined-name"
-						    margin="normal"
-						    variant="outlined"
-						    label={t("Enter Verification code")}
-						    required
-						    value={this.state.pin}
-						    onChange={this.handleInput}
-						    name="pin"
-					    />
-				    </span>
-				    <Button
-					    variant="outlined"
-					    color="primary"
-					    type="button"
-					    onClick={this.verifycode}
-				    >
-					    Verify Phone number
-				    </Button>
-			    </div> : null
-		    }
-                    <div>
-                        <input type="checkbox" required />
-                        {t("I agree to the")}{" "}
-                        <span
-                            style={{ color: "blue", cursor: "alias" }}
-                            onClick={this.toggleTerms}
-                        >
-                            {t("Terms and Conditions")}
-                        </span>
+
+                            {this.state.test ?
+                            <div>
+                                <div>
+                                    <span>
+                                        <TextField
+                                        className="firstinput signupinput"
+                                            id="outlined-name"
+                                            margin="normal"
+                                            variant="outlined"
+                                            label="Verification code"
+                                            required
+                                            value={this.state.pin}
+                                            onChange={this.handleInput}
+                                            name="pin"
+                                        />
+                                    </span></div> 
+                                    <Button className="verificationbutton"
+                                        variant="outlined"
+                                        color="primary"
+                                        type="button"
+                                        onClick={this.verifycode} >
+                                        Verify Phone number </Button>
+                               </div> : null
+                            }
+                            <div>
+                                <input class="signupcheck" type="checkbox" required />
+                                {t("I agree to the")}{" "}
+                                <span
+                                    style={{ color: "blue", cursor: "alias" }}
+                                    onClick={this.toggleTerms}
+                                >
+                                    {t("Terms and Conditions")}
+                                </span>
+                            </div>
+                        </form>
+                        <TheCodeOfConduct
+                            terms={this.state.terms}
+                            toggleTerms={this.toggleTerms}
+                        />
                     </div>
-                    <input disabled variant="outlined" id="42" type="submit" value={t("submit")}/>
-                </form>
-                <TheCodeOfConduct
-                    terms={this.state.terms}
-                    toggleTerms={this.toggleTerms}
-                />
-            </div>
-        );
-    }
+                            <input disabled variant="outlined" id="42" type="submit" value={t("submit")} />
+                    </CardContent>
+                <CardActions>
 
-}
-
-export default withTranslation("translation")(SignUp);
+                </CardActions></Card></div>
+                );
+            }
+        
+        }
+        
+        export default withTranslation("translation")(SignUp);

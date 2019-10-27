@@ -167,7 +167,7 @@ class CreatePost extends Component {
                         <div>   <TextField  className="contcont" multiline rows="6" required type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
                         
                         <div className="fieldcont"> 
-                        <TextField className="adresscont" required type="text" id="outlined-adress" label="adress" margin="normal" variant="outlined" onChange={this.handleInputChange} name="adress" />
+                        <TextField className="addresscont" required type="text" id="outlined-address" label="address" margin="normal" variant="outlined" onChange={this.handleInputChange} name="address" />
                         
                         <FormControl required variant="outlined" >
                             <InputLabel htmlFor="outlined-sort-simple"> language </InputLabel>

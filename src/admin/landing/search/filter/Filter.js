@@ -144,19 +144,19 @@ class Filter extends Component {
                             <TextField id="outlined-name" label="Search by Keyword" type="text" name="keyword" margin="normal" variant="outlined" type="string" name="phone" onChange={this.handleCheckboxChange} />
 
                             <div>
-                                <input type="checkbox" name="search-keyword" id="Title" onClick={this.handleCheckboxChange} />
+                                <input type="checkbox" name="search-keyword" id="title" onClick={this.handleCheckboxChange} />
                                 <label htmlFor="title-checkbox">{t("title")}</label>
 
 
-                                <input type="checkbox" name="search-keyword" id="Content" onClick={this.handleCheckboxChange} />
+                                <input type="checkbox" name="search-keyword" id="content" onClick={this.handleCheckboxChange} />
                                 <label htmlFor="content-checkbox">{t("content")}</label>
 
 
-                                <input type="checkbox" name="search-keyword" id="Comments" onClick={this.handleCheckboxChange} />
+                                <input type="checkbox" name="search-keyword" id="comments" onClick={this.handleCheckboxChange} />
                                 <label htmlFor="comments-checkbox">{t("comments")}</label>
 
 
-                                <input type="checkbox" name="search-keyword" id="Responses" onClick={this.handleCheckboxChange} />
+                                <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleCheckboxChange} />
                                 <label htmlFor="responses-checkbox">{t("response")}</label>
                             </div></div>
                         <hr></hr>

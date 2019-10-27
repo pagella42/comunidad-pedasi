@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { withTranslation } from 'react-i18next';
+import './responses.css'
 
+
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 class Responses extends Component {
@@ -26,26 +36,45 @@ class Responses extends Component {
             this.props.getData()
         }
         else alert(t("Not sent"))
+        this.setState({content: ""})
+        this.setState({employee: ""})
     }
 
     render() {
-        const {t,i18n} = this.props
+        const { t, i18n } = this.props
         return (
             <div>
-                <div id="content">{t("Response")}<input type="text" name="content" value={this.state.name} onChange={this.update} /></div>
-                <div id="employee">{t("Employee")}<input type="text" name="employee" value={this.state.name} onChange={this.update} /></div>
-                <div id="status">{t("Status")}
-                    <select type="text" name="status" value={this.state.name} onChange={this.update} >
-                        <option value="Select">{t("Select")}</option>
-                        <option value="Attending">{t("Attending")}</option>
-                        <option value="Pending">{t("Pending")}</option>
-                        <option value="Solved">{t("Solved")}</option>
-                    </select>
-                </div>
-                <div><button type="submit" onClick={this.sendResp} >{t("Send")}</button></div>
+                
+                <div id="fieldcont">
+                    <div id="content">
+                        <TextField style={{ width: "55%" }} id="outlined-name" label="Response" name="content" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
+                    </div>
+
+                    <div id="employee">
+                        <TextField style={{ width: "30%" }} id="outlined-name" label="Employee responding" name="employee" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
+                    </div>
+               
+
+              
+
+                <FormControl variant="outlined" >
+                        <InputLabel htmlFor="outlined-sort-simple"> Satus </InputLabel>
+                        <Select type="text" name="status" value={this.state.name} onChange={this.update}labelWidth={'70'} inputProps={{ name: 'status', id: 'outlined-status-simple', }} >
+                        <MenuItem value="pending">Pending</MenuItem>
+                        <MenuItem value="in progress">In progress</MenuItem>
+                        <MenuItem value="resolved">Resolved</MenuItem>
+                        </Select>
+                    </FormControl>
+                    
+                 </div>
+                 {this.state.content && this.state.employee && this.state.status ?
+                <Button variant="outlined" type="submit" onClick={this.sendResp}> Send </Button> :
+                <Button disabled variant="outlined" type="submit" onClick={this.sendResp}> Send </Button>
+                 }
+                
             </div>
         )
     }
 }
 
-export default withTranslation('translation') (Responses)
+export default withTranslation('translation')(Responses)
