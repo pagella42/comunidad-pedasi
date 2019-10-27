@@ -50,25 +50,11 @@ class Result extends Component {
         this.setState({ vote: vote })
     }
 
-    getComments = async () => {
-        let response = await axios.get(CREATE_ROUTE(`data/comments/${this.props.post._id}`))
-        response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
-        this.setState({ comments: response.data })
-    }
-
-    getResponses = async () => {
-        let response = await axios.get(CREATE_ROUTE(`data/responses/${this.props.post._id}`))
-        response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
-        this.setState({ responses: response.data })
-    }
-
     async componentDidMount() {
-        this.getComments()
-        this.getResponses()
         this.getVotes()
     }
 
-    UNSAFE_componentWillReceiveProps(){
+    UNSAFE_componentWillReceiveProps() {
         this.getVotes()
     }
 
@@ -93,71 +79,64 @@ class Result extends Component {
 
 
     render() {
-        const {t,i18n}=this.props
-
+        const { t, i18n } = this.props
         let post = this.props.post
-        return (<div class="resultcontainer">
-            <ExpansionPanel>
+        return (
+            <div class="resultcontainer">
+                <ExpansionPanel>
 
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                    <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
-                    <Typography > {post.title}  </Typography>
-                    <span className='postlike'> {this.state.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
-                </ExpansionPanelSummary>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                        <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
+                        <Typography > {post.title}  </Typography>
+                        <span className='postlike'> {post.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
+                    </ExpansionPanelSummary>
 
-                <ExpansionPanelDetails>
-                    <div class="postname"> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div>
-                    <div>{post.content}</div>
-                    Location:<div>{post.address}</div>
-                    Status: {post.status}
-                    {post.picture ? <img id="img"  src={post.picture} alt="concern picture"></img>: null}
-                    <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
-                        <div>{this.state.vote.userVoted ?
-                            <div class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>
-                            : <div class="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
-                        }</div> :
-                        <div class="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
-                    }
-                        {this.state.vote.votesCount}</div>
-
-
-
-{this.state.responses.length === 0
-    ? <div>No response.</div>
-    : this.state.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+                    <ExpansionPanelDetails>
+                        <div class="postname"> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div>
+                        <div>{post.content}</div>
+                        Location:<div>{post.address}</div>
+                        Status: {post.status}
+                        {post.picture ? <img id="img" src={post.picture} alt="concern picture"></img> : null}
+                        <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                            <div>{this.state.vote.userVoted ?
+                                <div class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>
+                                : <div class="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
+                            }</div> :
+                            <div class="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
+                        }
+                            {this.state.vote.votesCount}</div>
 
 
 
-<input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
-{JSON.parse(localStorage.userLogin).isLoggedIn ?
-    <button onClick={this.comment}>Send comment</button> :
-    <button onClick={this.props.loginPopup}>Send comment</button>
-}
+                        {post.responses.length === 0
+                            ? <div>No response.</div>
+                            : post.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
 
 
-{this.state.comments.length !== 0 ?
-    <div>
-        {this.state.comments.map(c => {
-            return <div>
-                <div>User: {c.user}</div>
-                <div>{c.content}</div>
-            </div>
-        })}
-    </div>
-    : <div>No Comments.</div>
-} 
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
 
-           
-            
+                        <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
+                        {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                            <button onClick={this.comment}>Send comment</button> :
+                            <button onClick={this.props.loginPopup}>Send comment</button>
+                        }
 
 
-        
-
-        </div>)
+                        {post.comments.length !== 0 ?
+                            <div>
+                                {post.comments.map(c => {
+                                    return <div>
+                                        <div>User: {c.user}</div>
+                                        <div>{c.content}</div>
+                                    </div>
+                                })}
+                            </div>
+                            : <div>No Comments.</div>
+                        }
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+            </div>)
     }
 }
-export default withTranslation('translation') (Result);
+export default withTranslation('translation')(Result);
 
 
