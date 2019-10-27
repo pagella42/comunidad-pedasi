@@ -12,13 +12,13 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import Consts from '../../Consts'
-const CREATE_ROUTE = Consts.CREATE_ROUTE
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class ResultDetail extends Component {
 
