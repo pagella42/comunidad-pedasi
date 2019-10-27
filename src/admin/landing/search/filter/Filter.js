@@ -34,7 +34,7 @@ class Filter extends Component {
                 category: 0,
                 status: 0,
                 language: 0,
-                user: 0,
+                user: "",
             },
             categories: [],
             users: [],
@@ -90,8 +90,9 @@ class Filter extends Component {
     update = async event => {
         let filter = { ...this.state.filter };
         if (event.target.name === "user") {
-            let user = this.state.users.filter(user => user.name === event.target.value)
+            let user = this.state.users.filter(user => user.name.indexOf(event.target.value)!=-1)
             if (user.length > 0) {
+                console.log(user)
                 filter[event.target.name] = user[0]._id
             }
         } else {
@@ -141,7 +142,7 @@ class Filter extends Component {
                 <Card className='filtercontainer' style={{ maxWidth: 1000 }}>
                     <CardContent>
                         <div class="uppercont">
-                            <TextField id="outlined-name" label="Search by Keyword" type="text" name="keyword" margin="normal" variant="outlined" type="string" name="phone" onChange={this.handleCheckboxChange} />
+                            <TextField id="outlined-name" label="Search by Keyword" type="text" name="keyword" margin="normal" variant="outlined" type="string" onChange={this.handleCheckboxChange} />
 
                             <div>
                                 <input type="checkbox" name="search-keyword" id="title" onClick={this.handleCheckboxChange} />
@@ -160,7 +161,7 @@ class Filter extends Component {
                                 <label htmlFor="responses-checkbox">{t("response")}</label>
                             </div></div>
                         <hr></hr>
-                        <TextField id="outlined-name" label="Search by name" list="data" name="user" margin="normal" variant="outlined" type="string" name="phone" onChange={this.update} />
+                        <TextField id="outlined-name" label="Search by name" list="data" name="user" margin="normal" variant="outlined" type="string" onChange={this.update} />
                         <hr></hr>
                         <div id="sortcont">
                         
