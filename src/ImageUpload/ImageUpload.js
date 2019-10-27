@@ -10,14 +10,18 @@ class ImageUpload extends Component {
         this.state = {
             image: null,
             url: "",
+            loading: false,
         }
     }
 
-    handleChange = (e) => {
+    handleChange = async (e) => {
         if (e.target.files[0]) {
             let image = { ...this.state.image }
             image = e.target.files[0]
-            this.setState({ image: image })
+            this.setState({loading: true})
+            await this.setState({ image: image })
+            this.handleUpload()
+
         }
     }
 
@@ -28,26 +32,26 @@ class ImageUpload extends Component {
         const uploadTask = storage.ref(`images/${image.name}`).put(image)
         // Upload task has an event listener and three functions 
         // Demonstrate progress ...
-        const progress = (snapshot) => {} 
+        const progress = (snapshot) => { }
         // Demonstrate error ...
         const error = (error) => console.log(error)
         // Complete function ...
         const complete = () => {
             storage.ref('images')
-            .child(image.name)
-            .getDownloadURL() // returns promise
-            .then(url => {
-                console.log(url)
-                this.props.saveUrl(url)
-                alert("Image saved.")
-            })
+                .child(image.name)
+                .getDownloadURL() // returns promise
+                .then(url => {
+                    console.log(url)
+                    this.props.saveUrl(url)
+                    this.setState({loading:false})
+                })
         }
 
         uploadTask.on('state_changed', progress, error, complete)
     }
 
     render() {
-        const {t,i18next}= this.props
+        const { t, i18next } = this.props
         return (
             <div>
                 <input
@@ -57,12 +61,15 @@ class ImageUpload extends Component {
                     accept="image/*"
                     capture="environment"
                 />
-                {this.state.image ? <button  onClick={this.handleUpload}>{t("Upload")}</button> : <br /> }
-                <br/>
-                
+                {this.state.loading ?
+                    <div>Loading Image ...</div>
+                    : <div></div>
+                }
+                <br />
+
             </div>
         );
     }
 }
 
-export default withTranslation('translation') (ImageUpload);
+export default withTranslation('translation')(ImageUpload);
