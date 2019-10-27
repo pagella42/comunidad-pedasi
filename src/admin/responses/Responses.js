@@ -12,7 +12,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import Consts from '../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Responses extends Component {
 
@@ -30,9 +31,9 @@ class Responses extends Component {
     sendResp = async () => {
         const t = this.props.t
         if (window.confirm("Confirm Response")) {
-            await axios.post(`http://localhost:4000/data/response/${this.props.idPost}`,
+            await axios.post(CREATE_ROUTE(`data/response/${this.props.idPost}`),
                 { content: this.state.content, date: new Date(), employee: this.state.employee })
-            await axios.put(`http://localhost:4000/data/post/status/${this.state.status}/${this.props.idPost}`)
+            await axios.put(CREATE_ROUTE(`data/post/status/${this.state.status}/${this.props.idPost}`))
             this.props.getData()
         }
         else alert(t("Not sent"))

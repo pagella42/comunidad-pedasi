@@ -13,7 +13,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 class Search extends Component {
     constructor() {
         super()
@@ -53,7 +54,7 @@ class Search extends Component {
     }
 
     getPosts = async (filter, keywordOptions, keyword) => {
-        let response = await axios.post("http://localhost:4000/data/posts", filter)
+        let response = await axios.post(CREATE_ROUTE("data/posts"), filter)
         let posts = response.data
         if (posts.length > 0 && keyword !== "") { // if there are no posts already, no point of searching. Same if there is no keyword.
             let options = keywordOptions.filter(keyword => keyword.checked === true)

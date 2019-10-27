@@ -29,6 +29,8 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class CreatePost extends Component {
     constructor() {
@@ -75,7 +77,7 @@ class CreatePost extends Component {
         post.date = date
         // the post object contains all information about the post - the usersPhone is used to uniquely identify the user in the backend
         let data = post
-        await axios.post(`http://localhost:4000/data/post/${usersPhone}`, data)
+        await axios.post(CREATE_ROUTE(`data/post/${usersPhone}`), data)
         this.props.getPosts()
         this.props.showCreatePost()
     }
@@ -107,8 +109,7 @@ class CreatePost extends Component {
     }
 
     getCategories = async () => {
-        let response = await axios.get("http://localhost:4000/data/categories")
-        console.log(response.data)
+        let response = await axios.get(CREATE_ROUTE("data/categories"))
         let categories = []
         if (response.data[0] === undefined) {
             categories = ["other"]
@@ -119,7 +120,6 @@ class CreatePost extends Component {
     }
 
     saveUrl = (url) => {
-        console.log(url)
         let post = { ...this.state.post }
         post.picture = url
         this.setState({ post: post })
@@ -130,23 +130,17 @@ class CreatePost extends Component {
         await this.getCategories()
     }
 
-    anonymous = () => {
+    anonymous = (event) => {
         let post = { ...this.state.post }
-        if (this.state.post.anonymous) {
-            post.anonymous = false
-            post.private = false
-        }
-        else {
-            post.anonymous = true
-            post.private = false
-        }
-
-        this.setState({ post: post })
+        post[event.target.value] = event.target.checked
+        this.setState({post: post})
     }
 
     private = (event) => {
         let post = { ...this.state.post }
-        [event.target.name] = event.target.checked
+        post[event.target.value] = event.target.checked
+        post.anonymous = false
+        this.setState({post: post})
     }
 
 
@@ -190,20 +184,12 @@ class CreatePost extends Component {
                             <div class="imgcotainerbutt"><ImageUpload saveUrl={this.saveUrl} /></div>
                             <div id="anoncont">
                                 {this.state.post.private ?
-                                    <Button variant="outlined" disabled onClick={this.anonymous}>  {this.state.post.anonymous ? "Show username" : "Hide username"}  </Button> :
-                                    <Button variant="outlined" onClick={this.anonymous}>   {this.state.post.anonymous ? "Show username" : "Hide username"}  </Button>
+
+                                <FormControlLabel control={  <Checkbox disabled checked={this.state.post.anonymous}  onChange={this.anonymous} value="anonymous" color="primary" /> } label="hide my username"  /> :
+                                <FormControlLabel control={  <Checkbox checked={this.state.post.anonymous}  onChange={this.anonymous} value="anonymous" color="primary" /> } label="hide my username"  />    
                                 }
 
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.}
-                                            onChange={this.private}
-                                            value={this.state.post.private} color="primary"
-                                        />
-                                    }
-                                    label="Make this post private"
-                                />
+                                <FormControlLabel control={  <Checkbox checked={this.state.post.private}  onChange={this.private} value="private" color="primary" /> } label="Send post only to municipality"  />
                                 
                             </div>
 
