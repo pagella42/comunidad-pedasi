@@ -12,7 +12,7 @@ router.post("/verifyPhoneNumber/send", async (req, res) => {
   let phoneNumber = req.body.phoneNumber;
 
   await client.verify
-    .services("VA38b2d5f35886ddaefad3878b74304915")
+    .services("VAeaa633cf20ccfdddafd0960668ba5de8")
     .verifications.create({ to: phoneNumber, channel: "sms" })
     .then(verification => {
       console.log(
@@ -26,7 +26,7 @@ router.post("/verifyPhoneNumber/verify", async (req, res) => {
   let phoneNumber = req.body.phoneNumber;
   let code = req.body.code;
   await client.verify
-    .services("VA38b2d5f35886ddaefad3878b74304915")
+    .services("VAeaa633cf20ccfdddafd0960668ba5de8")
     .verificationChecks.create({ to: phoneNumber, code: code })
     .then(verification_check => {
       console.log(
@@ -39,12 +39,3 @@ router.post("/verifyPhoneNumber/verify", async (req, res) => {
 });
 
 module.exports = router;
-// client.verify
-//   .services("VA38b2d5f35886ddaefad3878b74304915")
-//   .verifications.create({ to: "+50762499292", channel: "sms" })
-//   .then(verification => console.log(verification.status));
-
-// client.verify
-//   .services("VA38b2d5f35886ddaefad3878b74304915")
-//   .verificationChecks.create({ to: "+50762499292", code: "849909" })
-//   .then(verification_check => console.log(verification_check));

@@ -163,6 +163,7 @@ class SignUp extends Component {
                       value={this.state.user.name}
                       onChange={this.handleInputChange}
                       name="name"
+                      placeholder= "Jose Gonzalez"
                     />
                   </span>
 
@@ -173,6 +174,7 @@ class SignUp extends Component {
                       margin="normal"
                       variant="outlined"
                       label={t("Username")}
+                      placeholder= "jose1999"
                       required
                       value={this.state.user.username}
                       onChange={this.handleInputChange}
@@ -187,11 +189,12 @@ class SignUp extends Component {
                       id="outlined-name"
                       margin="normal"
                       variant="outlined"
-                      label={t("Document of Identity")}
+                      label="Document of Identity"
                       required
                       value={this.state.user.ID}
                       onChange={this.handleInputChange}
                       name="ID"
+                      
                       
                     />
                   </span>
@@ -237,6 +240,7 @@ class SignUp extends Component {
                       required
                       value={this.state.user.email}
                       onChange={this.handleInputChange}
+                      placeholder= "myemail@gmail.com"
                       name="email"
                     />
                   </span>
@@ -250,7 +254,7 @@ class SignUp extends Component {
                   >
                     Send Code
                   </Button>
-                ) : <p>EG: +50784637473</p>}
+                ) : null}
 
                 {this.state.test ? (
                   <div>
