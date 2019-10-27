@@ -9,7 +9,7 @@ class Results extends Component {
         }
     }
     componentDidMount = async () =>{
-        let data = await axios.get(`http://localhost:4000/data/posts/category/${this.props.category}`)
+        let data = await axios.post(`http://localhost:4000/data/posts`)
         data = data.data
         
         this.setState({data})
