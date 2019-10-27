@@ -45,7 +45,6 @@ router.post('/data/user/availability', async (req, res) => {
         }
         await User.findOne(obj, ((err, doc) => doc ? available[o] = true : null))
     }
-    console.log(available)
     res.send(available)
 })
 
