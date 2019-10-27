@@ -104,7 +104,6 @@ class CreatePost extends Component {
 
     getCategories = async () => {
         let response = await axios.get(CREATE_ROUTE("data/categories"))
-        console.log(response.data)
         let categories = []
         if (response.data[0] === undefined) {
             categories = ["other"]
@@ -115,7 +114,6 @@ class CreatePost extends Component {
     }
 
     saveUrl = (url) => {
-        console.log(url)
         let post = { ...this.state.post }
         post.picture = url
         this.setState({ post: post })

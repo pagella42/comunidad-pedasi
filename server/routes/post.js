@@ -31,7 +31,6 @@ router.post('/data/post/:usersPhone', async (req, res) => {
     let post = new Post(req.body)
     post.points=0
     post.status="pending"
-    console.log(req.params.usersPhone)
     post.user = await User.findOne({
         "phone": req.params.usersPhone
     })

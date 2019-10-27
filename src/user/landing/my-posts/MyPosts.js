@@ -17,7 +17,6 @@ class MyPosts extends Component {
         await this.setState({ posts: data })
     }
     deletePost = async e =>{
-        console.log(e.target.name)
         await axios.delete(CREATE_ROUTE(`data/post/${e.target.name}`))
         this.getPosts()
     }

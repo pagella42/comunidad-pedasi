@@ -126,7 +126,6 @@ class SignUp extends Component {
     document.getElementById("42").disabled = !valid.data;
     await this.setState({isCodeValid: valid.data})
     
-    console.log(valid.data);
   };
   myRegex = input => {
     let re = /^\+[0-9]{11}$/;

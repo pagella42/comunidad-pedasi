@@ -20,7 +20,6 @@ class VerifyCode extends Component {
       (`verifyPhoneNumber/verify`),
       data
     );
-    console.log(valid.data);
   };
   handleInput = e => this.setState({ [e.target.name]: [e.target.value] });
   render() {

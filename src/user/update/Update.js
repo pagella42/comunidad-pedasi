@@ -40,12 +40,10 @@ class Update extends Component {
       this.state.inputs.phone == '' ?
         document.getElementById('edit-verify').disabled = false :
         document.getElementById('edit-verify').disabled = true
-      console.log(document.getElementById('edit-verify').disabled)
     });
   };
   componentDidMount = async () => {
     let userData = await axios.get(CREATE_ROUTE(`data/user/${this.state.login.phone}`));
-    console.log(userData.data)
     await this.setState({ userData: userData.data });
   };
 
@@ -69,7 +67,6 @@ class Update extends Component {
       data
     );
     document.getElementById("edit-verify").disabled = !valid.data
-    // console.log(valid.data);
 
   };
   render() {

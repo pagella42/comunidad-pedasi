@@ -58,7 +58,6 @@ class Filter extends Component {
         filter.sort.order = -1;
         break;
     }
-    console.log(filter)
     this.setState({ filter });
 
     this.props.getPosts(this.state.filter);
