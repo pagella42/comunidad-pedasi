@@ -156,3 +156,5 @@ class Result extends Component {
     }
 }
 export default withTranslation('translation') (Result);
+
+
