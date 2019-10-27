@@ -7,6 +7,8 @@ import './feed.css'
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
+import Consts from '../../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Feed extends Component {
     constructor() {
@@ -18,7 +20,7 @@ class Feed extends Component {
     }
 
     getPosts = async (filter) => {
-        let response = await axios.post("http://localhost:4000/data/posts", filter)
+        let response = await axios.post(CREATE_ROUTE("data/posts"), filter)
         this.setState({ posts: response.data })
     }
 

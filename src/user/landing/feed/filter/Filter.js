@@ -10,7 +10,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withTranslation } from 'react-i18next';
-
+import Consts from '../../../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Filter extends Component {
   constructor() {
@@ -79,7 +80,7 @@ class Filter extends Component {
   };
 
   getCategories = async () => {
-    let response = await axios.get('http://localhost:4000/data/categories')
+    let response = await axios.get(CREATE_ROUTE('data/categories'))
     let categories = response.data.map(p => p.name)
     await this.setState({ categories })
 

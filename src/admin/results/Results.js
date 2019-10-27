@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Result from './Result';
 import axios from 'axios'
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 class Results extends Component {
     constructor(){
         super()
@@ -10,7 +12,7 @@ class Results extends Component {
     }
     componentDidMount = async () =>{
         let filter={category:this.props.category}
-        let data = await axios.post(`http://localhost:4000/data/posts`,filter)
+        let data = await axios.post(CREATE_ROUTE(`data/posts`),filter)
         data = data.data
         
         this.setState({data})

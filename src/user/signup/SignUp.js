@@ -19,6 +19,8 @@ import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 class SignUp extends Component {
   constructor() {
     super();
@@ -76,8 +78,8 @@ class SignUp extends Component {
     event.preventDefault();
     let { username, ID, email, phone } = this.state.user;
     let obj = { username, ID, email, phone };
-    let doc = await axios.post(
-      "http://localhost:4000/data/user/availability",
+    let doc = await axios.post(CREATE_ROUTE(
+      "data/user/availability"),
       obj
     );
     if (Object.keys(doc.data).length > 0) {
@@ -93,14 +95,14 @@ class SignUp extends Component {
   };
 
   submit = () => {
-    axios.post("http://localhost:4000/data/user", this.state.user);
+    axios.post(CREATE_ROUTE("data/user"), this.state.user);
   };
 
   sendCode = async () => {
 
       let data = { phoneNumber: this.state.user.phone };
-      let status = await axios.post(
-          `http://localhost:4000/verifyPhoneNumber/send`,
+      let status = await axios.post(CREATE_ROUTE(
+          `verifyPhoneNumber/send`),
           data
           );
         
@@ -117,8 +119,8 @@ class SignUp extends Component {
       phoneNumber: this.state.user.phone,
       code: this.state.pin
     };
-    let valid = await axios.post(
-      `http://localhost:4000/verifyPhoneNumber/verify`,
+    let valid = await axios.post(CREATE_ROUTE(
+      `verifyPhoneNumber/verify`),
       data
     );
     document.getElementById("42").disabled = !valid.data;

@@ -7,6 +7,8 @@ import { TextField, Card, CardActions } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import './update.css'
 
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 class Update extends Component {
   constructor() {
     super();
@@ -26,7 +28,7 @@ class Update extends Component {
 
   update = async () => {
     let data = this.state.inputs
-    await axios.put(`http://localhost:4000/data/user/${this.state.login.phone}`, data)
+    await axios.put(CREATE_ROUTE(`data/user/${this.state.login.phone}`, data)
   }
   handlePin = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -42,7 +44,7 @@ class Update extends Component {
     });
   };
   componentDidMount = async () => {
-    let userData = await axios.get(`http://localhost:4000/data/user/${this.state.login.phone}`);
+    let userData = await axios.get(CREATE_ROUTE(`data/user/${this.state.login.phone}`));
     console.log(userData.data)
     await this.setState({ userData: userData.data });
   };
@@ -51,7 +53,7 @@ class Update extends Component {
 
     let data = { phoneNumber: this.state.inputs.phone };
     let status = await axios.post(
-      `http://localhost:4000/verifyPhoneNumber/send`,
+      CREATE_ROUTE(`verifyPhoneNumber/send`),
       data
     );
     return status;
@@ -63,7 +65,7 @@ class Update extends Component {
       code: this.state.pin
     };
     let valid = await axios.post(
-      `http://localhost:4000/verifyPhoneNumber/verify`,
+      CREATE_ROUTE(`verifyPhoneNumber/verify`),
       data
     );
     document.getElementById("edit-verify").disabled = !valid.data

@@ -20,6 +20,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import './filter.css'
+import Consts from '../../../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Filter extends Component {
     constructor() {
@@ -121,13 +123,13 @@ class Filter extends Component {
     }
 
     getCategories = async () => {
-        let response = await Axios.get('http://localhost:4000/data/categories')
+        let response = await Axios.get(CREATE_ROUTE('data/categories'))
         let categories = response.data.map(p => p.name)
         await this.setState({ categories })
     }
 
     getUsers = async () => {
-        let response = await Axios.get('http://localhost:4000/data/users')
+        let response = await Axios.get(CREATE_ROUTE('data/users'))
         await this.setState({ users: response.data })
     }
     componentDidMount = () => {

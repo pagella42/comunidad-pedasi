@@ -15,6 +15,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
+import Consts from '../../../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 
 library.add(
@@ -43,19 +45,19 @@ class Result extends Component {
     }
 
     getVotes = async () => {
-        let response = await axios.get(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+        let response = await axios.get(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
         let vote = { userVoted: response.data.voted, votesCount: response.data.votes }
         this.setState({ vote: vote })
     }
 
     getComments = async () => {
-        let response = await axios.get(`http://localhost:4000/data/comments/${this.props.post._id}`)
+        let response = await axios.get(CREATE_ROUTE(`data/comments/${this.props.post._id}`))
         response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
         this.setState({ comments: response.data })
     }
 
     getResponses = async () => {
-        let response = await axios.get(`http://localhost:4000/data/responses/${this.props.post._id}`)
+        let response = await axios.get(CREATE_ROUTE(`data/responses/${this.props.post._id}`))
         response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
         this.setState({ responses: response.data })
     }
@@ -73,18 +75,18 @@ class Result extends Component {
     vote = async (e) => {
         let name = e.currentTarget.id
         if (name === "post") {
-            await axios.post(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+            await axios.post(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
         } else {
-            await axios.delete(`http://localhost:4000/data/votes/${this.props.post._id}/${this.props.phone}`)
+            await axios.delete(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
         }
-        await axios.put(`http://localhost:4000/data/post/points/${this.props.post._id}/${name}`)
+        await axios.put(CREATE_ROUTE(`data/post/points/${this.props.post._id}/${name}`))
         await this.props.getPosts()
         this.getVotes()
     }
 
     comment = async () => {
         let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
-        await axios.post(`http://localhost:4000/data/comment`, data)
+        await axios.post(CREATE_ROUTE(`data/comment`), data)
         this.getComments()
     }
 

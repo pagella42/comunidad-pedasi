@@ -5,7 +5,8 @@ import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
 import './banner.css'
-
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Banner extends Component {
     constructor() {
@@ -20,7 +21,7 @@ class Banner extends Component {
     update = event => this.setState({ [event.target.name]: event.target.value })
 
     getUser = async () => {
-        const user = await axios.get(`http://localhost:4000/data/user/${this.props.userPhone}`)
+        const user = await axios.get(CREATE_ROUTE(`data/user/${this.props.userPhone}`))
         this.setState({ user: user.data, ban: user.data.ban, banReason: user.data.banReason })
     }
 
@@ -30,8 +31,8 @@ class Banner extends Component {
                 ban: this.state.ban ? false : true,
                 banReason: this.state.banReason
             }, async () => {
-                await axios.put(`http://localhost:4000/data/user/${this.props.userPhone}`, { ban: this.state.ban })
-                await axios.put(`http://localhost:4000/data/user/${this.props.userPhone}`, { banReason: this.state.banReason })
+                await axios.put(CREATE_ROUTE(`data/user/${this.props.userPhone}`), { ban: this.state.ban })
+                await axios.put(CREATE_ROUTE(`data/user/${this.props.userPhone}`), { banReason: this.state.banReason })
                 this.getUser()
             })
         }
