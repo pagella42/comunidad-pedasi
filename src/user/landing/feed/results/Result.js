@@ -67,7 +67,7 @@ class Result extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(){
-        this.getVotes()
+        this.getVotes()//Not Cool
     }
 
     vote = async (e) => {
@@ -86,6 +86,7 @@ class Result extends Component {
         let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
         await axios.post(`http://localhost:4000/data/comment`, data)
         this.getComments()
+        this.setState({comment:''})
     }
 
 
