@@ -178,7 +178,7 @@ class Filter extends Component {
                                 <InputLabel htmlFor="outlined-sort-simple">  Category </InputLabel>
                                 <Select  name="category" onChange={this.update} value={this.state.filter.category} id="" labelWidth={'75'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
                                 <MenuItem value=''>{t("All")}</MenuItem>
-                                    {this.state.categories.map(c => <MenuItem value={c.toLowerCase()}>{t(c)}</MenuItem>)}
+                                    {this.state.categories.map(c => <MenuItem value={c}>{t(c)}</MenuItem>)}
                                 </Select>
                             </FormControl>
                         
