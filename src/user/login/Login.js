@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withTranslation } from 'react-i18next';
 import axios from 'axios'
+import { async } from 'q';
 
 
 class Login extends Component {
@@ -32,20 +33,18 @@ class Login extends Component {
 
         })
     }
-    verify = () =>{
-        axios.post('http://localhost:4000/data/user/verify',this.state)
-        .then((err,res)=>{
-            console.log(res)
-        })
+    verify = async() =>{
+        let verify = await axios.post('http://localhost:4000/data/user/verify',this.state)
+        console.log(verify.data)
+        return verify.data 
     }
-    login = () => {
-        this.verify()
-        this.props.login(this.state.username)
-    }
+    
 
-    loginHandler = () => {
-        this.login()
-        this.props.loginPopup()
+    loginHandler =async () => {
+        if(await  this.verify()){
+            this.props.login(this.state.username)
+            this.props.loginPopup()
+        }else{alert("username and id dont match")}
     }
 
     render() {

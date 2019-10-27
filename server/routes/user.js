@@ -62,7 +62,7 @@ router.get('/data/posts/:usersPhone', async (req, res) => {
 })
 router.post('/data/user/verify', ((req, res) => {
         User.findOne(req.body, ((err, doc) => {
-            res.send(doc ? true : false)
+            res.send(doc? true : false)
         }))
     })
 
