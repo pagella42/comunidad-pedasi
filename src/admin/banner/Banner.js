@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
 import './banner.css'
-import Consts from '../../../Consts'
+import Consts from '../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Banner extends Component {

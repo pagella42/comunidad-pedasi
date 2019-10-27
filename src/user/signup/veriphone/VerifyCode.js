@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import Consts from '../../../../Consts'
+import Consts from '../../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 // This component uses twelio server routes to validate the users pin code
 class VerifyCode extends Component {

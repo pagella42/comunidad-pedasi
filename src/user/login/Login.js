@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 import { withTranslation } from 'react-i18next';
 import axios from 'axios'
 import { async } from 'q';
-import Consts from '../../../Consts'
+import Consts from '../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Login extends Component {

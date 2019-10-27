@@ -15,7 +15,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
-import Consts from '../../../../../Consts'
+import Consts from '../../../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 

@@ -19,7 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
-import Consts from '../../../Consts'
+import Consts from '../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 class SignUp extends Component {
   constructor() {

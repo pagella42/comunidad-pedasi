@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Result from './Result';
 import axios from 'axios'
-import Consts from '../../../Consts'
+import Consts from '../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 class Results extends Component {
     constructor(){

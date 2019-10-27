@@ -7,7 +7,7 @@ import { TextField, Card, CardActions } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import './update.css'
 
-import Consts from '../../../Consts'
+import Consts from '../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 class Update extends Component {
   constructor() {
@@ -28,7 +28,7 @@ class Update extends Component {
 
   update = async () => {
     let data = this.state.inputs
-    await axios.put(CREATE_ROUTE(`data/user/${this.state.login.phone}`, data)
+    await axios.put(CREATE_ROUTE(`data/user/${this.state.login.phone}`), data)
   }
   handlePin = e => {
     this.setState({ [e.target.name]: e.target.value });

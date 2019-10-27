@@ -7,7 +7,7 @@ import './feed.css'
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
-import Consts from '../../../../Consts'
+import Consts from '../../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Feed extends Component {

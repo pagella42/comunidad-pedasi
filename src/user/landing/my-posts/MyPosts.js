@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from '../../header/Header';
 import axios from 'axios';
 import MyResults from './MyResults';
-import Consts from '../../../../Consts'
+import Consts from '../../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 class MyPosts extends Component {
     constructor() {
