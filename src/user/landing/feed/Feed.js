@@ -15,7 +15,8 @@ class Feed extends Component {
         super()
         this.state = {
             posts: [],
-            showCreate: false
+            showCreate: false,
+            phone: "",
         }
     }
 
@@ -26,30 +27,38 @@ class Feed extends Component {
 
     componentDidMount = () => this.getPosts()
 
-    showCreatePost = async () => this.props.isLoggedIn ? this.setState({ showCreate: !this.state.showCreate }) : this.props.loginPopup()
+    showCreatePost = async () => {
+        if (localStorage.userLogin !== undefined) {
+            if (JSON.parse(localStorage.userLogin).isLoggedIn) {
+                this.setState({ showCreate: !this.state.showCreate, phone: JSON.parse(localStorage.userLogin).phone })
+            } else { this.props.loginPopup() }
+        } else {
+            this.props.loginPopup()
+        }}
 
-    render() {
-        const {t,i18n} = this.props
-        return (
 
-            <div id='feedcontainer'>
-                <div id="feedinnercont">
-                {
-                    
-                        <div>
-                              <div id='postbuttoncont'><Fab  onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >{t("POST SOMETHING")}</Fab></div>
-                           
-                            {this.state.showCreate ?
-                                <CreatePost showCreatePost={this.showCreatePost} phone={this.props.phone} getPosts={this.getPosts} /> : null
-                            }
-                            <Filter getPosts={this.getPosts} />
-                            <Results loginPopup={this.props.loginPopup} getPosts={this.getPosts}  posts={this.state.posts} phone={this.props.phone} />
-                        </div>
-                }
+        render() {
+            const { t, i18n } = this.props
+            return (
+
+                <div id='feedcontainer'>
+                    <div id="feedinnercont">
+                        {
+
+                            <div>
+                                <div id='postbuttoncont'><Fab onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >{t("POST SOMETHING")}</Fab></div>
+
+                                {this.state.showCreate ?
+                                    <CreatePost showCreatePost={this.showCreatePost} phone={this.state.phone} getPosts={this.getPosts} /> : null
+                                }
+                                <Filter getPosts={this.getPosts} />
+                                <Results loginPopup={this.props.loginPopup} getPosts={this.getPosts} posts={this.state.posts} phone={this.state.phone} />
+                            </div>
+                        }
+                    </div>
+
                 </div>
-
-             </div>
-        )
+            )
+        }
     }
-}
-export default withTranslation('translation') (Feed);
+    export default withTranslation('translation') (Feed);
