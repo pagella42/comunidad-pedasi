@@ -4,8 +4,8 @@ const router = express.Router();
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Your Account Sid and Auth Token from twilio.com/console
 // DANGER! This is insecure. See http://twil.io/secure
-const accountSid = "AC22a4dbe973584e2743f824203be078e0";
-const authToken = "3bbfc79a9f5b7822f7b37faf8e27efb7";
+const accountSid = "ACba1861f363396d3543d0cccd57962076";
+const authToken = "5199328a6806903a7870157bb8f54d44";
 const client = require("twilio")(accountSid, authToken);
 
 router.post("/verifyPhoneNumber/send", async (req, res) => {
