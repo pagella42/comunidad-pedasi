@@ -23,28 +23,33 @@ class Login extends Component {
     constructor() {
         super()
         this.state = {
-            username: "",
-            ID: '',
+            user:{
+                username: "",
+                ID: '',
+            },
+            noMatch:false
         }
     }
     handleInputChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-
-        })
+        let user = {...this.state.user}
+        user[event.target.name]=event.target.value
+        this.setState({user})
     }
     verify = async() =>{
-        let verify = await axios.post('http://localhost:4000/data/user/verify',this.state)
+        let verify = await axios.post('http://localhost:4000/data/user/verify',this.state.user)
+        console.log(this.state.user)
         console.log(verify.data)
         return verify.data 
     }
-    
+    displayNoMatch = () =>{
+        return <div>username and id dont match</div>
+    }
 
     loginHandler =async () => {
         if(await  this.verify()){
-            this.props.login(this.state.username)
+            this.props.login(this.state.user.username)
             this.props.loginPopup()
-        }else{alert("username and id dont match")}
+        }else{this.setState({noMatch:true})}
     }
 
     render() {
@@ -53,12 +58,13 @@ class Login extends Component {
 
             <Card  className='logincontainer' style={{ maxWidth: 345 }}>
                 <CardContent>
-                    <TextField  id="outlined-name" label="Username" margin="normal"  variant="outlined"  type="string" name="username" onChange={this.handleInputChange}  value={this.state.username} />
-                    <TextField id="outlined-name" label="National ID" margin="normal" variant="outlined" onChange={this.handleInputChange} name="ID" value={this.state.passwod} />
+                    <TextField  id="outlined-name" label="Username" margin="normal"  variant="outlined"  type="string" name="username" onChange={this.handleInputChange}  value={this.state.user.username} />
+                    <TextField id="outlined-name" label="National ID" margin="normal" variant="outlined" onChange={this.handleInputChange} name="ID" value={this.state.user.ID} />
+                    {this.state.noMatch? this.displayNoMatch(): null}
                    <div><Link onClick={this.props.loginPopup} to="/user/signUp" >Don't have an account? SignUp</Link></div> 
                 </CardContent>
                 <CardActions>
-                {this.state.username && this.state.ID ?
+                {this.state.user.username && this.state.user.ID ?
                     <Button size="small" color="primary" onClick={this.loginHandler}>Login </Button>:
                     <Button disabled size="small" color="primary"  onClick={this.loginHandler}>Login </Button>
                 }
