@@ -43,3 +43,9 @@
 .postlike{
   color: gray;
 }
+
+#img {
+    width: 400px !important;
+    height: 400px !important;
+    object-fit: contain;
+  }
