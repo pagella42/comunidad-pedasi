@@ -7,7 +7,7 @@ import { TextField, Card, CardActions } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import './update.css'
 
-import Consts from '../Consts'
+import Consts from '../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 class Update extends Component {
   constructor() {

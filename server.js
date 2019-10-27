@@ -13,6 +13,8 @@ const twilio = require('./server/routes/twilio')
 const app = express()
 const PORT = 4000
 
+app.use(express.static(path.join(__dirname, 'build')))
+
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
