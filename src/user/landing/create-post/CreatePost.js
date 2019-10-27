@@ -150,6 +150,7 @@ class CreatePost extends Component {
             <div className='createpostcontainer'>
                 <Card className='createpost' style={{ maxWidth: 600 }}>
                     <form onSubmit={this.validate}>
+
                         <CardContent>
 
                             <Typography color="textSecondary" gutterBottom> {"Create a post"}  </Typography>
@@ -207,6 +208,7 @@ class CreatePost extends Component {
 
                         </CardActions>
                     </form>
+
                 </Card>
 
 

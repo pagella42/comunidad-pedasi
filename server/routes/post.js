@@ -19,9 +19,9 @@ function updateUserPosts(usersPhone, post) {
 
 function makeFilterObject(category,status,language,private,user){
     let obj={}
-    category? obj.category=category:null
-    status? obj.status=status:null
-    language? obj.language=language: null
+    category!="All"&&category? obj.category=category:null
+    status!="All"&&status? obj.status=status:null
+    language!="All"&&language? obj.language=language: null
     private? obj.private=private: null
     user? obj.user=user:null
     return obj
@@ -49,9 +49,14 @@ router.delete('/data/post/:postId',(req,res)=>{
 router.post('/data/posts', async (req,res)=>{
     let{sort,category,status,language,private,user}=req.body
     Post.find(makeFilterObject(category,status,language,private,user))
-    .populate(`user comments responses`)
+    .populate({
+        path:`user responses comments`,
+        populate:'user'
+    })
     .sort(sort ? {[sort.by]:sort.order} : {date:-1})
-    .exec((err,doc)=>res.send(doc))
+    .exec((err,doc)=>{
+        res.send(doc)
+    })
 })
 
 

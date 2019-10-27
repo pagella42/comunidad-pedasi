@@ -88,6 +88,7 @@ class Result extends Component {
         let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
         await axios.post(CREATE_ROUTE(`data/comment`), data)
         this.getComments()
+        this.setState({comment:''})
     }
 
 

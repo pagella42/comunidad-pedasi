@@ -59,7 +59,7 @@ class Filter extends Component {
         break;
     }
     this.setState({ filter });
-
+    
     this.props.getPosts(this.state.filter);
   };
 
@@ -129,7 +129,7 @@ class Filter extends Component {
           </Select>
         </FormControl>
         
-        <Button className="filterbutton" onClick={this.filter} variant="outlined" > FilTer </Button>
+        <Button className="filterbutton" onClick={this.filter} variant="outlined" > Filter </Button>
       </div>
     );
   }
