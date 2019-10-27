@@ -82,27 +82,27 @@ class Result extends Component {
         const { t, i18n } = this.props
         let post = this.props.post
         return (
-            <div class="resultcontainer">
+            <div className="resultcontainer">
                 <ExpansionPanel>
 
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                        <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
+                        <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
                         <Typography > {post.title}  </Typography>
                         <span className='postlike'> {post.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
                     </ExpansionPanelSummary>
 
                     <ExpansionPanelDetails>
-                        <div class="postname"> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div>
+                        <div className="postname"> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div>
                         <div>{post.content}</div>
                         Location:<div>{post.address}</div>
                         Status: {post.status}
                         {post.picture ? <img id="img" src={post.picture} alt="concern picture"></img> : null}
                         <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
                             <div>{this.state.vote.userVoted ?
-                                <div class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>
-                                : <div class="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
+                                <div className="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>
+                                : <div className="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
                             }</div> :
-                            <div class="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
+                            <div className="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
                         }
                             {this.state.vote.votesCount}</div>
 

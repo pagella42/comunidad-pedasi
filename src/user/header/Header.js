@@ -37,19 +37,19 @@ class Header extends Component {
                 <AppBar position="static">
                     <Toolbar>
 
-                        <Typography class="headerwhere" variant="h2" className="title" style={{ flexGrow: 1}}>
+                        <Typography className="headerwhere" variant="h2" className="title" style={{ flexGrow: 1}}>
                           
                         </Typography>
                         {isLoggedIn ?
 
-                            <div class='headcont'>
-                            <Link onClick={this.home} to="/user/home" style={{textDecoration: 'none', color: 'white'}}> <Button color="inherit"> <div class="iconheader"><FontAwesomeIcon icon={faHome}/></div> </Button> </Link>
-                            <Link onClick={this.myposts} to="/user/myposts" style={{textDecoration: 'none', color: 'white'}}><Button color="inherit"> <div class="headericonsmall iconheader"><FontAwesomeIcon icon={faUser}/> </div><div class="headericonbig">My posts</div></Button></Link>
-                            <Link onClick={this.edit} to='/user/updateinfo' style={{textDecoration: 'none', color: 'white'}}><Button color="inherit"><div class="headericonsmall iconheader"><FontAwesomeIcon icon={faPencilAlt}/></div><div class="headericonbig">My info</div></Button></Link>
+                            <div className='headcont'>
+                            <Link onClick={this.home} to="/user/home" style={{textDecoration: 'none', color: 'white'}}> <Button color="inherit"> <div className="iconheader"><FontAwesomeIcon icon={faHome}/></div> </Button> </Link>
+                            <Link onClick={this.myposts} to="/user/myposts" style={{textDecoration: 'none', color: 'white'}}><Button color="inherit"> <div className="headericonsmall iconheader"><FontAwesomeIcon icon={faUser}/> </div><div className="headericonbig">My posts</div></Button></Link>
+                            <Link onClick={this.edit} to='/user/updateinfo' style={{textDecoration: 'none', color: 'white'}}><Button color="inherit"><div className="headericonsmall iconheader"><FontAwesomeIcon icon={faPencilAlt}/></div><div className="headericonbig">My info</div></Button></Link>
                             <Link style={{textDecoration: 'none', color: 'white'}} to="/user/home"><Button onClick={this.props.logout} color="inherit">Log Out</Button></Link>
                             </div>:
                             
-                            <div class="loginbuttcont"><Button onClick={this.props.loginPopup} color="inherit">Login</Button> </div>
+                            <div className="loginbuttcont"><Button onClick={this.props.loginPopup} color="inherit">Login</Button> </div>
                         }
                     </Toolbar>
                 </AppBar>
