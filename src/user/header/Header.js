@@ -23,13 +23,9 @@ class Header extends Component {
     constructor() {
         super()
         this.state={
-            where: "Home"
         }
     }
     
-    home= async ()=>{ await this.setState({where: "Home"})}
-    myposts= async ()=>{ await this.setState({where: "My posts"})}
-    edit= async ()=>{ await this.setState({where: "Edit my profile"})}
     
     render() {
 
@@ -42,7 +38,7 @@ class Header extends Component {
                     <Toolbar>
 
                         <Typography class="headerwhere" variant="h2" className="title" style={{ flexGrow: 1}}>
-                            {this.state.where}
+                          
                         </Typography>
                         {isLoggedIn ?
 
