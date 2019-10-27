@@ -38,4 +38,8 @@ app.use('/',votes)
 app.use('/',twilio)
 
 
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 app.listen(PORT,()=>console.log(`Running on port: ${PORT}`))
