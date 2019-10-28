@@ -58,6 +58,16 @@ class App extends Component {
     localStorage.userLogin = JSON.stringify(userLogin)
     this.setState({ userLogin: userLogin });
   };
+
+  componentDidMount () {
+    let userLogin
+    if (localStorage.userLogin !== undefined) {
+      userLogin = JSON.parse(localStorage.userLogin)
+    } else {
+      userLogin = this.props.userLogin
+    }
+    this.setState({ userLogin: userLogin })
+  }
   
   render() {
     return (

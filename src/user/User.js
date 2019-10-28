@@ -6,16 +6,6 @@ import './user.css'
 
 
 class User extends Component {
-  componentDidMount() {
-    let userLogin
-    if (localStorage.userLogin !== undefined) {
-      userLogin = JSON.parse(localStorage.userLogin)
-    } else {
-      userLogin = this.props.userLogin
-    }
-    this.setState({ userLogin: userLogin })
-  }
-
 
   render() {
     return (
