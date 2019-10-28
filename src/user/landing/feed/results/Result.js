@@ -79,6 +79,7 @@ class Result extends Component {
 
 
     render() {
+        debugger
         const { t, i18n } = this.props
         let post = this.props.post
         return (
