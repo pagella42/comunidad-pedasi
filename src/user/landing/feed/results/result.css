@@ -44,8 +44,22 @@
   color: gray;
 }
 
-#img {
-    width: 400px !important;
-    height: 400px !important;
+.img {
+    width: 300px !important;
+    height: 300px !important;
     object-fit: contain;
   }
+
+
+
+
+.bigcont{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.contcont{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
+}

@@ -6,7 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons'
 import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons'
-
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -16,6 +16,10 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
 import Consts from '../../../../Consts'
+
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 
@@ -74,68 +78,119 @@ class Result extends Component {
         let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
         await axios.post(CREATE_ROUTE(`data/comment`), data)
         this.getComments()
-        this.setState({comment:''})
+        this.setState({ comment: '' })
     }
 
 
     render() {
         debugger
         const { t, i18n } = this.props
+
+
         let post = this.props.post
-        return (
-            <div className="resultcontainer">
-                <ExpansionPanel>
+        console.log(post.address)
 
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                        <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
-                        <Typography > {post.title}  </Typography>
-                        <span className='postlike'> {post.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
-                    </ExpansionPanelSummary>
+        return (<div class="resultcontainer">
+            <ExpansionPanel>
 
-                    <ExpansionPanelDetails>
-                        <div className="postname"> {post.anonymous ? "Anonymous Post" : <span>User: {post.user.name}</span>}</div>
-                        <div>{post.content}</div>
-                        Location:<div>{post.address}</div>
-                        Status: {post.status}
-                        {post.picture ? <img id="img" src={post.picture} alt="concern picture"></img> : null}
-                        <div> {JSON.parse(localStorage.userLogin).isLoggedIn ?
-                            <div>{this.state.vote.userVoted ?
-                                <div className="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></div>
-                                : <div className="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
-                            }</div> :
-                            <div className="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></div>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                    <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
+                    <Typography > {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}  </Typography>
+                    <span className='postlike'> {post.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
+                </ExpansionPanelSummary>
+
+                <ExpansionPanelDetails>
+                    <Typography color="textSecondary" gutterBottom> {post.anonymous ? <span><FontAwesomeIcon icon={faUser} /> "Anonymous Post" </span> : <span> <FontAwesomeIcon icon={faUser} /> {post.user.name} </span>} </Typography>
+
+                    <Typography gutterBottom >
+
+                  <span style={{ fontSize: "1.2em" }}>      {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}</span>
+
+                    <span style={{ color: "gray" }}> | </span>
+                        <span> {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                            <span>{this.state.vote.userVoted ?
+                                <span class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></span>
+                                : <span class="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
+                            }</span> :
+                            <span class="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
                         }
-                            {this.state.vote.votesCount}</div>
+                            {this.state.vote.votesCount}</span>
+
+                    </Typography>
+
+                    <hr style={{ width: "100%" }}></hr>
+
+                    <div className="bigcont">
+                        <div>
+                            <Typography color="textSecondary" gutterBottom> Location: <span>{post.address}</span> </Typography>
+
+
+                            <div className="contcont"><div>{post.content[0].toUpperCase() + post.content.slice(1)}</div></div>
+
+                        </div>
+                        <div>
+                            {post.picture ? <img className="img" src={post.picture} alt="concern picture"></img> : null}
+                        </div>
+                    </div>
+                            <br></br>
 
 
 
-                        {post.responses.length === 0
-                            ? <div>No response.</div>
-                            : post.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+                    <ExpansionPanel>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                            <div style={{ fontWeight: "bold" }}> Comments</div>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            {post.comments.length !== 0 ?
+                                <div>
+                                    {post.comments.map(c => {
+                                        return <div>  <span style={{ fontWeight: "bold" }}>{c.user.name}:</span>  <span>{c.content} </span>  <span style={{ color: "gray" }}>  • ({c.date.slice(0, 10)})</span> </div>
+                                    })} </div>
+                                : <div>No Comments.</div>
+                            }
+                            <br></br>
+                        <div>
+                            <TextField  id="standard-comment-input" label="Comment" type="text" value={this.state.comment} onChange={this.update}  margin="normal" name="comment"/>
+                            {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                                <Button  size="small"  onClick={this.comment}>Send</Button>:
+                                <Button  size="small"  onClick={this.comment}>Send</Button>  }
+                          </div>
+
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    <br></br>
+                    <ExpansionPanel>
+
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                            <div style={{ fontWeight: "bold" }}>Municipality response</div>
+                            <Typography color="textSecondary" gutterBottom> <div>Status: {post.status}</div></Typography>
+
+
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            {post.responses.length === 0
+                                ? <div>No response.</div>
+                                : post.responses.map(r => <div> <span style={{ fontWeight: "bold" }}> {r.employee}: </span> {r.content}  <span style={{ color: "gray" }}>  • ({r.date.slice(0, 10)})</span> </div>)}
+
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
 
 
 
-                        <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
-                        {JSON.parse(localStorage.userLogin).isLoggedIn ?
-                            <button onClick={this.comment}>Send comment</button> :
-                            <button onClick={this.props.loginPopup}>Send comment</button>
-                        }
 
 
-                        {post.comments.length !== 0 ?
-                            <div>
-                                {post.comments.map(c => {
-                                    return <div>
-                                        <div>User: {c.user}</div>
-                                        <div>{c.content}</div>
-                                    </div>
-                                })}
-                            </div>
-                            : <div>No Comments.</div>
-                        }
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-            </div>)
+
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+
+
+
+
+
+
+
+        </div>)
+
     }
 }
 export default withTranslation('translation')(Result);
