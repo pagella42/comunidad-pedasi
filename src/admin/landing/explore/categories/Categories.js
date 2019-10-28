@@ -40,7 +40,7 @@ class Categories extends Component {
     const { t, i18n } = this.props
     return (
       <div id="categoriescont">
-        <div><h1 class="categoriestitle">Categories:</h1></div>
+        <div><h1 className="categoriestitle">Categories:</h1></div>
         <div id="categoriesinnercont">
           {this.state.categories.map(c => {
             return (<div className="categorycont">

@@ -16,23 +16,23 @@ import { withTranslation } from 'react-i18next';
 class Header extends Component {
     
     render() {
-        let isLoggedIn = JSON.parse(localStorage.adminLogin).isLoggedIn
+        let isLoggedIn = localStorage.adminLogin !== undefined ? JSON.parse(localStorage.adminLogin).isLoggedIn : false
         return (<div>
 
             <AppBar position="static">
                 <Toolbar>
 
-                    <Typography class="headerwhere" variant="h2" className="title" style={{ flexGrow: 1 }}>
+                    <Typography className="headerwhere" variant="h2" className="title" style={{ flexGrow: 1 }}>
                         Administrador
                     </Typography>
                     {isLoggedIn ?
 
-                        <div class='headcont'>
-                            <Link onClick={this.home} to="/admin" style={{ textDecoration: 'none', color: 'white' }}> <Button color="inherit"> <div class="iconheader"><FontAwesomeIcon icon={faHome} /></div> </Button> </Link>
+                        <div className='headcont'>
+                            <Link onClick={this.home} to="/admin" style={{ textDecoration: 'none', color: 'white' }}> <Button color="inherit"> <div className="iconheader"><FontAwesomeIcon icon={faHome} /></div> </Button> </Link>
                           {this.props.home ? <Link style={{ textDecoration: 'none', color: 'white' }} to="/admin"><Button onClick={this.props.logout} color="inherit">Log Out</Button></Link>: null}  
                         </div> :
 
-                        <div class="loginbuttcont"><Button onClick={this.props.loginPopup} color="inherit">Login</Button> </div>
+                        <div className="loginbuttcont"><Button onClick={this.props.loginPopup} color="inherit">Login</Button> </div>
                     }
                 </Toolbar>
             </AppBar>

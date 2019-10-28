@@ -290,7 +290,7 @@ class SignUp extends Component {
                   </div>
                 ) : null}
                 <div>
-                  <input class="signupcheck" type="checkbox" required />
+                  <input className="signupcheck" type="checkbox" required />
                   {t("I agree to the")}{" "}
                   <span
                     style={{ color: "blue", cursor: "alias" }}

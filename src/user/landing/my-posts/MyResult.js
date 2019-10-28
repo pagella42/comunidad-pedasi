@@ -31,7 +31,7 @@ class MyResult extends Component {
         return (<div id="myresultcontainer">
              <ExpansionPanel>
              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                    <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
+                    <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
                     <Typography > {post.title}  </Typography>
                     <span className='postlike'> {post.comments.length} Comments • {post.point} Likes </span>
                 </ExpansionPanelSummary>

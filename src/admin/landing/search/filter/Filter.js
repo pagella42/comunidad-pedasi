@@ -143,7 +143,7 @@ class Filter extends Component {
             <div id="filtercont">
                 <Card className='filtercontainer' style={{ maxWidth: 1000 }}>
                     <CardContent>
-                        <div class="uppercont">
+                        <div className="uppercont">
                             <TextField id="outlined-name" label="Search by Keyword" type="text" name="keyword" margin="normal" variant="outlined" type="string" onChange={this.handleCheckboxChange} />
 
                             <div>
