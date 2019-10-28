@@ -112,7 +112,7 @@ class CreatePost extends Component {
         let response = await axios.get(CREATE_ROUTE("data/categories"))
         let categories = []
         if (response.data[0] === undefined) {
-            categories = ["other"]
+            categories = [""]
         } else {
             response.data.forEach(category => categories.push(category.name))
         }
