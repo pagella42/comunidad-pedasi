@@ -83,7 +83,6 @@ class Result extends Component {
 
 
     render() {
-        debugger
         const { t, i18n } = this.props
 
 
