@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import { TextField, Card, CardActions } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import './update.css'
+import { Link } from 'react-router-dom'
 
 import Consts from '../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
@@ -26,9 +27,11 @@ class Update extends Component {
     };
   }
 
-  update = async () => {
+  update = () => {
     let data = this.state.inputs
-    await axios.put(CREATE_ROUTE(`data/user/${this.state.login.phone}`), data)
+    axios.put(CREATE_ROUTE(`data/user/${this.state.login.phone}`), data).then(() => {
+    this.props.logout()
+   })
   }
   handlePin = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -102,7 +105,9 @@ class Update extends Component {
 
           </CardContent>
           <CardActions>
+            <Link to="/user/home" style={{textDecoration : "none"}}>
             <Button color="primary" id='edit-verify' onClick={this.update}>{t("Update")}</Button>
+            </Link>
 
           </CardActions>
         </Card>

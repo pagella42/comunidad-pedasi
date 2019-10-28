@@ -18,6 +18,7 @@ import LandingPage from './user/landing/LandingPage';
 
 
 
+
 import Fab from '@material-ui/core/Fab';
 
 
@@ -27,10 +28,10 @@ class App extends Component {
     this.state = {
       loginPopupState: false,
       english: true,
-
+      userLogin:{ phone: "", isLoggedIn: false },
     }
   }  
-  
+
   changeLanguage = () => {
     const { t, i18n } = this.props
     if (this.state.english) {
@@ -45,6 +46,29 @@ class App extends Component {
   }
 
 
+  login = phone => {
+    let userLogin = { phone: phone, isLoggedIn: true };
+    this.setState({ userLogin: userLogin });
+    localStorage.userLogin = JSON.stringify(userLogin);
+    this.setState({ loginPopup: false });
+  };
+
+  logout = () => {
+    let userLogin = { username: "", isLoggedIn: false };
+    localStorage.userLogin = JSON.stringify(userLogin)
+    this.setState({ userLogin: userLogin });
+  };
+
+  componentDidMount () {
+    let userLogin
+    if (localStorage.userLogin !== undefined) {
+      userLogin = JSON.parse(localStorage.userLogin)
+    } else {
+      userLogin = this.props.userLogin
+    }
+    this.setState({ userLogin: userLogin })
+  }
+  
   render() {
     return (
       <Router>
@@ -58,10 +82,17 @@ class App extends Component {
           <Route path="/" exact render={() => <LandingPage />} />
           
           {/* ==== User routes below ==== */}
-          <Route path="/user" render={() => <User changeLanguage={this.changeLanguage} english={this.state.english} loginPopup={this.loginPopup} loginPopupState={this.state.loginPopupState} />} />
+          <Route path="/user" render={() => <User 
+          userLogin={this.state.userLogin} 
+          login={this.login} 
+          logout={this.logout} 
+          changeLanguage={this.changeLanguage} 
+          english={this.state.english} 
+          loginPopup={this.loginPopup} 
+          loginPopupState={this.state.loginPopupState} />} />
           <Route path="/user/myposts" exact render={() => <MyPosts />} />
           <Route path="/user/signUp" exact render={() => <SignUp />} />
-          <Route path='/user/updateinfo' exact render={() => <Update />} />
+          <Route path='/user/updateinfo' exact render={() => <Update logout={this.logout}/>} />
           <Route path='/user/home' exact render={() => <Landing loginPopup={this.loginPopup} />} />
 
 

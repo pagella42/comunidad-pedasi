@@ -42,7 +42,6 @@ class ImageUpload extends Component {
                 .child(image.name)
                 .getDownloadURL() // returns promise
                 .then(url => {
-                    console.log(url)
                     this.props.saveUrl(url)
                     this.setState({loading:false})
                 })
