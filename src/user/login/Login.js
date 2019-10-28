@@ -2,21 +2,13 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './login.css'
 
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { withTranslation } from 'react-i18next';
 import axios from 'axios'
-import { async } from 'q';
 import Consts from '../../Consts'
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
@@ -35,9 +27,7 @@ class Login extends Component {
     }
 
     getUser = async () => {
-        console.log(this.state.user)
         const user = await axios.get(CREATE_ROUTE(`data/oneuser/${this.state.user.username}`))
-        console.log(user.data)
         this.setState({ ban: user.data.ban, banReason: user.data.banReason })
     }
 
@@ -57,7 +47,6 @@ class Login extends Component {
     loginHandler = async () => {
         let user = await this.verify()
         await this.getUser()
-        console.log(this.state.ban)
         if (user) {
             if (this.state.ban)
                 alert(this.state.banReason)
@@ -72,7 +61,6 @@ class Login extends Component {
 
     render() {
         const { t, i18n } = this.props
-        console.log(this.state.ban)
         return (
 
             <Card className='logincontainer' style={{ maxWidth: 345 }}>

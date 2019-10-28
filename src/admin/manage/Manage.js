@@ -23,7 +23,6 @@ class Manage extends Component {
         this.state = {
             categories: [""],
             newCategory: "",
-            status: ["Pending"]
         }
     }
 
@@ -37,7 +36,7 @@ class Manage extends Component {
         } else {
             response.data.forEach(category => categories.push(category.name))
         }
-        this.setState({ categories }, () => console.log(this.state.categories))
+        this.setState({ categories })
     }
 
     addCategory = async () => {
@@ -51,7 +50,6 @@ class Manage extends Component {
             }
             else { alert("Not sent") }
         }
-
     }
 
     componentDidMount = async () => {
@@ -63,7 +61,6 @@ class Manage extends Component {
         return (
             <div>
                 <Header />
-
                 <Card className='logincontainer' style={{ maxWidth: 500 }}>
                     <CardContent>
                         <div id="fieldcont">
@@ -74,7 +71,6 @@ class Manage extends Component {
                                         <MenuItem value={c}>{c}</MenuItem>)}
                                 </Select>
                             </FormControl>
-
                             <Typography color="textPrimary" gutterBottom> {t("Add New Category")}  </Typography>
                             <div id="content">
                                 <TextField style={{ width: "70%" }} id="outlined-name" label={t("New Category")} name="newCategory" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />

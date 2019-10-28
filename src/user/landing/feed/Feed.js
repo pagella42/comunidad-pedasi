@@ -32,16 +32,14 @@ class Feed extends Component {
 
   getPosts = () => {
     axios.post(CREATE_ROUTE("data/posts"), this.state.filter).then(response => {
-      console.log(response.data);
       this.setState({ posts: response.data });
     });
   };
 
   updateOnelike = (postId, toggleVote) => {
-    console.log("start");
     let posts = [...this.state.posts];
     posts.find(post => post._id === postId).points += toggleVote;
-    this.setState({ posts }, () => console.log("end"));
+    this.setState({ posts });
   };
 
   updateOnecomment = (postId, comment) => {
@@ -137,7 +135,6 @@ class Feed extends Component {
                     loginPopup={this.props.loginPopup}
                     getPosts={this.getPosts}
                     posts={this.state.posts}
-                    phone={this.state.phone}
                   />
                 </div>
               }

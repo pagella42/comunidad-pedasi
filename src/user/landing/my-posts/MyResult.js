@@ -32,7 +32,6 @@ class MyResult extends Component {
         const {t,i18n}= this.props
         
         let post = this.props.post
-console.log(post)
         return (
             <div className="resultcontainer">
             <ExpansionPanel>
