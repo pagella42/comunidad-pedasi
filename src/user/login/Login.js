@@ -59,18 +59,17 @@ class Login extends Component {
         await this.getUser()
         console.log(this.state.ban)
         if (user) {
-            this.state.ban ? alert(this.state.banReason)
-            :
-            this.props.loginPopup()
-            //this.props.login(user.phone)
-        } else { 
+            if (this.state.ban)
+                alert(this.state.banReason)
+            else {
+                this.props.loginPopup()
+                this.props.login(user.phone)
+            }
+        } else {
             this.setState({ noMatch: true })
         }
-         
     }
-    componentDidMount = async () => {
-        this.getUser()
-    }
+
     render() {
         const { t, i18n } = this.props
         console.log(this.state.ban)
