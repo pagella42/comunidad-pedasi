@@ -57,19 +57,19 @@ class ResultDetail extends Component {
                             <CardContent>
                                 <div id="usercont">
                                     <div>
-                                        <Typography color="textSecondary" gutterBottom> User information  </Typography>
+                                        <Typography color="textSecondary" gutterBottom> {t("User information")}  </Typography>
                                         {p.user ?
                                             <div id="user_info">
-                                                <div><span className="userinfotitle">Name:  </span> {p.user.name}</div>
-                                                <div><span className="userinfotitle"> National ID:</span>  {p.user.ID}</div>
-                                                <div><span className="userinfotitle">Phone number:</span>   {p.user.phone}</div>
-                                                <div><span className="userinfotitle">Adrress:  </span>{p.user.address}</div>
-                                                <div><span className="userinfotitle">Email: </span>{p.user.email}</div>
+                                                <div><span className="userinfotitle">{t("Name")}:  </span> {p.user.name}</div>
+                                                <div><span className="userinfotitle"> {t("National ID")}:</span>  {p.user.ID}</div>
+                                                <div><span className="userinfotitle">{t("Phone number")}:</span>   {p.user.phone}</div>
+                                                <div><span className="userinfotitle">{t("Adrress")}:  </span>{p.user.address}</div>
+                                                <div><span className="userinfotitle">{t("Email")}: </span>{p.user.email}</div>
                                             </div>
                                             : null}
                                     </div>
                                     <div>
-                                        <Typography color="textSecondary" gutterBottom> Suspend user  </Typography>
+                                        <Typography color="textSecondary" gutterBottom> {t("Suspend user")}  </Typography>
                                         {p.user ? < Banner userPhone={p.user.phone} /> : null}
 
                                     </div>
@@ -79,28 +79,28 @@ class ResultDetail extends Component {
                                 <div id="complaintcont">
                                     <div>
                                         <div>
-                                            <Typography color="textSecondary" gutterBottom> Post title  </Typography>
+                                            <Typography color="textSecondary" gutterBottom> {("Post title")}  </Typography>
                                             <div> <span id="title_problem" style={{ fontSize: "1.5em", fontWeight: "bold" }}>{p.title}</span> <span style={{ color: "gray" }}>({p.date ? p.date.slice(0, 10) : null})</span></div>
                                             <hr></hr>
                                         </div>
                                         <div>
-                                            <Typography color="textSecondary" gutterBottom> Post category</Typography>
-                                            <div id="category" style={{ fontWeight: "bold" }}>{p.category ? p.category[0].toUpperCase() + p.category.slice(1) : null}</div>
+                                            <Typography color="textSecondary" gutterBottom> {t("Post category")}</Typography>
+                                            <div id="category" style={{ fontWeight: "bold" }}>{p.category ? t(p.category[0].toUpperCase() + p.category.slice(1)) : null}</div>
                                             <hr></hr>
                                         </div>
                                         <div>
-                                            <Typography color="textSecondary" gutterBottom> Votes received </Typography>
-                                            Likes: {p.points}
+                                            <Typography color="textSecondary" gutterBottom> {t("Votes received")} </Typography>
+                                            {t("Likes")}: {p.points}
                                             <hr></hr>
                                         </div>
                                         <div>
-                                            <Typography color="textSecondary" gutterBottom> Post Location</Typography>
+                                            <Typography color="textSecondary" gutterBottom> {t("Post Location")}</Typography>
                                             <div id="address">{p.address}</div>
                                             <hr></hr>
 
                                         </div>
                                         <div>
-                                            <Typography color="textSecondary" gutterBottom> Post  </Typography>
+                                            <Typography color="textSecondary" gutterBottom> {t("Post")}  </Typography>
                                             <div id="description">{p.content}</div>
 
                                         </div>
@@ -117,7 +117,7 @@ class ResultDetail extends Component {
                                     <ExpansionPanel>
 
                                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                                            Post comments
+                                            {t("Post comments")}
                                         </ExpansionPanelSummary>
 
                                         <ExpansionPanelDetails>
@@ -135,20 +135,20 @@ class ResultDetail extends Component {
                             <CardContent>
 
                                 <div id="responsecontainer">
-                                    <Typography style={{ fontSize: "1.2em" }} color="textSecondary" gutterBottom> Case administration </Typography><br></br>
-                                    <Typography color="textSecondary" gutterBottom> Send a response </Typography>
+                                    <Typography style={{ fontSize: "1.2em" }} color="textSecondary" gutterBottom> {t("Case administration")} </Typography><br></br>
+                                    <Typography color="textSecondary" gutterBottom> {t("Send a response")} </Typography>
 
                                     < Responses idPost={this.state.post._id} getData={this.getData} /><br></br>
-                                    <Typography color="textSecondary" gutterBottom> Actual complaint status </Typography>
+                                    <Typography color="textSecondary" gutterBottom> {t("Actual complaint status")} </Typography>
 
-                                    <div id="status_post">Status: {p.status}</div><br></br>
+                                    <div id="status_post">{t("Status")}: {p.status}</div><br></br>
                                     <div id="container_response">
-                                        <Typography color="textSecondary" gutterBottom> Responses </Typography>
+                                        <Typography color="textSecondary" gutterBottom> {t("Responses")} </Typography>
                                         {r[0] ?
                                             <div>
 
                                                 {r.map(c => <div key={c._id}><span style={{ fontWeight: "bold" }}>{c.employee}:</span> {c.content} <span style={{ color: "grey" }}>({c.date.slice(0, 10)})</span> </div>)} </div> :
-                                            " No responses yet"
+                                            t("No responses yet")
                                         }
                                     </div>
 

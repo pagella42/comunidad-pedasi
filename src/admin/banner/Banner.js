@@ -46,7 +46,7 @@ class Banner extends Component {
         const u = this.state.user
         return (
             <div id="bancontainer">
-                <div>Ban user for inappropiate behavior:</div>
+                <div>{t("Ban user for inappropiate behavior")}:</div>
                 {u.ban ? <div>{t("Ban Status")}: {u.ban ? t("Banned") : t("Active")} - {t("Reason")}: {u.banReason}</div> : null}
                 <div id="bancontainer">
 

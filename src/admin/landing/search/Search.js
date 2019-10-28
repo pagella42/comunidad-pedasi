@@ -82,7 +82,7 @@ class Search extends Component {
                     : <div>
                     <ExpansionPanel>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-                        <Typography >No results</Typography>
+                        <Typography >{t("No results")}</Typography>
                     </ExpansionPanelSummary></ExpansionPanel></div>
                 }
 

@@ -16,7 +16,7 @@ class SearchResults extends Component {
             <div>
                 <ExpansionPanel>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-                        <Typography >Results</Typography>
+                        <Typography >{t("Results")}</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <div>
@@ -25,7 +25,7 @@ class SearchResults extends Component {
 
                                         <ExpansionPanel>
                                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-                                                <Typography >No results</Typography>
+                                                <Typography >{t("No results")}</Typography>
                                             </ExpansionPanelSummary></ExpansionPanel>
                                 
                             } </div>

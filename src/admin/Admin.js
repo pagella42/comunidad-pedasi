@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Login from './login/Login'
 import { withTranslation } from 'react-i18next';
-import HeaderAdmin from './landing/HeaderAdmin';
 import Landing from './landing/Landing'
 import Header from './Header'
 
@@ -17,18 +16,20 @@ class Admin extends Component {
                 isLoggedIn: false,
             },
             password: "12345",
+            admin:"user",
+            match:true
         }
     }
 
     
     login = (username, password) => {
         const t = this.props.t
-        if (password === this.state.password) {
+        if (password === this.state.password && username === this.state.admin) {
             let adminLogin = { username: username, isLoggedIn: true }
             this.setState({ adminLogin: adminLogin })
             localStorage.adminLogin = JSON.stringify(adminLogin)
         } else {
-            alert(t("Wrong password"))
+            this.setState({match:false})
         }
     }
     logout = () => {
@@ -48,19 +49,15 @@ class Admin extends Component {
     }
 
     render() {
-        const { t, i18n } = this.props
         return (
             <div>
-                <Header home={true} logout={this.logout}/>
+                <Header home={true} 
+                logout={this.logout}/>
                 {this.state.adminLogin.isLoggedIn ?
                     <div>
-
-                        {/* <HeaderAdmin changeLanguage={this.props.changeLanguage} english={this.props.english} logout={this.logout} isLoggedIn={this.state.adminLogin.isLoggedIn} loginPopup={this.props.loginPopup} /> */}
                         <Landing logout={this.logout} />
-
-
                     </div>
-                    : <Login login={this.login} />}
+                    : <Login match = {this.state.match} login={this.login} />}
             </div>
         )
     }
