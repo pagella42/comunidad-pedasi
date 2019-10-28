@@ -15,6 +15,10 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
 import Button from "@material-ui/core/Button";
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import moment from 'moment'
+import TextField from '@material-ui/core/TextField';
+
 
 library.add(
     faThumbsUpRegular,
@@ -26,45 +30,90 @@ class MyResult extends Component {
     render() {
         
         const {t,i18n}= this.props
+        
         let post = this.props.post
-        console.log(post.comments)
-        return (<div id="myresultcontainer">
-             <ExpansionPanel>
-             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                    <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
-                    <Typography > {post.title}  </Typography>
-                    <span className='postlike'> {post.comments.length} Comments • {post.point} Likes </span>
+console.log(post)
+        return (
+            <div className="resultcontainer">
+            <ExpansionPanel>
+
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                    <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {moment(post.date).fromNow()}</span></div>
+                    <Typography > {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}  </Typography>
+                    <span className='postlike'> {post.comments.length} Comments • {this.props.post.points} Likes</span>
                 </ExpansionPanelSummary>
+
                 <ExpansionPanelDetails>
 
-                <div>{post.content}</div>
-            <div>{post.address}</div>
-            <div>{post.category}</div>
-            <div><img src={post.picture} alt="concern picture" /></div>
-            <Button name={post._id} onClick={this.props.deletePost}>Delete</Button>
+                    <Typography gutterBottom >
 
-            {/* render responses */}
-            {post.responses.length === 0
-                ? <div>{t("No response")}.</div>
-                : post.responses.map(r => <div> {t("Response")}: {r.content} {t("Employee")}: {r.employee} </div>)}
+                        <span style={{ fontSize: "1.2em" }}> {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}</span>
+
+                        
+
+                    </Typography>
+
+                    <hr style={{ width: "100%" }}></hr>
+
+                    <div className="bigcont">
+                        <div>
+                            <Typography color="textSecondary" gutterBottom> Location: <span>{post.address}</span> </Typography>
 
 
-            {/* render comments \/ */}
-            {post.comments.length !== 0 ?
-                <div>
-                    {post.comments.map(c => {
-                        return <div>
-                            <div>{c.user.name}: {c.content}</div>
+                            <div className="contcont"><div>{post.content[0].toUpperCase() + post.content.slice(1)}</div></div>
+
                         </div>
-                    })}
-                </div>
-                : <div>{t("No Comments")}.</div>
-            }
-            {post.date}
-            {post.status}
+                        <div>
+                            {post.picture ? <img className="img" src={post.picture} alt="concern picture"></img> : null}
+                        </div>
+                    </div>
+                    <br></br>
+
+
+
+                    <ExpansionPanel>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                            <div style={{ fontWeight: "bold" }}> Comments</div>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            {post.comments ?
+                                <div>
+                                    {post.comments.map(c => {
+                                        return <div>
+                                            <span style={{ fontWeight: "bold" }}> {c.user ? c.user.name : null} :</span>
+                                            <span>{c.content} </span>
+                                            <span style={{ color: "gray" }}>  • ({c.date ? moment(c.date).fromNow() : null})</span>
+                                        </div>
+                                    })}
+                                </div>
+                                : <div>No Comments</div>
+                            }
+                       
+                          
+
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    <br></br>
+                    <ExpansionPanel>
+
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
+                            <div style={{ fontWeight: "bold" }}>Municipality response</div>
+                            <Typography color="textSecondary" gutterBottom> <span>Status: {post.status}</span></Typography>
+
+
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            {post.responses.length === 0
+                                ? <div>No response.</div>
+                                : post.responses.map(r => <div> <span style={{ fontWeight: "bold" }}> {r.employee}: </span> {r.content}  <span style={{ color: "gray" }}>  • ({r.date.slice(0, 10)})</span> </div>)}
+
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+
+
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-          
+
         </div>)
     }
 }
