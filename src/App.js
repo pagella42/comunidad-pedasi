@@ -12,16 +12,23 @@ import Update from './user/update/Update';
 import SignUp from './user/signup/SignUp'
 import Landing from './user/landing/Landing';
 import { withTranslation } from 'react-i18next';
+import { Redirect } from 'react-router-dom'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       loginPopupState: false,
-      english: true
+      english: true,
+      redirect : true
+    }
+  }  
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/user/home' />
     }
   }
-
+  
   changeLanguage = () => {
     const { t, i18n } = this.props
     if (this.state.english) {
@@ -40,7 +47,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-
+        {this.renderRedirect()}
           {/* ==== User routes below ==== */}
           <Route path="/user" render={() => <User changeLanguage={this.changeLanguage} english={this.state.english} loginPopup={this.loginPopup} loginPopupState={this.state.loginPopupState} />} />
           <Route path="/user/myposts" exact render={() => <MyPosts />} />
