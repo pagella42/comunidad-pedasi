@@ -47,7 +47,11 @@ class App extends Component {
     return (
       <Router>
         <div>
+
+          <button style={{}} onClick={this.changeLanguage}>{this.state.english ? "Español" : "English"}</button>
+
         {this.renderRedirect()}
+
           {/* ==== User routes below ==== */}
           <Route path="/user" render={() => <User changeLanguage={this.changeLanguage} english={this.state.english} loginPopup={this.loginPopup} loginPopupState={this.state.loginPopupState} />} />
           <Route path="/user/myposts" exact render={() => <MyPosts />} />

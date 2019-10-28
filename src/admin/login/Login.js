@@ -29,6 +29,12 @@ class Login extends Component {
         let value = event.target.value
         this.setState({[name] : value}) 
     }
+    displayNoMatch = () => {
+        const {t} = this.props
+        if (!this.props.match){
+            return <div style={{color:"grey"}} >{t("password and username don't match")}</div>
+        }
+    }
 
     login = () => {
         this.props.login(this.state.username, this.state.password)
@@ -39,14 +45,15 @@ class Login extends Component {
            
                <Card  className='logincontainer' style={{ maxWidth: 345 }}>
                <CardContent>
-                   <TextField  id="outlined-name" label="Username" name="username" margin="normal"  variant="outlined"  type="string" name="phone" onChange={this.handleInputChange}  />
-                   <TextField id="outlined-name" type="password" label="Password" margin="normal" name="password"  variant="outlined" onChange={this.handleInputChange} name="password" />
+                   <TextField  id="outlined-name" label={t("Username")} name="username" margin="normal"  variant="outlined"  type="string"  onChange={this.handleInputChange}  />
+                   <TextField id="outlined-name" type="password" label={t("Password")} margin="normal" name="password"  variant="outlined" onChange={this.handleInputChange} name="password" />
+                   {this.displayNoMatch()}
                </CardContent>
                <CardActions>
                {/* <input type="text" placeholder={t("username")} name="username" onChange={this.handleInputChange}/>
                 <input type="password" placeholder={t("password")} name="password" onChange={this.handleInputChange} /> */}
                  
-                   <Button  size="small" color="primary" onClick={this.login}>Login </Button>
+                   <Button  size="small" color="primary" onClick={this.login}>{t("Login")} </Button>
                
                </CardActions>
            </Card>

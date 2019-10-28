@@ -48,29 +48,30 @@ class Responses extends Component {
                 
                 <div id="fieldcont">
                     <div id="content">
-                        <TextField style={{ width: "55%" }} id="outlined-name" label="Response" name="content" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
+                        <TextField style={{ width: "55%" }} id="outlined-name" label={t("Response")} name="content" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
                     </div>
 
                     <div id="employee">
-                        <TextField style={{ width: "30%" }} id="outlined-name" label="Employee responding" name="employee" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
+                        <TextField style={{ width: "30%" }} id="outlined-name" label={t("Employee responding")} name="employee" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
                     </div>
                
 
               
 
                 <FormControl variant="outlined" >
-                        <InputLabel htmlFor="outlined-sort-simple"> Satus </InputLabel>
+                        <InputLabel htmlFor="outlined-sort-simple"> {t("Status")} </InputLabel>
                         <Select type="text" name="status" value={this.state.name} onChange={this.update}labelWidth={70} inputProps={{ name: 'status', id: 'outlined-status-simple', }} >
-                        <MenuItem value="pending">Pending</MenuItem>
-                        <MenuItem value="in progress">In progress</MenuItem>
-                        <MenuItem value="resolved">Resolved</MenuItem>
+                        <MenuItem value="pending">{t("Pending")}</MenuItem>
+                        <MenuItem value="in progress">{t("In progress")}</MenuItem>
+                        <MenuItem value="resolved">{t("Resolved")}</MenuItem>
+
                         </Select>
                     </FormControl>
                     
                  </div>
                  {this.state.content && this.state.employee && this.state.status ?
-                <Button variant="outlined" type="submit" onClick={this.sendResp}> Send </Button> :
-                <Button disabled variant="outlined" type="submit" onClick={this.sendResp}> Send </Button>
+                <Button variant="outlined" type="submit" onClick={this.sendResp}> {("Send")} </Button> :
+                <Button disabled variant="outlined" type="submit" onClick={this.sendResp}> {t("Send")} </Button>
                  }
                 
             </div>

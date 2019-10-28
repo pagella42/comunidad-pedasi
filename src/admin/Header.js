@@ -14,16 +14,15 @@ import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
 
 class Header extends Component {
-    
+
     render() {
+        const { t, i18n, changeLanguage, english } = this.props
         let isLoggedIn = localStorage.adminLogin !== undefined ? JSON.parse(localStorage.adminLogin).isLoggedIn : false
         return (<div>
-
             <AppBar position="static">
                 <Toolbar>
-
                     <Typography className="headerwhere" variant="h2" className="title" style={{ flexGrow: 1 }}>
-                        Administrador
+                        {t("Administrador")}
                     </Typography>
                     {isLoggedIn ?
 
@@ -32,7 +31,7 @@ class Header extends Component {
                           {this.props.home ? <Link style={{ textDecoration: 'none', color: 'white' }} to="/admin"><Button onClick={this.props.logout} color="inherit">Log Out</Button></Link>: null}  
                         </div> :
 
-                        <div className="loginbuttcont"><Button onClick={this.props.loginPopup} color="inherit">Login</Button> </div>
+                        <div className="loginbuttcont"><Button onClick={this.props.loginPopup} color="inherit">{t("Login")}</Button> </div>
                     }
                 </Toolbar>
             </AppBar>
@@ -40,4 +39,4 @@ class Header extends Component {
         )
     }
 }
-export default Header;
+export default withTranslation ('translation') (Header);
