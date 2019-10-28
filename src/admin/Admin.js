@@ -52,15 +52,10 @@ class Admin extends Component {
         return (
             <div>
                 <Header home={true} 
-                english = {this.props.english}
-                changeLanguage = {this.props.changeLanguage}
                 logout={this.logout}/>
                 {this.state.adminLogin.isLoggedIn ?
                     <div>
-
                         <Landing logout={this.logout} />
-
-
                     </div>
                     : <Login match = {this.state.match} login={this.login} />}
             </div>
