@@ -16,6 +16,10 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
 import Consts from '../../../../Consts'
+
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 
@@ -50,21 +54,7 @@ class Result extends Component {
         this.setState({ vote: vote })
     }
 
-    getComments = async () => {
-        let response = await axios.get(CREATE_ROUTE(`data/comments/${this.props.post._id}`))
-        response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
-        this.setState({ comments: response.data })
-    }
-
-    getResponses = async () => {
-        let response = await axios.get(CREATE_ROUTE(`data/responses/${this.props.post._id}`))
-        response.data.sort((a, b) => (a.date > b.date) ? -1 : 1)
-        this.setState({ responses: response.data })
-    }
-
     async componentDidMount() {
-        this.getComments()
-        this.getResponses()
         this.getVotes()
     }
 
@@ -95,6 +85,7 @@ class Result extends Component {
     render() {
         const { t, i18n } = this.props
 
+
         let post = this.props.post
         console.log(post.address)
 
@@ -104,7 +95,7 @@ class Result extends Component {
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
                     <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
                     <Typography > {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}  </Typography>
-                    <span className='postlike'> {this.state.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
+                    <span className='postlike'> {post.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
                 </ExpansionPanelSummary>
 
                 <ExpansionPanelDetails>
@@ -149,18 +140,21 @@ class Result extends Component {
                             <div style={{ fontWeight: "bold" }}> Comments</div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            {this.state.comments.length !== 0 ?
+                            {post.comments.length !== 0 ?
                                 <div>
-                                    {this.state.comments.map(c => {
-                                        return <div>  <span style={{ fontWeight: "bold" }}>{c.user}:</span>  <span>{c.content} </span> •  </div>
+                                    {post.comments.map(c => {
+                                        return <div>  <span style={{ fontWeight: "bold" }}>{c.user.name}:</span>  <span>{c.content} </span>  <span style={{ color: "gray" }}>  • ({c.date.slice(0, 10)})</span> </div>
                                     })} </div>
                                 : <div>No Comments.</div>
                             }
-                            <input type="text" name="comment" placeholder="Comment something" value={this.state.comment} onChange={this.update} />
+                            <br></br>
+                        <div>
+                            <TextField  id="standard-comment-input" label="Comment" type="text" value={this.state.comment} onChange={this.update}  margin="normal" name="comment"/>
                             {JSON.parse(localStorage.userLogin).isLoggedIn ?
-                                <button onClick={this.comment}>Send comment</button> :
-                                <button onClick={this.props.loginPopup}>Send comment</button>
-                            }
+                                <Button  size="small"  onClick={this.comment}>Send</Button>:
+                                <Button  size="small"  onClick={this.comment}>Send</Button>  }
+                          </div>
+
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                     <br></br>
@@ -173,9 +167,9 @@ class Result extends Component {
 
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            {this.state.responses.length === 0
+                            {post.responses.length === 0
                                 ? <div>No response.</div>
-                                : this.state.responses.map(r => <div> Response: {r.content} Employee: {r.employee} </div>)}
+                                : post.responses.map(r => <div> <span style={{ fontWeight: "bold" }}> {r.employee}: </span> {r.content}  <span style={{ color: "gray" }}>  • ({r.date.slice(0, 10)})</span> </div>)}
 
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -195,6 +189,7 @@ class Result extends Component {
 
 
         </div>)
+
     }
 }
 export default withTranslation('translation')(Result);

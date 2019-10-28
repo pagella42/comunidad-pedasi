@@ -182,7 +182,7 @@ class CreatePost extends Component {
 
 
 
-                            <div class="imgcotainerbutt"><ImageUpload saveUrl={this.saveUrl} /></div>
+                            <div className="imgcotainerbutt"><ImageUpload saveUrl={this.saveUrl} /></div>
                             <div id="anoncont">
                                 {this.state.post.private ?
 
