@@ -177,11 +177,13 @@ class Filter extends Component {
                                 <MenuItem value="dl">{t("oldest first")}</MenuItem>
                                 <MenuItem value="ph">{t("most liked")}</MenuItem>
                                 <MenuItem value="pl">{t("least liked")}</MenuItem>
+
                                 </Select>
                             </FormControl>
                             
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  {t("Category")} </InputLabel>
+
                                 <Select  name="category" onChange={this.update} value={this.state.filter.category} id="" labelWidth={75} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
                                 <MenuItem value='All'>{t("All")}</MenuItem>
                                     {this.state.categories.map(c => <MenuItem value={c}>{t(c)}</MenuItem>)}
@@ -190,6 +192,7 @@ class Filter extends Component {
                         
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  {t("Status")} </InputLabel>
+
                                 <Select  name="status" onChange={this.update} value={this.state.filter.status} labelWidth={75} id="" inputProps={{ name: 'status', id: 'outlined-category-simple', }} >
                                 <MenuItem value="All">{t("All")}</MenuItem>
                                     <MenuItem value="pending">{t("Pending")}</MenuItem>
@@ -200,6 +203,7 @@ class Filter extends Component {
 
                             <FormControl variant="outlined" >
                                 <InputLabel htmlFor="outlined-sort-simple">  {t("Language")} </InputLabel>
+
                                 <Select  name="language" onChange={this.update}  value={this.state.filter.language}  id="" labelWidth={75} inputProps={{ name: 'language', id: 'outlined-category-simple', }} >
                                 <MenuItem value="All">{t("All")}</MenuItem>
                                     <MenuItem value="es">Espanol</MenuItem>

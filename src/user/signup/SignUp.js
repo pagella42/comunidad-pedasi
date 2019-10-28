@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import TheCodeOfConduct from "./theCodeOfConduct";
 import "./signup.css";
 
 import { withTranslation } from "react-i18next";
@@ -90,12 +89,13 @@ class SignUp extends Component {
       message[0] === "," ? alert(message.slice(1)) : alert(message);
     } else {
       this.submit();
-      this.setLoading();
     }
   };
-
+  
   submit = () => {
+    debugger
     axios.post(CREATE_ROUTE("data/user"), this.state.user);
+    this.setLoading();
   };
 
   sendCode = async () => {
@@ -228,7 +228,7 @@ class SignUp extends Component {
                       onChange={this.handleInputChange}
                       name="phone"
                       placeholder='+50734837483'
-                      variant="outlined"
+                    
                       
                     />
                   </span>
@@ -289,22 +289,6 @@ class SignUp extends Component {
                     {this.state.buttonClicked ? this.onValid() : null} 
                   </div>
                 ) : null}
-                <div>
-                  <input className="signupcheck" type="checkbox" required />
-                  {t("I agree to the")}{" "}
-                  <span
-                    style={{ color: "blue", cursor: "alias" }}
-                    onClick={this.toggleTerms}
-                  >
-                    {t("Terms and Conditions")}
-                  </span>
-                </div>
-              </form>
-              <TheCodeOfConduct
-                terms={this.state.terms}
-                toggleTerms={this.toggleTerms}
-              />
-            </div>
             <input
               disabled
               variant="outlined"
@@ -312,6 +296,9 @@ class SignUp extends Component {
               type="submit"
               value={t("submit")}
             />
+              </form>
+             
+            </div>
           </CardContent>
           <CardActions></CardActions>
         </Card>

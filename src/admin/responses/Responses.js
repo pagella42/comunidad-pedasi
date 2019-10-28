@@ -64,6 +64,7 @@ class Responses extends Component {
                         <MenuItem value="pending">{t("Pending")}</MenuItem>
                         <MenuItem value="in progress">{t("In progress")}</MenuItem>
                         <MenuItem value="resolved">{t("Resolved")}</MenuItem>
+
                         </Select>
                     </FormControl>
                     
