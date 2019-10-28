@@ -12,13 +12,22 @@ router.post('/data/user', (req, res) => {
     user.save()
     res.end()
 })
-router.get('/data/user/:usersPhone', (req, res) => {
 
+router.get('/data/user/:usersPhone', (req, res) => {
     User.findOne({
             phone: req.params.usersPhone
         })
         .exec((err, user) => res.send(user))
 })
+
+router.get('/data/oneuser/:username', (req, res) => {
+    console.log(req.params)
+    User.findOne({
+            username: req.params.username
+        })
+        .exec((err, user) => res.send(user))
+})
+
 router.put('/data/user/:usersPhone', (req, res) => {
     let obj = {}
     Object.keys(req.body).forEach(o => {
