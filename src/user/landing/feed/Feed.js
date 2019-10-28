@@ -28,7 +28,6 @@ class Feed extends Component {
 
     getPosts = () => {
         axios.post(CREATE_ROUTE("data/posts"), this.state.filter).then((response)=>{ 
-            console.log(response.data)          
             this.setState({ posts: response.data })
          })
     }
@@ -95,7 +94,7 @@ class Feed extends Component {
                                 updateOnecomment={this.updateOnecomment} 
                                 loginPopup={this.props.loginPopup} 
                                 getPosts={this.getPosts} 
-                                posts={this.state.posts} phone={this.state.phone} />
+                                posts={this.state.posts} />
                             </div>
                         }
                     </div>
