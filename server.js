@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : false}))
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pedasiDBX',{useNewUrlParser:true},()=>console.log("mongood"))
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pedasiDB',{useNewUrlParser:true},()=>console.log("mongood"))
 
 app.use('/',post)
 app.use('/',user)
