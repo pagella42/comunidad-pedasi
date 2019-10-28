@@ -32,7 +32,7 @@ class Landing extends Component {
 
         <div>
           <Link style={{ textDecoration: 'none', color: 'black' }} to="/admin/manage">
-            <Button className="landingbutt" variant="outlined" >
+            <Button className="landingM" variant="outlined" >
               <div className="landingbutttext">{t("Manage")}</div>
             </Button>
           </Link>

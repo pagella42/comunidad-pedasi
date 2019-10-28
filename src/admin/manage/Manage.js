@@ -12,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+
 import Consts from '../../Consts'
 
 const CREATE_ROUTE = Consts.CREATE_ROUTE
@@ -32,7 +33,7 @@ class Manage extends Component {
         let response = await axios.get(CREATE_ROUTE("data/categories"))
         let categories = []
         if (response.data[0] === undefined) {
-            categories = ["Other"]
+            categories = ["No categories yet"]
         } else {
             response.data.forEach(category => categories.push(category.name))
         }
@@ -40,13 +41,17 @@ class Manage extends Component {
     }
 
     addCategory = async () => {
-        console.log(this.state.newCategory);
-        if (window.confirm(`Confirm New Category: ${this.state.newCategory}`)) {
-            await axios.post(CREATE_ROUTE(`data/category/${this.state.newCategory}`))
-            this.getCategories()
+        if(this.state.categories.find(c => c === this.state.newCategory)){ 
+            alert("Category already exist")
         }
-        else alert("Not sent")
-        this.setState({ newCategory: "" })
+        else{
+            if (window.confirm(`Confirm New Category: ${this.state.newCategory}`)) {
+                await axios.post(CREATE_ROUTE(`data/category/${this.state.newCategory}`))
+                this.getCategories()
+            }
+            else { alert("Not sent") }
+        }
+
     }
 
     componentDidMount = async () => {
@@ -63,8 +68,8 @@ class Manage extends Component {
                     <CardContent>
                         <div id="fieldcont">
                             <FormControl variant="outlined" >
-                                <InputLabel htmlFor="outlined-sort-simple"> {t("Categories")} </InputLabel>
-                                <Select type="text" name="newCategory" value={this.state.name} onChange={this.update} labelWidth={70} inputProps={{ name: 'categories', id: 'outlined-status-simple', }} >
+                                <InputLabel htmlFor="outlined-sort-simple"> {t("See Categories")} </InputLabel>
+                                <Select type="text" name="newCategory" value={this.state.name} labelWidth={70} inputProps={{ name: 'categories', id: 'outlined-status-simple', }} >
                                     {this.state.categories.map(c =>
                                         <MenuItem value={c}>{c}</MenuItem>)}
                                 </Select>
