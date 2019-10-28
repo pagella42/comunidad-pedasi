@@ -8,33 +8,51 @@ import Fab from "@material-ui/core/Fab";
 import Button from "@material-ui/core/Button";
 import { withTranslation } from "react-i18next";
 import Consts from "../../../Consts";
-
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 const CREATE_ROUTE = Consts.CREATE_ROUTE;
 
 class Feed extends Component {
-  constructor() {
-    super();
-    this.state = {
-      posts: [],
-      showCreate: false,
-      phone: "",
-      filter: {},
-      user: {}
-    };
-  }
+    constructor() {
+        super()
+        this.state = {
+            posts: [],
+            showCreate: false,
+            phone: "",
+            filter:{},
+            user:{},
+            skip:0
+        }
+    }
 
-  updateFilter = (filter, callback) => {
-    this.setState({ filter }, callback);
-  };
+    updateFilter = (filter, callback) => {
+        this.setState({filter}, callback)
+    }
 
-  getPosts = () => {
-    axios.post(CREATE_ROUTE("data/posts"), this.state.filter).then(response => {
-      this.setState({ posts: response.data });
-    });
-  };
+    getPosts = () => {
+        let body = { filter : this.state.filter , skip : this.state.skip }
+        axios.post(CREATE_ROUTE("data/posts"), body).then((response)=>{ 
+            this.setState({ posts: response.data })
+         })
+    }
+
+    
+
+    loadTwenty  = e => {
+        let skip = this.state.skip
+        this.setState({skip: e.target.id === "next" ? (this.state.posts.length!=0) && skip+20 : (skip-20>0) && skip-20},() => {
+            this.getPosts()
+        })
+    }
+    
+    finalPage = () =>{
+        let {t} = this.props
+        if (this.state.posts.length<1){
+            return <h4>{t("You Have Reached The Last Page")}</h4>
+        }
+    }
+
 
   updateOnelike = (postId, toggleVote) => {
     let posts = [...this.state.posts];
@@ -141,6 +159,9 @@ class Feed extends Component {
             </div>
           </div>
         )}
+        {this.finalPage()}
+        <button onClick={this.loadTwenty} id='prev'>{t("Prev")}.</button>
+        <button onClick={this.loadTwenty} id='next'>{t("Next")}.</button>
       </div>
     );
   }
