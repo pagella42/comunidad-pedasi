@@ -54,7 +54,7 @@ class App extends Component {
   };
 
   logout = () => {
-    let userLogin = { username: "", isLoggedIn: false };
+    let userLogin = { phone: "", isLoggedIn: false };
     localStorage.userLogin = JSON.stringify(userLogin)
     this.setState({ userLogin: userLogin });
   };
@@ -64,7 +64,7 @@ class App extends Component {
     if (localStorage.userLogin !== undefined) {
       userLogin = JSON.parse(localStorage.userLogin)
     } else {
-      userLogin = this.props.userLogin
+      userLogin = this.state.userLogin
     }
     this.setState({ userLogin: userLogin })
   }
