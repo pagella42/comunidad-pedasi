@@ -22,6 +22,14 @@ router.delete('/data/votes/:postId/:usersPhone', (req, res) => {
     }, (() => res.end()))
 })
 
+router.get('/data/votes/:postId', async (req, res) => {
+    const { postId,usersPhone} = req.params
+    let num = await Vote.find({
+        postId: req.params.postId
+    })
+    res.send({votes: num.length, voted:null})
+})
+
 router.get('/data/votes/:postId/:usersPhone', async (req, res) => {
     const { postId,usersPhone} = req.params
     let num = await Vote.find({
