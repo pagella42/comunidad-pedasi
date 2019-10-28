@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 20px;
     left: 20px;
-    z-index: 10;
+    z-index: 5;
 }
 
 @media only screen and (max-width: 700px) {
@@ -10,4 +10,23 @@
         width: 20%;
     }
 
+}
+#backgroundimg{
+   object-fit: fill;
+   position: fixed;
+   display: block;
+   left: 0;
+   right: 0;
+   width: 102vw;
+   height: 102vh;
+   z-index: -1;
+   background-image: url("./images/love-maldives-5dXZJ-2ubMk-unsplash.jpg");
+   filter: blur(7px);
+   background-repeat:no-repeat;
+background-position: center center;
+transform: scale(1.1)
+
+}
+#appcont{
+    z-index: 0;
 }
