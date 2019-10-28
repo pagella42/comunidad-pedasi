@@ -14,6 +14,9 @@ import Landing from './user/landing/Landing';
 import { withTranslation } from 'react-i18next';
 import { Redirect } from 'react-router-dom'
 
+import Fab from '@material-ui/core/Fab';
+
+
 class App extends Component {
   constructor() {
     super()
@@ -48,7 +51,9 @@ class App extends Component {
       <Router>
         <div>
 
-          <button style={{}} onClick={this.changeLanguage}>{this.state.english ? "Español" : "English"}</button>
+        <Fab id="lanbutt" variant="extended" aria-label="language" onClick={this.changeLanguage}>
+        {this.state.english ? "Español" : "English"}
+       </Fab>
 
         {this.renderRedirect()}
 
