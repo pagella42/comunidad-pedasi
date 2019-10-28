@@ -38,7 +38,9 @@ class Result extends Component {
             vote: {
                 userVoted: null,
                 votesCount: null,
-            }
+            },
+            phone: ""
+
         }
     }
 
@@ -49,29 +51,49 @@ class Result extends Component {
     }
 
     getVotes = async () => {
-        let response = await axios.get(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
+        let response
+        if(this.state.phone){
+             response = await axios.get(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.state.phone}`))
+        } else {
+            response = await axios.get(CREATE_ROUTE(`data/votes/${this.props.post._id}`))
+        }
         let vote = { userVoted: response.data.voted, votesCount: response.data.votes }
         this.setState({ vote: vote })
     }
 
+    getPhone = () => {
+        if(localStorage.userLogin){
+            if(JSON.parse(localStorage.userLogin).isLoggedIn){
+                this.setState({phone: JSON.parse(localStorage.userLogin).phone}) 
+            }
+        }   
+    }
+
     async componentDidMount() {
-        this.getVotes()
+       let vote = {
+        userVoted: null,
+        votesCount: this.props.post.points
+    }
+    this.setState({vote : vote})
+       this.getPhone()
     }
 
     UNSAFE_componentWillReceiveProps() {
-        this.getVotes()
+       this.getVotes()
+       this.getPhone()
     }
 
     vote = async (e) => {
         let name = e.currentTarget.id
         if (name === "post") {
-            await axios.post(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
+            await axios.post(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.state.phone}`))
         } else {
-            await axios.delete(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
+            await axios.delete(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.state.phone}`))
         }
         await axios.put(CREATE_ROUTE(`data/post/points/${this.props.post._id}/${name}`))
-        await this.props.getPosts()
+         //await this.props.getPosts()
         this.getVotes()
+       // this.updateVotesInState(this.props.post._id)
     }
 
     comment = async () => {
@@ -87,13 +109,12 @@ class Result extends Component {
 
 
         let post = this.props.post
-        console.log(post.address)
 
-        return (<div class="resultcontainer">
+        return (<div className="resultcontainer">
             <ExpansionPanel>
 
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                    <div> <span class="postcategory">Category: {post.category} </span> • <span class="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
+                    <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
                     <Typography > {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}  </Typography>
                     <span className='postlike'> {post.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
                 </ExpansionPanelSummary>
@@ -103,16 +124,23 @@ class Result extends Component {
 
                     <Typography gutterBottom >
 
-                  <span style={{ fontSize: "1.2em" }}>      {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}</span>
+                        <span style={{ fontSize: "1.2em" }}>      {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}</span>
 
-                    <span style={{ color: "gray" }}> | </span>
-                        <span> {JSON.parse(localStorage.userLogin).isLoggedIn ?
+                        <span style={{ color: "gray" }}> | </span>
+                        <span> 
+                        
+                        {
+                            localStorage.userLogin !== undefined ?
+                            JSON.parse(localStorage.userLogin).isLoggedIn ?
                             <span>{this.state.vote.userVoted ?
-                                <span class="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></span>
-                                : <span class="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
+                                <span className="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></span>
+                                : <span className="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
                             }</span> :
-                            <span class="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
+                            <span className="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
+                            : null
                         }
+
+
                             {this.state.vote.votesCount}</span>
 
                     </Typography>
@@ -131,7 +159,7 @@ class Result extends Component {
                             {post.picture ? <img className="img" src={post.picture} alt="concern picture"></img> : null}
                         </div>
                     </div>
-                            <br></br>
+                    <br></br>
 
 
 
@@ -148,12 +176,13 @@ class Result extends Component {
                                 : <div>No Comments.</div>
                             }
                             <br></br>
-                        <div>
-                            <TextField  id="standard-comment-input" label="Comment" type="text" value={this.state.comment} onChange={this.update}  margin="normal" name="comment"/>
-                            {JSON.parse(localStorage.userLogin).isLoggedIn ?
-                                <Button  size="small"  onClick={this.comment}>Send</Button>:
-                                <Button  size="small"  onClick={this.comment}>Send</Button>  }
-                          </div>
+                            <div>
+                                <TextField id="standard-comment-input" label="Comment" type="text" value={this.state.comment} onChange={this.update} margin="normal" name="comment" />
+                                {localStorage.userLogin !== undefined ?
+                                    JSON.parse(localStorage.userLogin).isLoggedIn ?
+                                    <Button size="small" onClick={this.comment}>Send</Button> :
+                                    <Button size="small" onClick={this.comment}>Send</Button> : null}
+                            </div>
 
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
@@ -162,7 +191,7 @@ class Result extends Component {
 
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
                             <div style={{ fontWeight: "bold" }}>Municipality response</div>
-                            <Typography color="textSecondary" gutterBottom> <div>Status: {post.status}</div></Typography>
+                            <Typography color="textSecondary" gutterBottom> <span>Status: {post.status}</span></Typography>
 
 
                         </ExpansionPanelSummary>
