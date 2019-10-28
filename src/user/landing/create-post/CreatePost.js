@@ -161,7 +161,7 @@ class CreatePost extends Component {
                                 <TextField className="addresscont" required type="text" id="outlined-address" label="address" margin="normal" variant="outlined" onChange={this.handleInputChange} name="address" />
 
                                 <FormControl required variant="outlined" >
-                                    <InputLabel htmlFor="outlined-sort-simple"> language </InputLabel>
+                                    <InputLabel htmlFor="outlined-sort-simple"> {t("language")} </InputLabel>
                                     <Select name='language' value={this.state.post.language} onChange={this.handleInputChange} labelWidth={70} inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
                                         <MenuItem value={0}>-</MenuItem>
                                         <MenuItem value='en'>English</MenuItem>
