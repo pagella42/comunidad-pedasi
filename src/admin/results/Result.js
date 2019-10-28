@@ -7,7 +7,7 @@ class Result extends Component {
         return (
             <div key={p._id} className="post" >
 
-                <h6><Link to={`/admin/resultdetails/${p._id}`}>{p.title} </Link> - {p.date.slice(0,10)}</h6>
+                <h6><Link to={`/admin/resultdetails/${p._id}`} target="_blank">{p.title} </Link> - {p.date.slice(0,10)}</h6>
 
             </div>)
     }

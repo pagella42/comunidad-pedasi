@@ -3,14 +3,11 @@ import axios from 'axios'
 import './ResultDetails.css'
 import Responses from '../responses/Responses';
 import Banner from '../banner/Banner';
-import Landing from '../../admin/landing/Landing';
 import { withTranslation } from 'react-i18next';
 import Header from '../Header'
 
-
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-
 import Consts from '../../Consts'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -63,7 +60,7 @@ class ResultDetail extends Component {
                                                 <div><span className="userinfotitle">{t("Name")}:  </span> {p.user.name}</div>
                                                 <div><span className="userinfotitle"> {t("National ID")}:</span>  {p.user.ID}</div>
                                                 <div><span className="userinfotitle">{t("Phone number")}:</span>   {p.user.phone}</div>
-                                                <div><span className="userinfotitle">{t("Adrress")}:  </span>{p.user.address}</div>
+                                                <div><span className="userinfotitle">{t("Address")}:  </span>{p.user.address}</div>
                                                 <div><span className="userinfotitle">{t("Email")}: </span>{p.user.email}</div>
                                             </div>
                                             : null}
@@ -122,7 +119,7 @@ class ResultDetail extends Component {
 
                                         <ExpansionPanelDetails>
 
-                                    <div id="comments">{c.map(c => <div key={c._id}> <span style={{ fontWeight: "bold" }}>{c.user}:</span> {c.content}  <span style={{ color: "gray" }}>({c.date.slice(0, 10)})</span></div>)}</div>
+                                            <div id="comments">{c.map(c => <div key={c._id}> <span style={{ fontWeight: "bold" }}>{c.user}:</span> {c.content}  <span style={{ color: "gray" }}>({c.date.slice(0, 10)})</span></div>)}</div>
 
                                         </ExpansionPanelDetails>
                                     </ExpansionPanel>
