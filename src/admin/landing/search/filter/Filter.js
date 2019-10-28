@@ -162,7 +162,7 @@ class Filter extends Component {
                                 <label htmlFor="responses-checkbox">{t("Response")}</label>
                             </div></div>
                         <hr></hr>
-                        <input id="outlined-name" label={t("Search by name")} list="data" name="user" margin="normal" variant="outlined" type="string" onChange={this.update} />
+                        <input id="outlined-name" placeholder="Search by user" label={t("Search by name")} list="data" name="user" margin="normal" variant="outlined" type="string" onChange={this.update} />
                                 <datalist id="data" name="user">
                                     {this.state.users.map(user => <option value={user.name} key={user._id} />)}
                                 </datalist>
