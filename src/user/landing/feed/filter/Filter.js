@@ -31,6 +31,7 @@ class Filter extends Component {
     };
   }
   filter = async () => {
+
     let filter = { ...this.state.filter };
     switch (this.state.sort) {
       case "dh":
@@ -58,9 +59,9 @@ class Filter extends Component {
         filter.sort.order = -1;
         break;
     }
-    this.setState({ filter });
-    
-    this.props.getPosts(this.state.filter);
+    this.props.updateFilter(filter, ()=> {
+      this.props.getPosts();
+    })
   };
 
   updateSort = async event => {

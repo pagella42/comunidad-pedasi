@@ -17,15 +17,50 @@ class Feed extends Component {
             posts: [],
             showCreate: false,
             phone: "",
+            filter:{},
+            user:{}
         }
     }
 
-    getPosts = async (filter) => {
-        let response = await axios.post(CREATE_ROUTE("data/posts"), filter)
-        this.setState({ posts: response.data })
+    updateFilter = (filter, callback) => {
+        this.setState({filter}, callback)
     }
 
-    componentDidMount = () => this.getPosts()
+    getPosts = () => {
+        axios.post(CREATE_ROUTE("data/posts"), this.state.filter).then((response)=>{           
+            this.setState({ posts: response.data })
+         })
+    }
+
+    updateOnelike = (postId, toggleVote) => {
+        console.log("start")
+        let posts = [... this.state.posts]
+        posts.find(post => post._id === postId).points+=toggleVote
+        this.setState({posts}, ()=> console.log("end"))
+    }
+
+    updateOnecomment = (postId, comment) => {
+        let posts = [... this.state.posts]
+        posts.find(post => post._id === postId).comments.push(comment)
+        this.setState({posts})
+    }
+
+    getUser = () => {
+        if (localStorage.userLogin) {
+            if (JSON.parse(localStorage.userLogin).isLoggedIn) {
+                this.setState({ phone: JSON.parse(localStorage.userLogin).phone })
+                axios.get(CREATE_ROUTE(`data/user/${JSON.parse(localStorage.userLogin).phone}`)).then((response) => {
+                    this.setState({ user: response.data })
+                    console.log(response.data)
+                })
+            }
+        }
+    }
+
+    componentDidMount = () => {
+        this.getPosts()
+        this.getUser()
+    }
 
     showCreatePost = async () => {
         if (localStorage.userLogin !== undefined) {
@@ -51,8 +86,16 @@ class Feed extends Component {
                                 {this.state.showCreate ?
                                     <CreatePost showCreatePost={this.showCreatePost} phone={this.state.phone} getPosts={this.getPosts} /> : null
                                 }
-                                <Filter getPosts={this.getPosts} />
-                                <Results loginPopup={this.props.loginPopup} getPosts={this.getPosts} posts={this.state.posts} phone={this.state.phone} />
+                                <Filter getPosts={this.getPosts} 
+                                updateFilter={this.updateFilter}/>
+                                <Results 
+                                user={this.state.user}
+                                phone={this.state.phone}
+                                updateOnelike={this.updateOnelike} 
+                                updateOnecomment={this.updateOnecomment} 
+                                loginPopup={this.props.loginPopup} 
+                                getPosts={this.getPosts} 
+                                posts={this.state.posts} phone={this.state.phone} />
                             </div>
                         }
                     </div>
