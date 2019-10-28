@@ -60,7 +60,7 @@ class Responses extends Component {
 
                 <FormControl variant="outlined" >
                         <InputLabel htmlFor="outlined-sort-simple"> Satus </InputLabel>
-                        <Select type="text" name="status" value={this.state.name} onChange={this.update}labelWidth={'70'} inputProps={{ name: 'status', id: 'outlined-status-simple', }} >
+                        <Select type="text" name="status" value={this.state.name} onChange={this.update}labelWidth={70} inputProps={{ name: 'status', id: 'outlined-status-simple', }} >
                         <MenuItem value="pending">Pending</MenuItem>
                         <MenuItem value="in progress">In progress</MenuItem>
                         <MenuItem value="resolved">Resolved</MenuItem>

@@ -163,7 +163,7 @@ class CreatePost extends Component {
 
                                 <FormControl required variant="outlined" >
                                     <InputLabel htmlFor="outlined-sort-simple"> language </InputLabel>
-                                    <Select name='language' value={this.state.post.language} onChange={this.handleInputChange} labelWidth={'70'} inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
+                                    <Select name='language' value={this.state.post.language} onChange={this.handleInputChange} labelWidth={70} inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
                                         <MenuItem value={0}>-</MenuItem>
                                         <MenuItem value='en'>English</MenuItem>
                                         <MenuItem value='es'>Español</MenuItem>
@@ -171,7 +171,7 @@ class CreatePost extends Component {
                                 </FormControl>
                                 <FormControl className="categorycont" variant="outlined" >
                                     <InputLabel htmlFor="outlined-sort-simple"> Category  </InputLabel>
-                                    <Select required name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={'68'} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
+                                    <Select required name="category" value={this.state.post.category} onChange={this.handleInputChange} labelWidth={68} inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
                                         <MenuItem value={0}>-</MenuItem>
                                         {this.state.categories.map(category => <MenuItem value={category}>{category}</MenuItem>)}
                                     </Select>
