@@ -153,15 +153,20 @@ class Feed extends Component {
                     loginPopup={this.props.loginPopup}
                     getPosts={this.getPosts}
                     posts={this.state.posts}
+                    getUser={this.getUser}
                   />
                 </div>
               }
             </div>
           </div>
         )}
-        {this.finalPage()}
+        <div id="outterfooter">
+        <div id="footer">
+         
         <button onClick={this.loadTwenty} id='prev'>{t("Prev")}.</button>
         <button onClick={this.loadTwenty} id='next'>{t("Next")}.</button>
+        </div></div>
+        
       </div>
     );
   }
