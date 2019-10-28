@@ -36,7 +36,7 @@ class Filter extends Component {
                 category: 0,
                 status: 0,
                 language: 0,
-                users: [],
+                user: "",
             },
             categories: [],
             users: [],
@@ -91,11 +91,10 @@ class Filter extends Component {
 
     update = async event => {
         let filter = { ...this.state.filter };
-        if (event.target.name === "users") {
-            let users = this.state.users.filter(user => user.name.indexOf(event.target.value)!=-1)
-            .map(user=>user._id)
-            if (users.length > 0) {
-                filter.users=users
+        if (event.target.name === "user") {
+            let user = this.state.users.filter(user => user.name === event.target.value)
+            if(user.length > 0){
+                filter[event.target.name] = user[0]._id
             }
         } else {
             filter[event.target.name] = event.target.value
@@ -163,7 +162,11 @@ class Filter extends Component {
                                 <label htmlFor="responses-checkbox">{t("response")}</label>
                             </div></div>
                         <hr></hr>
-                        <TextField id="outlined-name" label="Search by name" list="data" name="users" margin="normal" variant="outlined" type="string" onChange={this.update} />
+                        <input id="outlined-name" label="Search by name" list="data" name="user" margin="normal" variant="outlined" type="string" onChange={this.update} />
+                                <datalist id="data" name="user">
+                                    {this.state.users.map(user => <option value={user.name} key={user._id} />)}
+                                </datalist>
+                                
                         <hr></hr>
                         <div id="sortcont">
                         
@@ -205,9 +208,6 @@ class Filter extends Component {
                             </FormControl>
 
 
-                                <datalist id="data" name="user">
-                                    {this.state.users.map(user => <option value={user.name} key={user._id} />)}
-                                </datalist>
 
         <Button className="filterbutton" onClick={this.filter} variant="outlined" >{t("Send")} </Button>
 
