@@ -20,7 +20,7 @@ class Header extends Component {
             <AppBar position="static">
                 <Toolbar>
                     <Typography className="headerwhere" variant="h4" className="title" style={{ flexGrow: 1 }}>
-                        {t("Administrador")}
+                        {t("Manager")}
                     </Typography>
                     {isLoggedIn ?
 

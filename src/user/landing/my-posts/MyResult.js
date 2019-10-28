@@ -72,7 +72,7 @@ class MyResult extends Component {
 
                     <ExpansionPanel>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                            <div style={{ fontWeight: "bold" }}> Comments</div>
+                            <div style={{ fontWeight: "bold" }}> {t("Comments")}</div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             {post.comments ?
@@ -96,7 +96,7 @@ class MyResult extends Component {
                     <ExpansionPanel>
 
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                            <div style={{ fontWeight: "bold" }}>Municipality response</div>
+                            <div style={{ fontWeight: "bold" }}>{t("Municipality Response")}</div>
                             <Typography color="textSecondary" gutterBottom> <span>Status: {post.status}</span></Typography>
 
 

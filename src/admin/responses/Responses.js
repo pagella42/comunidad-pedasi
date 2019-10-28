@@ -52,7 +52,7 @@ class Responses extends Component {
                     </div>
 
                     <div id="employee">
-                        <TextField style={{ width: "30%" }} id="outlined-name" label={t("Employee responding")} name="employee" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
+                        <TextField style={{ width: "30%" }} id="outlined-name" label={t("Employee in Charge")} name="employee" value={this.state.name} onChange={this.update} margin="normal" variant="outlined" type="text" />
                     </div>
                
 

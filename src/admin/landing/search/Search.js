@@ -72,9 +72,6 @@ class Search extends Component {
                 <Header/>
             <div id="searchcontainer">
                 <div id="searchinner">
-                
-                {/* <Link to="/admin/explore">{t("Explore")}</Link>
-                <Link to="/admin/search">{t("Search")}</Link> */}
 
                 <Filter getPosts={this.getPosts} />
                 {this.state.posts.length > 0 ?
