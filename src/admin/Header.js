@@ -26,7 +26,7 @@ class Header extends Component {
 
                         <div className='headcont'>
                             <Link onClick={this.home} to="/admin" style={{ textDecoration: 'none', color: 'white' }}> <Button color="inherit"> <div className="iconheader"><FontAwesomeIcon icon={faHome} /></div> </Button> </Link>
-                          {this.props.home ? <Link style={{ textDecoration: 'none', color: 'white' }} to="/admin"><Button onClick={this.props.logout} color="inherit">Log Out</Button></Link>: null}  
+                          {this.props.home ? <Link style={{ textDecoration: 'none', color: 'white' }} to="/admin"><Button onClick={this.props.logout} color="inherit">{t("Logout")}</Button></Link>: null}  
                         </div> :
 
                         <div className="loginbuttcont"><Button onClick={this.props.loginPopup} color="inherit">{t("Login")}</Button> </div>

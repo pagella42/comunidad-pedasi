@@ -29,10 +29,11 @@ class Manage extends Component {
     update = event => this.setState({ [event.target.name]: event.target.value })
 
     getCategories = async () => {
+        const t = this.props.t
         let response = await axios.get(CREATE_ROUTE("data/categories"))
         let categories = []
         if (response.data[0] === undefined) {
-            categories = ["No categories yet"]
+            categories = [t("No categories yet")]
         } else {
             response.data.forEach(category => categories.push(category.name))
         }
@@ -40,15 +41,16 @@ class Manage extends Component {
     }
 
     addCategory = async () => {
+        const t = this.props.t
         if(this.state.categories.find(c => c === this.state.newCategory)){ 
-            alert("Category already exist")
+            alert(t("Category already exist"))
         }
         else{
             if (window.confirm(`Confirm New Category: ${this.state.newCategory}`)) {
                 await axios.post(CREATE_ROUTE(`data/category/${this.state.newCategory}`))
                 this.getCategories()
             }
-            else { alert("Not sent") }
+            else { alert(t("Not sent")) }
         }
     }
 
@@ -68,7 +70,7 @@ class Manage extends Component {
                                 <InputLabel htmlFor="outlined-sort-simple"> {t("See Categories")} </InputLabel>
                                 <Select type="text" name="newCategory" value={this.state.name} labelWidth={70} inputProps={{ name: 'categories', id: 'outlined-status-simple', }} >
                                     {this.state.categories.map(c =>
-                                        <MenuItem value={c}>{c}</MenuItem>)}
+                                        <MenuItem value={c}>{t(c)}</MenuItem>)}
                                 </Select>
                             </FormControl>
                             <Typography color="textPrimary" gutterBottom> {t("Add New Category")}  </Typography>
@@ -77,8 +79,8 @@ class Manage extends Component {
                             </div>
                         </div>
                         {this.state.newCategory ?
-                            <Button variant="outlined" type="submit" onClick={this.addCategory}> {("Send")} </Button> :
-                            <Button disabled variant="outlined" type="submit" onClick={this.addCategory}> {"Send"} </Button>
+                            <Button variant="outlined" type="submit" onClick={this.addCategory}> {t("Send")} </Button> :
+                            <Button disabled variant="outlined" type="submit" onClick={this.addCategory}> {t("Send")} </Button>
                         }
                     </CardContent>
                 </Card>
