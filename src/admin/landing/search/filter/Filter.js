@@ -93,9 +93,9 @@ class Filter extends Component {
         let filter = { ...this.state.filter };
         if (event.target.name === "users") {
             let users = this.state.users.filter(user => user.name.indexOf(event.target.value)!=-1)
-            // .map(user=>)
-            if (user.length > 0) {
-                filter.users.push(users)
+            .map(user=>user._id)
+            if (users.length > 0) {
+                filter.users=users
             }
         } else {
             filter[event.target.name] = event.target.value

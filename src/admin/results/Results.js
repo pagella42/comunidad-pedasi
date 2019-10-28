@@ -14,7 +14,6 @@ class Results extends Component {
         let filter={category:this.props.category}
         let data = await axios.post(CREATE_ROUTE(`data/posts`),filter)
         data = data.data
-        
         this.setState({data})
         
     }

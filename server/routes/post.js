@@ -49,9 +49,14 @@ router.delete('/data/post/:postId',(req,res)=>{
 router.post('/data/posts', async (req,res)=>{
     let{sort,category,status,language,private,user}=req.body
     Post.find(makeFilterObject(category,status,language,private,user))
-    .populate(`user comments responses`)
+    .populate({
+        path:`user responses comments`,
+        populate:'user'
+    })
     .sort(sort ? {[sort.by]:sort.order} : {date:-1})
-    .exec((err,doc)=>res.send(doc))
+    .exec((err,doc)=>{
+        res.send(doc)
+    })
 })
 
 
