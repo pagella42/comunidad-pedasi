@@ -181,7 +181,7 @@ class Result extends Component {
                                 {localStorage.userLogin !== undefined ?
                                     JSON.parse(localStorage.userLogin).isLoggedIn ?
                                         <Button size="small" onClick={this.comment}>Send</Button> :
-                                        <Button size="small" onClick={this.comment}>Send</Button> : null}
+                                        <Button size="small" onClick={this.props.loginPopup}>Send</Button> : null}
                             </div>
 
                         </ExpansionPanelDetails>
