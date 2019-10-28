@@ -106,7 +106,7 @@ class Result extends Component {
             <ExpansionPanel>
 
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                    <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
+                    <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {moment(post.date).fromNow()}</span></div>
                     <Typography > {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}  </Typography>
                     <span className='postlike'> {post.comments.length} Comments • {this.props.post.points} Likes</span>
                 </ExpansionPanelSummary>

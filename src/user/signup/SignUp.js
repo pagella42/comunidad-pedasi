@@ -93,7 +93,6 @@ class SignUp extends Component {
   };
   
   submit = () => {
-    debugger
     axios.post(CREATE_ROUTE("data/user"), this.state.user);
     this.setLoading();
   };
