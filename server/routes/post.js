@@ -51,7 +51,11 @@ router.post('/data/posts', async (req,res)=>{
     Post.find(makeFilterObject(category,status,language,private,user))
     .populate({
         path:`user responses comments`,
-        populate:'user'
+        populate:{
+            path:'user',
+            select:"name"
+        },
+        select:'-posts -comments'
     })
     .sort(sort ? {[sort.by]:sort.order} : {date:-1})
     .exec((err,doc)=>{
@@ -59,13 +63,12 @@ router.post('/data/posts', async (req,res)=>{
     })
 })
 
-
-
-
-
 router.get('/data/posts/id/:id', (req, res) => {
     Post.findById(req.params.id)
-        .populate("user comments responses")
+        .populate({
+            path:"user comments responses",
+            select:"-posts -comments"
+        })
         .exec((err, post) => res.send(post))
 })
 

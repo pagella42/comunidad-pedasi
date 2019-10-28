@@ -27,7 +27,8 @@ class Feed extends Component {
     }
 
     getPosts = () => {
-        axios.post(CREATE_ROUTE("data/posts"), this.state.filter).then((response)=>{           
+        axios.post(CREATE_ROUTE("data/posts"), this.state.filter).then((response)=>{ 
+            console.log(response.data)          
             this.setState({ posts: response.data })
          })
     }
