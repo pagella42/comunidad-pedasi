@@ -52,12 +52,13 @@
 @media only screen and (max-width: 750px) {
     .contcont{
         margin-bottom: 0px;
+     
     
     }
     .createpost{
         width: 98vw;
     }
-   
+    
     .fieldcont{
         width: 100%;
         display: grid;
@@ -67,16 +68,16 @@
         grid-gap: 2vmin;
         /* grid-template-columns: 2fr 1fr 1fr; */
         margin-top: 10px;
-    
+        
     }
     .addresscont{
         margin-bottom: 0!important;
         margin-top: 0 !important;
-
+        
     }
     .categorycont{
         margin-bottom: 10px;
-
+        
     }
     #anoncont{
         display: grid;
@@ -89,6 +90,9 @@
 }
 
 
+.MuiInputBase-multiline{
+      width: 100% !important;
+}
 
 .imgcotainerbutt{
     margin-top: 10px;

@@ -51,7 +51,6 @@ class Feed extends Component {
                 this.setState({ phone: JSON.parse(localStorage.userLogin).phone })
                 axios.get(CREATE_ROUTE(`data/user/${JSON.parse(localStorage.userLogin).phone}`)).then((response) => {
                     this.setState({ user: response.data })
-                    console.log(response.data)
                 })
             }
         }

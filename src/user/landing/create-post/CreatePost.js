@@ -156,7 +156,7 @@ class CreatePost extends Component {
                             <Typography color="textSecondary" gutterBottom> {"Create a post"}  </Typography>
 
                             <div> <TextField className="titlecont" required type="text" id="outlined-title" label="Title" margin="normal" variant="outlined" onChange={this.handleInputChange} name="title" /></div>
-                            <div>   <TextField className="contcont" multiline rows="6" required type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
+                            <div>   <TextField className="contcont"  multiline rows="6" required type="text" id="outlined-content" label="content" margin="normal" variant="outlined" onChange={this.handleInputChange} name="content" /></div>
 
                             <div className="fieldcont">
                                 <TextField className="addresscont" required type="text" id="outlined-address" label="address" margin="normal" variant="outlined" onChange={this.handleInputChange} name="address" />
