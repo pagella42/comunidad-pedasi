@@ -29,3 +29,16 @@
     align-items: center;
     justify-items: center;
 }
+#footer{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    width: 10vh;
+}
+#outterfooter{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    
+}

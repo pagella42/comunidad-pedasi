@@ -15,7 +15,7 @@ class Results extends Component {
                             getPosts={this.props.getPosts}
                             phone={this.props.phone} post={d} 
                             user={this.props.user}
-                                />
+                            getUser={this.props.getUser}  />
                     }
                 }
                 )
