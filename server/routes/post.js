@@ -46,8 +46,9 @@ router.delete('/data/post/:postId',(req,res)=>{
     .then(()=>res.end())
 })
 
-router.post('/data/posts', async (req,res)=>{
-    let{sort,category,status,language,private,user}=req.body
+router.post('/data/posts/', async (req,res)=>{
+    let{sort,category,status,language,private,user}=req.body.filter
+    let skip = req.body.skip
     Post.find(makeFilterObject(category,status,language,private,user))
     .populate({
         path:`user responses comments`,
@@ -57,6 +58,8 @@ router.post('/data/posts', async (req,res)=>{
         },
         select:'-posts -comments'
     })
+    .skip(skip)
+    .limit(20   )
     .sort(sort ? {[sort.by]:sort.order} : {date:-1})
     .exec((err,doc)=>{
         res.send(doc)
