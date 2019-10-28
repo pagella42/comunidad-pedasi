@@ -49,7 +49,8 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div id="backgroundimg"> </div>
+        <div id="appcont">
 
         <Fab id="lanbutt" variant="extended" aria-label="language" onClick={this.changeLanguage}>
         {this.state.english ? "Español" : "English"}

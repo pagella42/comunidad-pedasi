@@ -1,4 +1,9 @@
+.header{
+    position: fixed;
+    width: 100vw;
+    z-index: 15;
 
+}
 
 
 @media only screen and (max-width: 800px) {
