@@ -6,7 +6,7 @@
 
     align-items: center;
     justify-items: center;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 
     background-color: #4B88A2;
 }
@@ -16,9 +16,15 @@
     align-items: center;
     justify-items: center;
 }
+
 .landingbutt{
 width: 300px;
 height: 300px;
+}
+
+.landingM{
+    width: 300px;
+    height: 100px;
 }
 
 .landingbutttext{

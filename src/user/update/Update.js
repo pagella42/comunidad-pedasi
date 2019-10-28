@@ -95,59 +95,11 @@ class Update extends Component {
                 ))
                 : null}
             </div>
-            <div className="verifyFieldsContainer">
-              <div className="verifyFields">
-                <div>
-                  <TextField
-                    required
-                    id="outlined-name"
-                    margin="normal"
-                    variant="outlined"
-                    label={t("Phone Number")}
-                    value={this.state.inputs.phone}
-                    onChange={this.handleInput}
-                    name="phone"
-                  />
-
-                </div>
-                <div className="secondaryButton">
-                  <Button
-                    value="Validate Number"
-                    variant="outlined" color="primary"
-                    onClick={this.sendCode}
-                  >{t("Validate Number")}</Button>
-
-                </div>
-              </div>
 
 
-              <div className="verifyFields">
-                <div>
 
-                  <TextField
-                    required
-                    id="outlined-name"
-                    margin="normal"
-                    variant="outlined"
-                    label={t("Verify Pin")}
-                    value={this.state.pin}
-                    onChange={this.handlePin}
-                    name="pin"
 
-                  />
 
-                </div>
-                <div className="secondaryButton">
-                  <Button
-
-                    value="Validate"
-                    variant="outlined" color="primary"
-                    onClick={this.verifycode}
-                  >{t("Validate")}</Button>
-
-                </div>
-              </div>
-            </div>
           </CardContent>
           <CardActions>
             <Button color="primary" id='edit-verify' onClick={this.update}>{t("Update")}</Button>
