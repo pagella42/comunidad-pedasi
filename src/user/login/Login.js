@@ -36,7 +36,7 @@ class Login extends Component {
 
     getUser = async () => {
         console.log(this.state.user)
-        const user = await axios.get(CREATE_ROUTE(`data/user/${this.state.user.username}`))
+        const user = await axios.get(CREATE_ROUTE(`data/oneuser/${this.state.user.username}`))
         console.log(user.data)
         this.setState({ ban: user.data.ban, banReason: user.data.banReason })
     }
