@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,7 +19,7 @@ class Header extends Component {
         return (<div>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography className="headerwhere" variant="h2" className="title" style={{ flexGrow: 1 }}>
+                    <Typography className="headerwhere" variant="h4" className="title" style={{ flexGrow: 1 }}>
                         {t("Administrador")}
                     </Typography>
                     {isLoggedIn ?

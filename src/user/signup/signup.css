@@ -39,3 +39,7 @@ margin-top: 30px;
     }
 
 }
+
+.MuiButton-containedPrimary{
+    margin-left: 20px !important;
+}

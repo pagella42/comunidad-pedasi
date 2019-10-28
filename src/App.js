@@ -17,6 +17,9 @@ import LandingPage from './user/landing/LandingPage';
 
 
 
+import Fab from '@material-ui/core/Fab';
+
+
 class App extends Component {
   constructor() {
     super()
@@ -46,7 +49,9 @@ class App extends Component {
       <Router>
         <div>
 
-          <button style={{}} onClick={this.changeLanguage}>{this.state.english ? "Español" : "English"}</button>
+        <Fab id="lanbutt" variant="extended" aria-label="language" onClick={this.changeLanguage}>
+        {this.state.english ? "Español" : "English"}
+       </Fab>
 
           <Route path="/" exact render={() => <LandingPage />} />
           
