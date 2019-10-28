@@ -24,56 +24,76 @@ class Login extends Component {
     constructor() {
         super()
         this.state = {
-            user:{
+            user: {
                 username: "",
                 ID: '',
             },
-            noMatch:false
+            noMatch: false,
+            ban: false,
+            banReason: ""
         }
     }
+
+    getUser = async () => {
+        console.log(this.state.user)
+        const user = await axios.get(CREATE_ROUTE(`data/user/${this.state.user.username}`))
+        console.log(user.data)
+        this.setState({ ban: user.data.ban, banReason: user.data.banReason })
+    }
+
     handleInputChange = (event) => {
-        let user = {...this.state.user}
-        user[event.target.name]=event.target.value
-        this.setState({user})
+        let user = { ...this.state.user }
+        user[event.target.name] = event.target.value
+        this.setState({ user })
     }
-    verify = async() =>{
-        let verify = await axios.post(CREATE_ROUTE('data/user/verify'),this.state.user)
-        return verify.data 
+    verify = async () => {
+        let verify = await axios.post(CREATE_ROUTE('data/user/verify'), this.state.user)
+        return verify.data
     }
-    displayNoMatch = () =>{
+    displayNoMatch = () => {
         return <div>username and id dont match</div>
     }
 
-    loginHandler =async () => {
+    loginHandler = async () => {
         let user = await this.verify()
-        if(user){
-            this.props.login(user.phone)
+        await this.getUser()
+        console.log(this.state.ban)
+        if (user) {
+            this.state.ban ? alert(this.state.banReason)
+            :
             this.props.loginPopup()
-        }else{this.setState({noMatch:true})}
+            //this.props.login(user.phone)
+        } else { 
+            this.setState({ noMatch: true })
+        }
+         
     }
-
+    componentDidMount = async () => {
+        this.getUser()
+    }
     render() {
-        const{t,i18n}=this.props
+        const { t, i18n } = this.props
+        console.log(this.state.ban)
         return (
 
-            <Card  className='logincontainer' style={{ maxWidth: 345 }}>
+            <Card className='logincontainer' style={{ maxWidth: 345 }}>
                 <CardContent>
-                    <TextField  id="outlined-name" label="Username" margin="normal"  variant="outlined"  type="string" name="username" onChange={this.handleInputChange}  value={this.state.user.username} />
+                    <TextField id="outlined-name" label="Username" margin="normal" variant="outlined" type="string" name="username" onChange={this.handleInputChange} value={this.state.user.username} />
                     <TextField id="outlined-name" label="National ID" margin="normal" variant="outlined" onChange={this.handleInputChange} name="ID" value={this.state.user.ID} />
-                    {this.state.noMatch? this.displayNoMatch(): null}
-                   <div><Link onClick={this.props.loginPopup} to="/user/signUp" >Don't have an account? SignUp</Link></div> 
+                    {this.state.noMatch ? this.displayNoMatch() : null}
+                    <div><Link onClick={this.props.loginPopup} to="/user/signUp" >Don't have an account? SignUp</Link></div>
                 </CardContent>
                 <CardActions>
-                {this.state.user.username && this.state.user.ID ?
-                    <Button size="small" color="primary" onClick={this.loginHandler}>Login </Button>:
-                    <Button disabled size="small" color="primary"  onClick={this.loginHandler}>Login </Button>
-                }
+                    {this.state.user.username && this.state.user.ID ?
+                        <Button size="small" color="primary" onClick={this.loginHandler}>Login </Button> :
+                        <Button disabled size="small" color="primary" onClick={this.loginHandler}>Login </Button>
+                    }
                     <Button onClick={this.props.loginPopup} size="small" color="primary"> Cancel</Button>
                 </CardActions>
             </Card>
-         
+
         );
     }
 }
 
-export default withTranslation ('translation') (Login);
+export default withTranslation('translation')(Login);
