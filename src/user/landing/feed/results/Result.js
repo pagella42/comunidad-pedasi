@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './result.css'
-
+import moment from 'moment'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons'
@@ -19,6 +19,7 @@ import Consts from '../../../../Consts'
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Axios from 'axios';
 
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
@@ -39,8 +40,6 @@ class Result extends Component {
                 userVoted: null,
                 votesCount: null,
             },
-            phone: ""
-
         }
     }
 
@@ -52,8 +51,8 @@ class Result extends Component {
 
     getVotes = async () => {
         let response
-        if(this.state.phone){
-             response = await axios.get(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.state.phone}`))
+        if (this.state.phone) {
+            response = await axios.get(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
         } else {
             response = await axios.get(CREATE_ROUTE(`data/votes/${this.props.post._id}`))
         }
@@ -61,47 +60,38 @@ class Result extends Component {
         this.setState({ vote: vote })
     }
 
-    getPhone = () => {
-        if(localStorage.userLogin){
-            if(JSON.parse(localStorage.userLogin).isLoggedIn){
-                this.setState({phone: JSON.parse(localStorage.userLogin).phone}) 
-            }
-        }   
-    }
-
     async componentDidMount() {
-       let vote = {
-        userVoted: null,
-        votesCount: this.props.post.points
-    }
-    this.setState({vote : vote})
-       this.getPhone()
-    }
-
-    UNSAFE_componentWillReceiveProps() {
-       this.getVotes()
-       this.getPhone()
+        let vote = {
+            userVoted: null,
+            votesCount: this.props.post.points
+        }
+        this.setState({ vote: vote })
     }
 
-    vote = async (e) => {
+    vote = (e) => {
         let name = e.currentTarget.id
         if (name === "post") {
-            await axios.post(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.state.phone}`))
-        } else {
-            await axios.delete(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.state.phone}`))
+            //this.props.updateOnelike(this.props.post._id, 1)
+            axios.post(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.props.phone}`))
         }
-        await axios.put(CREATE_ROUTE(`data/post/points/${this.props.post._id}/${name}`))
-         //await this.props.getPosts()
-        this.getVotes()
-       // this.updateVotesInState(this.props.post._id)
+        // else {
+        //     //this.props.updateOnelike(this.props.post._id, -1)
+        //     axios.delete(CREATE_ROUTE(`data/votes/${this.props.post._id}/${this.state.phone}`))
+        // }
+        axios.put(CREATE_ROUTE(`data/post/points/${this.props.post._id}/${name}`))
+            .then(() => {
+                this.props.getPosts()
+            })
     }
 
-    comment = async () => {
+    comment = () => {
         let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
-        await axios.post(CREATE_ROUTE(`data/comment`), data)
-        this.getComments()
+        axios.post(CREATE_ROUTE(`data/comment`), data)
+        data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, user: this.props.user }
+        this.props.updateOnecomment(this.props.post._id, data)
         this.setState({ comment: '' })
     }
+
 
 
     render() {
@@ -110,13 +100,15 @@ class Result extends Component {
 
         let post = this.props.post
 
+
+
         return (<div className="resultcontainer">
             <ExpansionPanel>
 
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
                     <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {post.date.slice(0, 10)}</span></div>
                     <Typography > {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}  </Typography>
-                    <span className='postlike'> {post.comments.length} Comments • {this.state.vote.votesCount} Likes</span>
+                    <span className='postlike'> {post.comments.length} Comments • {this.props.post.points} Likes</span>
                 </ExpansionPanelSummary>
 
                 <ExpansionPanelDetails>
@@ -127,21 +119,24 @@ class Result extends Component {
                         <span style={{ fontSize: "1.2em" }}>      {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}</span>
 
                         <span style={{ color: "gray" }}> | </span>
-                        <span> 
-                        
-                        {
-                            localStorage.userLogin !== undefined ?
-                            JSON.parse(localStorage.userLogin).isLoggedIn ?
-                            <span>{this.state.vote.userVoted ?
-                                <span className="like" id="delete" onClick={this.vote}><FontAwesomeIcon icon={['fas', 'thumbs-up']} /></span>
-                                : <span className="like" id="post" onClick={this.vote}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
-                            }</span> :
-                            <span className="like" id="post" onClick={this.props.loginPopup}><FontAwesomeIcon icon={['far', 'thumbs-up']} /></span>
-                            : null
-                        }
+                        <span>
+
+                            {
+                                localStorage.userLogin !== undefined ?
+                                    JSON.parse(localStorage.userLogin).isLoggedIn ?
+
+                                        <span className="like" id="post" onClick={this.vote}>
+                                            <FontAwesomeIcon icon={['far', 'thumbs-up']} />
+                                        </span>
+                                        :
+                                        <span className="like" id="post" onClick={this.props.loginPopup}>
+                                            <FontAwesomeIcon icon={['far', 'thumbs-up']} />
+                                        </span>
+                                    : null
+                            }
 
 
-                            {this.state.vote.votesCount}</span>
+                            {this.props.post.points}</span>
 
                     </Typography>
 
@@ -168,20 +163,25 @@ class Result extends Component {
                             <div style={{ fontWeight: "bold" }}> Comments</div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            {post.comments.length !== 0 ?
+                            {post.comments ?
                                 <div>
                                     {post.comments.map(c => {
-                                        return <div>  <span style={{ fontWeight: "bold" }}>{c.user.name}:</span>  <span>{c.content} </span>  <span style={{ color: "gray" }}>  • ({c.date.slice(0, 10)})</span> </div>
-                                    })} </div>
-                                : <div>No Comments.</div>
+                                        return <div>
+                                            <span style={{ fontWeight: "bold" }}> {c.user ? c.user.name : null} :</span>
+                                            <span>{c.content} </span>
+                                            <span style={{ color: "gray" }}>  • ({c.date ? moment(c.date).fromNow() : null})</span>
+                                        </div>
+                                    })}
+                                </div>
+                                : <div>No Comments</div>
                             }
                             <br></br>
                             <div>
                                 <TextField id="standard-comment-input" label="Comment" type="text" value={this.state.comment} onChange={this.update} margin="normal" name="comment" />
                                 {localStorage.userLogin !== undefined ?
                                     JSON.parse(localStorage.userLogin).isLoggedIn ?
-                                    <Button size="small" onClick={this.comment}>Send</Button> :
-                                    <Button size="small" onClick={this.comment}>Send</Button> : null}
+                                        <Button size="small" onClick={this.comment}>Send</Button> :
+                                        <Button size="small" onClick={this.comment}>Send</Button> : null}
                             </div>
 
                         </ExpansionPanelDetails>
