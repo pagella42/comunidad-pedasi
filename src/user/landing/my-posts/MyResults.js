@@ -8,7 +8,6 @@ class MyResults extends Component {
 
     
     render() {
-         console.log(this.props.posts)
          
         
         return (<div id="myresultscontainer">

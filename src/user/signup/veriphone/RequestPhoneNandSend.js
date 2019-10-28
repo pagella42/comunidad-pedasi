@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import Consts from '../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 class RequestPhoneNandSend extends Component {
   constructor() {
     super();
@@ -12,8 +14,8 @@ class RequestPhoneNandSend extends Component {
   sendCode = async () => {
     let data = { phoneNumber: this.state.phoneNumber };
     this.setNumber(this.state.phoneNumber);
-    let status = await Axios.post(
-      `http://localhost:4000/verifyPhoneNumber/send`,
+    let status = await Axios.post(CREATE_ROUTE(
+      `verifyPhoneNumber/send`),
       data
     );
     return status;

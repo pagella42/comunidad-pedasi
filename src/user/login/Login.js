@@ -17,7 +17,8 @@ import TextField from '@material-ui/core/TextField';
 import { withTranslation } from 'react-i18next';
 import axios from 'axios'
 import { async } from 'q';
-
+import Consts from '../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Login extends Component {
     constructor() {
@@ -36,7 +37,7 @@ class Login extends Component {
         this.setState({user})
     }
     verify = async() =>{
-        let verify = await axios.post('http://localhost:4000/data/user/verify',this.state.user)
+        let verify = await axios.post(CREATE_ROUTE('data/user/verify'),this.state.user)
         return verify.data 
     }
     displayNoMatch = () =>{

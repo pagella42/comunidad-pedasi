@@ -10,6 +10,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Consts from '../../../../Consts'
+const CREATE_ROUTE = Consts.CREATE_ROUTE
 
 class Categories extends Component {
   constructor() {
@@ -19,45 +21,45 @@ class Categories extends Component {
     };
   }
 
-  componentDidMount = async () =>{
-    let data = await axios.get(`http://localhost:4000/data/categories/`
+  componentDidMount = async () => {
+    let data = await axios.get(CREATE_ROUTE(`data/categories/`)
     )
-    let allCategories= data.data
+    let allCategories = data.data
     let categories = this.state.categories
 
-    allCategories.map(c => c.name).forEach( category => {
+    allCategories.map(c => c.name).forEach(category => {
       categories.push(category)
-      this.setState({categories})   
+      this.setState({ categories })
     });
-    
-    
-    
-    
-}
+
+
+
+
+  }
   render() {
-    const {t,i18n} = this.props
+    const { t, i18n } = this.props
     return (
       <div id="categoriescont">
-          <div><h1 class="categoriestitle">Categories:</h1></div>
+        <div><h1 class="categoriestitle">Categories:</h1></div>
         <div id="categoriesinnercont">
-        {this.state.categories.map(c => {
-               return( <div className="categorycont">
-                     <ExpansionPanel>
-                     <ExpansionPanelSummary  expandIcon={<ExpandMoreIcon />} >
-                       <Typography ><div>{t(c)}</div></Typography>
-                     </ExpansionPanelSummary>
-                     <ExpansionPanelDetails>
-                       
-                     <Category category={c} />
-                       
-                     </ExpansionPanelDetails>
-                   </ExpansionPanel>
-                </div>)
-                
-            })}
+          {this.state.categories.map(c => {
+            return (<div className="categorycont">
+              <ExpansionPanel>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
+                  <Typography ><div>{t(c)}</div></Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
 
-      </div></div>
+                  <Category category={c} />
+
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </div>)
+
+          })}
+
+        </div></div>
     );
   }
 }
-export default withTranslation('translation') (Categories);
+export default withTranslation('translation')(Categories);
