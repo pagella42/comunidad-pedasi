@@ -18,7 +18,8 @@ class Feed extends Component {
             showCreate: false,
             phone: "",
             filter:{},
-            user:{}
+            user:{},
+            skip:0
         }
     }
 
@@ -27,8 +28,8 @@ class Feed extends Component {
     }
 
     getPosts = () => {
-        axios.post(CREATE_ROUTE("data/posts"), this.state.filter).then((response)=>{ 
-            console.log(response.data)          
+        let body = { filter : this.state.filter , skip : this.state.skip }
+        axios.post(CREATE_ROUTE("data/posts"), body).then((response)=>{ 
             this.setState({ posts: response.data })
          })
     }
@@ -69,39 +70,52 @@ class Feed extends Component {
             } else { this.props.loginPopup() }
         } else {
             this.props.loginPopup()
-        }}
-
-
-        render() {
-            const { t, i18n } = this.props
-            return (
-
-                <div id='feedcontainer'>
-                    <div id="feedinnercont">
-                        {
-
-                            <div>
-                                <div id='postbuttoncont'><Fab onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >{t("POST SOMETHING")}</Fab></div>
-
-                                {this.state.showCreate ?
-                                    <CreatePost showCreatePost={this.showCreatePost} phone={this.state.phone} getPosts={this.getPosts} /> : null
-                                }
-                                <Filter getPosts={this.getPosts} 
-                                updateFilter={this.updateFilter}/>
-                                <Results 
-                                user={this.state.user}
-                                phone={this.state.phone}
-                                updateOnelike={this.updateOnelike} 
-                                updateOnecomment={this.updateOnecomment} 
-                                loginPopup={this.props.loginPopup} 
-                                getPosts={this.getPosts} 
-                                posts={this.state.posts} phone={this.state.phone} />
-                            </div>
-                        }
-                    </div>
-
-                </div>
-            )
         }
+    }
+    
+    loadTwenty  = e => {
+        let skip = this.state.skip
+        this.setState({skip: e.target.id === "next" ? (this.state.posts.length!=0) && skip+20 : (skip-20>0) && skip-20},() => {
+            this.getPosts()
+        })
+    }
+    
+    finalPage = () =>{
+        let {t} = this.props
+        if (this.state.posts.length<1){
+            return <h4>{t("You Have Reached The Last Page")}</h4>
+        }
+    }
+
+    render() {
+        const { t, i18n } = this.props
+        return (
+            <div id='feedcontainer'>
+                <div id="feedinnercont">
+                    {
+                        <div>
+                            <div id='postbuttoncont'><Fab onClick={this.showCreatePost} variant="extended" color="primary" aria-label="add" >{t("POST SOMETHING")}</Fab></div>
+                            {this.state.showCreate ?
+                                <CreatePost showCreatePost={this.showCreatePost} phone={this.state.phone} getPosts={this.getPosts} /> : null
+                            }
+                            <Filter getPosts={this.getPosts} 
+                            updateFilter={this.updateFilter}/>
+                            <Results 
+                            user={this.state.user}
+                            phone={this.state.phone}
+                            updateOnelike={this.updateOnelike} 
+                            updateOnecomment={this.updateOnecomment} 
+                            loginPopup={this.props.loginPopup} 
+                            getPosts={this.getPosts} 
+                            posts={this.state.posts} phone={this.state.phone} />
+                        </div>
+                    }
+                    {this.finalPage()}
+                    <button onClick={this.loadTwenty} id='prev'>{t("Prev")}.</button>
+                    <button onClick={this.loadTwenty} id='next'>{t("Next")}.</button>
+                </div>
+            </div>
+        )
+    }
     }
     export default withTranslation('translation') (Feed);

@@ -55,7 +55,7 @@ class App extends Component {
           <Route path="/user/myposts" exact render={() => <MyPosts />} />
           <Route path="/user/signUp" exact render={() => <SignUp />} />
           <Route path='/user/updateinfo' exact render={() => <Update />} />
-          <Route path='/user/home' exact render={() => <Landing loginPopup={this.loginPopup} />} />
+          <Route path='/user/home' exact render={(match) => <Landing match={match} loginPopup={this.loginPopup} />} />
 
 
           {/* ==== Admin routes below ==== */}
