@@ -47,6 +47,9 @@ router.delete('/data/post/:postId',(req,res)=>{
 })
 
 router.post('/data/posts/', async (req,res)=>{
+    console.log('HERE IS THE CONSOLE LOG')
+    
+    console.log(req.body)
     let{sort,category,status,language,private,user}=req.body.filter
     let skip = req.body.skip
     Post.find(makeFilterObject(category,status,language,private,user))
