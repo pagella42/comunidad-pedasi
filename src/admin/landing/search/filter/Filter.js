@@ -37,7 +37,9 @@ class Filter extends Component {
                 status: 0,
                 language: 0,
                 user: "",
+                
             },
+            skip: 0,
             categories: [],
             users: [],
             keywordSearch: [
@@ -80,7 +82,7 @@ class Filter extends Component {
 
         this.setState({ filter });
 
-        this.props.getPosts(this.state.filter, this.state.keywordSearch, this.state.keyword);
+        this.props.getPosts(this.state.filter, this.state.skip, this.state.keywordSearch, this.state.keyword);
     };
 
     updateSort = async event => {

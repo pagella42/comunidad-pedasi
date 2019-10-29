@@ -53,8 +53,10 @@ class Search extends Component {
         this.setState({ posts: filteredPosts })
     }
 
-    getPosts = async (filter, keywordOptions, keyword) => {
-        let response = await axios.post(CREATE_ROUTE("data/posts"), filter)
+    getPosts = async (filter, skip , keywordOptions, keyword) => {
+        let obj = {filter: filter, skip : skip}
+        console.log(obj)
+        let response = await axios.post(CREATE_ROUTE("data/posts"), obj)
         let posts = response.data
         if (posts.length > 0 && keyword !== "") { // if there are no posts already, no point of searching. Same if there is no keyword.
             let options = keywordOptions.filter(keyword => keyword.checked === true)

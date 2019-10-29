@@ -11,8 +11,11 @@ class Results extends Component {
         }
     }
     componentDidMount = async () =>{
-        let filter={category:this.props.category}
-        let data = await axios.post(CREATE_ROUTE(`data/posts`),filter)
+        
+        let filter={category:this.props.category }
+        let send = {filter : filter, skip: 0} 
+
+        let data = await axios.post(CREATE_ROUTE(`data/posts`), send)
         data = data.data
         this.setState({data})
         
