@@ -147,19 +147,19 @@ class Filter extends Component {
 
                             <div>
                                 <input type="checkbox" name="search-keyword" id="title" onClick={this.handleCheckboxChange} />
-                                <label htmlFor="title-checkbox">{t("title")}</label>
+                                <label htmlFor="title-checkbox">{t("Title")}</label>
 
 
                                 <input type="checkbox" name="search-keyword" id="content" onClick={this.handleCheckboxChange} />
-                                <label htmlFor="content-checkbox">{t("content")}</label>
+                                <label htmlFor="content-checkbox">{t("Content")}</label>
 
 
                                 <input type="checkbox" name="search-keyword" id="comments" onClick={this.handleCheckboxChange} />
-                                <label htmlFor="comments-checkbox">{t("comments")}</label>
+                                <label htmlFor="comments-checkbox">{t("Comments")}</label>
 
 
                                 <input type="checkbox" name="search-keyword" id="responses" onClick={this.handleCheckboxChange} />
-                                <label htmlFor="responses-checkbox">{t("response")}</label>
+                                <label htmlFor="responses-checkbox">{t("Response")}</label>
                             </div></div>
                         <hr></hr>
                         <input id="outlined-name" placeholder="Search by user" label={t("Search by name")} list="data" name="user" margin="normal" variant="outlined" type="string" onChange={this.update} />

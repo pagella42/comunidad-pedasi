@@ -24,13 +24,7 @@ class Explore extends Component {
         const { t, i18n } = this.props
         return (
             <div>
-
                 <Header/>
-                
-                {/* <Link to="/admin"><button onClick={this.logout}>{t("Log out")}</button> </Link>
-                <Link to="/admin/explore">{t("Explore")}</Link>
-                <Link to="/admin/search">{t("Search")}</Link> */}
-
                 <Categories />
             </div>)
     }

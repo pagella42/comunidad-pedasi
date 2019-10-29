@@ -94,43 +94,43 @@ class Filter extends Component {
     return (
       <div id="filtercontainer">
         <FormControl  variant="outlined" >
-          <InputLabel  htmlFor="outlined-sort-simple">  Sort By  </InputLabel>
+          <InputLabel  htmlFor="outlined-sort-simple">  {t("Sort by")}  </InputLabel>
           <Select name="sort" onChange={this.updateSort} value={this.state.sort}  labelWidth={55}  inputProps={{ name: 'sort', id: 'outlined-sort-simple', }} >
-            <MenuItem value='dh'>Date high to low</MenuItem>
-            <MenuItem value='dl'>Date low to high</MenuItem>
-            <MenuItem value='ph'>Likes high to low</MenuItem>
-            <MenuItem value='pl'>Likes low to high</MenuItem>
+            <MenuItem value='dh'>{t("Date high to low")}</MenuItem>
+            <MenuItem value='dl'>{t("Date low to high")}</MenuItem>
+            <MenuItem value='ph'>{t("Likes high to low")}</MenuItem>
+            <MenuItem value='pl'>{t("Likes low to high")}</MenuItem>
           </Select>
         </FormControl>
        
         <FormControl variant="outlined" >
-          <InputLabel htmlFor="outlined-sort-simple">  Categories </InputLabel>
+          <InputLabel htmlFor="outlined-sort-simple">  {t("Categories")} </InputLabel>
           <Select name="category" onChange={this.update} value={this.state.filter.category} labelWidth={75}  inputProps={{ name: 'category', id: 'outlined-category-simple', }} >
-            <MenuItem value='All'>All</MenuItem>
-             {this.state.categories.map(c => <MenuItem value={c}>{c}</MenuItem>)}
+            <MenuItem value='All'>{t("All")}</MenuItem>
+             {this.state.categories.map(c => <MenuItem value={c}>{t(c)}</MenuItem>)}
           </Select>
         </FormControl>
         
         <FormControl variant="outlined" >
-          <InputLabel  htmlFor="outlined-sort-simple"> Status </InputLabel>
+          <InputLabel  htmlFor="outlined-sort-simple"> {t("Status")} </InputLabel>
           <Select name="status" onChange={this.update} value={this.state.filter.status} labelWidth={55}  inputProps={{ name: 'status', id: 'outlined-status-simple', }} >
-            <MenuItem value='All'>All</MenuItem>
-            <MenuItem value='pending'>Pending</MenuItem>
-            <MenuItem value='in progress'>In progress</MenuItem>
-            <MenuItem value='resolved'>Resolved</MenuItem>
+            <MenuItem value='All'>{t("All")}</MenuItem>
+            <MenuItem value='pending'>{t("Pending")}</MenuItem>
+            <MenuItem value='in progress'>{t("In progress")}</MenuItem>
+            <MenuItem value='resolved'>{t("Resolved")}</MenuItem>
           </Select>
         </FormControl>
 
         <FormControl variant="outlined" >
-          <InputLabel  htmlFor="outlined-sort-simple"> Language </InputLabel>
+          <InputLabel  htmlFor="outlined-sort-simple"> {t("Language")} </InputLabel>
           <Select   name="language" onChange={this.update} value={this.state.filter.language} labelWidth={70}  inputProps={{ name: 'language', id: 'outlined-language-simple', }} >
-            <MenuItem value='All'>All</MenuItem>
+            <MenuItem value='All'>{t("All")}</MenuItem>
             <MenuItem value='es'>Español</MenuItem>
             <MenuItem value='en'>English</MenuItem>
           </Select>
         </FormControl>
         
-        <Button className="filterbutton" onClick={this.filter} variant="outlined" > Filter </Button>
+        <Button className="filterbutton" onClick={this.filter} variant="outlined" > {t("Filter")} </Button>
       </div>
     );
   }

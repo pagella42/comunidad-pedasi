@@ -37,9 +37,9 @@ class MyResult extends Component {
             <ExpansionPanel>
 
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                    <div> <span className="postcategory">Category: {post.category} </span> • <span className="postdate">Posted on: {moment(post.date).fromNow()}</span></div>
+                    <div> <span className="postcategory">{t("Category")}: {t(post.category)} </span> • <span className="postdate">{t("Posted on")}: {moment(post.date).fromNow()}</span></div>
                     <Typography > {post.title ? post.title[0].toUpperCase() + post.title.slice(1) : null}  </Typography>
-                    <span className='postlike'> {post.comments.length} Comments • {this.props.post.points} Likes</span>
+                    <span className='postlike'> {post.comments.length} {t("Comments")} • {this.props.post.points} {t("Likes")}</span>
                 </ExpansionPanelSummary>
 
                 <ExpansionPanelDetails>
@@ -56,7 +56,7 @@ class MyResult extends Component {
 
                     <div className="bigcont">
                         <div>
-                            <Typography color="textSecondary" gutterBottom> Location: <span>{post.address}</span> </Typography>
+                            <Typography color="textSecondary" gutterBottom> {t("Location")}: <span>{t(post.address)}</span> </Typography>
 
 
                             <div className="contcont"><div>{post.content[0].toUpperCase() + post.content.slice(1)}</div></div>
@@ -72,7 +72,7 @@ class MyResult extends Component {
 
                     <ExpansionPanel>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                            <div style={{ fontWeight: "bold" }}> Comments</div>
+                            <div style={{ fontWeight: "bold" }}> {t("Comments")}</div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             {post.comments ?
@@ -85,7 +85,7 @@ class MyResult extends Component {
                                         </div>
                                     })}
                                 </div>
-                                : <div>No Comments</div>
+                                : <div>{t("No Comments")}</div>
                             }
                        
                           
@@ -96,14 +96,14 @@ class MyResult extends Component {
                     <ExpansionPanel>
 
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                            <div style={{ fontWeight: "bold" }}>Municipality response</div>
-                            <Typography color="textSecondary" gutterBottom> <span>Status: {post.status}</span></Typography>
+                            <div style={{ fontWeight: "bold" }}>{t("Municipality Response")}</div>
+                            <Typography color="textSecondary" gutterBottom> <span>{t("Status")}: {post.status}</span></Typography>
 
 
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             {post.responses.length === 0
-                                ? <div>No response.</div>
+                                ? <div>{t("No response")}</div>
                                 : post.responses.map(r => <div> <span style={{ fontWeight: "bold" }}> {r.employee}: </span> {r.content}  <span style={{ color: "gray" }}>  • ({r.date.slice(0, 10)})</span> </div>)}
 
                         </ExpansionPanelDetails>

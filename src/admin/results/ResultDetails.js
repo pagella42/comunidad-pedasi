@@ -61,7 +61,7 @@ class ResultDetail extends Component {
                                                 <div><span className="userinfotitle"> {t("National ID")}:</span>  {p.user.ID}</div>
                                                 <div><span className="userinfotitle">{t("Phone number")}:</span>   {p.user.phone}</div>
                                                 <div><span className="userinfotitle">{t("Address")}:  </span>{p.user.address}</div>
-                                                <div><span className="userinfotitle">{t("Email")}: </span>{p.user.email}</div>
+                                                <div><span className="userinfotitle">{t("E-Mail")}: </span>{p.user.email}</div>
                                             </div>
                                             : null}
                                     </div>
@@ -76,7 +76,7 @@ class ResultDetail extends Component {
                                 <div id="complaintcont">
                                     <div>
                                         <div>
-                                            <Typography color="textSecondary" gutterBottom> {("Post title")}  </Typography>
+                                            <Typography color="textSecondary" gutterBottom> {t("Post title")}  </Typography>
                                             <div> <span id="title_problem" style={{ fontSize: "1.5em", fontWeight: "bold" }}>{p.title}</span> <span style={{ color: "gray" }}>({p.date ? p.date.slice(0, 10) : null})</span></div>
                                             <hr></hr>
                                         </div>
@@ -114,7 +114,7 @@ class ResultDetail extends Component {
                                     <ExpansionPanel>
 
                                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" >
-                                            {t("Post comments")}
+                                            {t("Post Comments")}
                                         </ExpansionPanelSummary>
 
                                         <ExpansionPanelDetails>
@@ -132,11 +132,11 @@ class ResultDetail extends Component {
                             <CardContent>
 
                                 <div id="responsecontainer">
-                                    <Typography style={{ fontSize: "1.2em" }} color="textSecondary" gutterBottom> {t("Case administration")} </Typography><br></br>
+                                    <Typography style={{ fontSize: "1.2em" }} color="textSecondary" gutterBottom> {t("Case Administration")} </Typography><br></br>
                                     <Typography color="textSecondary" gutterBottom> {t("Send a response")} </Typography>
 
                                     < Responses idPost={this.state.post._id} getData={this.getData} /><br></br>
-                                    <Typography color="textSecondary" gutterBottom> {t("Actual complaint status")} </Typography>
+                                    <Typography color="textSecondary" gutterBottom> {t("Actual Complaint Status")} </Typography>
 
                                     <div id="status_post">{t("Status")}: {p.status}</div><br></br>
                                     <div id="container_response">
