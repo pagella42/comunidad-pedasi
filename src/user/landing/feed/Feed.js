@@ -46,14 +46,6 @@ class Feed extends Component {
         })
     }
     
-    finalPage = () =>{
-        let {t} = this.props
-        if (this.state.posts.length<1){
-            return <h4>{t("You Have Reached The Last Page")}</h4>
-        }
-    }
-
-
   updateOnelike = (postId, toggleVote) => {
     let posts = [...this.state.posts];
     posts.find(post => post._id === postId).points += toggleVote;
@@ -107,7 +99,9 @@ class Feed extends Component {
     const { t, i18n } = this.props;
     return (
       <div>
-        {this.state.posts.length == 0 ? (
+        {this.state.skip > 0 && this.state.posts.length < 1 ? 
+        <h4>{t("You Have Reached the Last Page")}</h4> :
+        this.state.posts.length == 0 ? (
             <div className="feedloadercont">
                 <Loader
           className="feedloader"
