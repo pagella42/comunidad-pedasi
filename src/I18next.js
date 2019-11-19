@@ -89,6 +89,7 @@ const resources = {
   },
   es: {
     translation: {
+      "You Have Reached the Last Page" : "Has Llegado a la Ultima Pagina",
       "Sign Up": "Registrarme",
       "Full Name": "Nombre Completo",
       "Username": "Nombre de Usuario",
