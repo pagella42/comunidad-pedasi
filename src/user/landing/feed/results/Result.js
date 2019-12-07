@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as faThumbsUpRegular } from '@fortawesome/free-regular-svg-icons'
 import { faThumbsUp as faThumbsUpSolid } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
+// import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -19,7 +19,7 @@ import Consts from '../../../../Consts'
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Axios from 'axios';
+// import Axios from 'axios';
 
 const CREATE_ROUTE = Consts.CREATE_ROUTE
 
@@ -41,6 +41,31 @@ class Result extends Component {
                 votesCount: null,
             },
         }
+    }
+
+    getUser = async () => {
+        if (localStorage.userLogin) {
+            if (JSON.parse(localStorage.userLogin).isLoggedIn) {
+                let response = await axios
+                    .get(
+                        CREATE_ROUTE(
+                            `data/user/${JSON.parse(localStorage.userLogin).phone}`
+                        )
+                    )
+                this.setState({ user: response.data })
+                return response.data
+            }
+        }
+    };
+
+    comment = async () => {
+        let user = await this.getUser()
+        let phone = JSON.parse(localStorage.userLogin).phone
+        let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: phone }
+        axios.post(CREATE_ROUTE(`data/comment`), data)
+        data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, user: user }
+        this.props.updateOnecomment(this.props.post._id, data)
+        this.setState({ comment: '' })
     }
 
     update = async (event) => {
@@ -66,6 +91,7 @@ class Result extends Component {
             votesCount: this.props.post.points
         }
         this.setState({ vote: vote })
+        this.getUser()
     }
 
     vote = (e) => {
@@ -84,23 +110,11 @@ class Result extends Component {
             })
     }
 
-    comment = () => {
-        let data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, usersPhone: this.props.phone }
-        axios.post(CREATE_ROUTE(`data/comment`), data)
-        data = { content: this.state.comment, date: new Date(), postId: this.props.post._id, user: this.props.user }
-        this.props.updateOnecomment(this.props.post._id, data)
-        this.setState({ comment: '' })
-    }
-
 
 
     render() {
         const { t, i18n } = this.props
-
-
         let post = this.props.post
-
-
 
         return (<div className="resultcontainer">
             <ExpansionPanel>
@@ -129,7 +143,10 @@ class Result extends Component {
                                             <FontAwesomeIcon icon={['far', 'thumbs-up']} />
                                         </span>
                                         :
-                                        <span className="like" id="post" onClick={this.props.loginPopup}>
+                                        <span
+                                            className="like"
+                                            id="post"
+                                            onClick={this.props.loginPopup}>
                                             <FontAwesomeIcon icon={['far', 'thumbs-up']} />
                                         </span>
                                     : null
@@ -177,11 +194,18 @@ class Result extends Component {
                             }
                             <br></br>
                             <div>
-                                <TextField id="standard-comment-input" label="Comment" type="text" value={this.state.comment} onChange={this.update} margin="normal" name="comment" />
+                                <TextField
+                                    id="standard-comment-input"
+                                    label="Comment"
+                                    type="text"
+                                    value={this.state.comment}
+                                    onChange={this.update}
+                                    margin="normal"
+                                    name="comment" />
                                 {localStorage.userLogin !== undefined ?
                                     JSON.parse(localStorage.userLogin).isLoggedIn ?
                                         <Button size="small" onClick={this.comment}>Send</Button> :
-                                        <Button size="small" onClick={this.props.loginPopup}>Send</Button> :<Button size="small" onClick={this.props.loginPopup}>{t("Send")}</Button>}
+                                        <Button size="small" onClick={this.props.loginPopup}>Send</Button> : <Button size="small" onClick={this.props.loginPopup}>{t("Send")}</Button>}
                             </div>
 
                         </ExpansionPanelDetails>
@@ -204,18 +228,8 @@ class Result extends Component {
                     </ExpansionPanel>
 
 
-
-
-
-
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-
-
-
-
-
-
 
         </div>)
 
