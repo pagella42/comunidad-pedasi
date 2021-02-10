@@ -29,7 +29,7 @@
     "twilio": "^3.36.0"
   },
   "scripts": {
-    "leah-is-awesome": "react-scripts start",
+    "dev": "react-scripts start",
     "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
